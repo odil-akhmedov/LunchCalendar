@@ -55,14 +55,15 @@ public class JSONCalendarParser {
 				JSONObject product = new JSONObject(array.getJSONObject(i).getString("title"));
 				content[i] = product.getString("$t");
 				
-				menuForMonth[i].title = product.getString("$t");
+				menuForMonth[i].title = product.getString("$t"); //basically is the list of food
 				
 				JSONObject id = new JSONObject(array.getJSONObject(i).getString("id"));
 				menuForMonth[i].id = id.getString("$t");
 				
-				JSONObject published = new JSONObject(array.getJSONObject(i).getString("published"));
-				men
-
+				JSONArray startEndDate = new JSONArray(array.getJSONObject(i).getJSONArray("gd$when"));
+				menuForMonth[i].startTime = startEndDate.getString(1); 	//In array from Json index 1 is startTime
+				menuForMonth[i].endTime = startEndDate.getString(0);	//And index 0 is endTime
+				
 			}
 
 			parsingComplete = false;
