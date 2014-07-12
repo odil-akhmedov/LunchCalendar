@@ -25,9 +25,10 @@ import android.widget.Toast;
 
 public class JSONCalendarParser {
 	final String TAG = "ParsingActivity";
+	
 	private String content[] = new String[50];
-
-	// private String content;// = "$t";
+	private DailyMenu[] menuForMonth = new DailyMenu[50];
+	
 	private String urlString = null;
 	private Context myContext;
 	public volatile boolean parsingComplete = true;
@@ -50,25 +51,19 @@ public class JSONCalendarParser {
 			JSONObject sys = reader.getJSONObject("feed");
 			JSONArray array = sys.getJSONArray("entry");
 
-			for (int i = 0; i < array.length(); i++) {
-				// String title_t = array.getJSONObject(i).getString("$t");
-
-				JSONObject product = new JSONObject(array.getJSONObject(i)
-						.getString("title"));
+			for (int i = 0; i < array.length(); i++) { //initializing the monthly menu
+				JSONObject product = new JSONObject(array.getJSONObject(i).getString("title"));
 				content[i] = product.getString("$t");
+				
+				menuForMonth[i].title = product.getString("$t");
+				
+				JSONObject id = new JSONObject(array.getJSONObject(i).getString("id"));
+				menuForMonth[i].id = id.getString("$t");
+				
+				JSONObject published = new JSONObject(array.getJSONObject(i).getString("published"));
+				men
 
 			}
-
-			// JSONObject sys = reader.getJSONObject("sys");
-			// content[content.length] = sys.getString("country");
-
-			// JSONObject sys = reader.getJSONObject("sys");
-			// content = sys.getString("country")
-
-			// content = content + " " + sys.getString("$t") + " ";
-			// content = sys.getString("$t");
-			// Toast.makeText(getApplicationContext(), "msg msg",
-			// Toast.LENGTH_SHORT).show();
 
 			parsingComplete = false;
 
