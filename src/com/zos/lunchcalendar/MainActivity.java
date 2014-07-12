@@ -43,7 +43,15 @@ public class MainActivity extends Activity {
     
        result = obj.getContentFromJson();
        
-       //menuForMonth = obj.getMenuFromJson();
+       
+       /*menuForMonth = obj.getMenuFromJson();
+       
+       for (int i = 0; i < menuForMonth.length; i++){
+    	   if (menuForMonth[i] != null){
+    		   result[i] = menuForMonth[i].startTime + "\n" +  menuForMonth[i].title;
+    	   }
+       }*/
+       
        //menuForOneDay = obj.getMenuForOneDay();
      
        //System.out.println("Date = " + menuForMonth[0].startTime);
