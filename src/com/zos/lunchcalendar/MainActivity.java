@@ -14,7 +14,7 @@ public class MainActivity extends Activity {
 	CustomAdapter adapter;
 	String result[] = new String[50];
 	private DailyMenu[] menuForMonth = new DailyMenu[50];
-	public DailyMenu menuForDay = new DailyMenu();
+	public DailyMenu menuForOneDay = new DailyMenu();
 	
 	private String url1 = "http://www.google.com/calendar/feeds/gqccak2junkb7eup9ls76k919c@group.calendar.google.com/public/full?alt=json&orderby=starttime&max-results=15&singleevents=true&sortorder=ascending&futureevents=true";
 	private JSONCalendarParser obj;
@@ -44,7 +44,7 @@ public class MainActivity extends Activity {
        result = obj.getContentFromJson();
        
        //menuForMonth = obj.getMenuFromJson();
-       //menuForOneDay = obj.getMenuForOneDay();
+       menuForOneDay = obj.getMenuForOneDay();
      
        //System.out.println("Date = " + menuForMonth[0].startTime);
        

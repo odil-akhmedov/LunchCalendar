@@ -69,23 +69,23 @@ public class JSONCalendarParser {
 				menuForDay.title = content[i];
 							   
 				//for(int j = 0; j < array.length();j++){
-				            JSONObject elem = array.getJSONObject(i);
-				            if(elem != null){
-				                JSONArray startEndTime = elem.getJSONArray("gd$when");
-				                if(startEndTime != null){
-				                    for(int k = 0; k < startEndTime.length();k++){
-				                        JSONObject innerElem = startEndTime.getJSONObject(k);
-				                        if(innerElem != null){
-				                            startTime[i] = innerElem.getString("startTime");
-		                            		endTime[i] = innerElem.getString("endTime");
-		                            		menuForDay.startTime = innerElem.getString("startTime");
-		                            		menuForDay.endTime = innerElem.getString("endTime");
-				                        }
-				                    }
-				                }
-				            }
-				        //} 
-						
+	            JSONObject elem = array.getJSONObject(i);
+	            if(elem != null){
+	                JSONArray startEndTime = elem.getJSONArray("gd$when");
+	                if(startEndTime != null){
+	                    for(int k = 0; k < startEndTime.length();k++){
+	                        JSONObject innerElem = startEndTime.getJSONObject(k);
+	                        if(innerElem != null){
+	                            startTime[i] = innerElem.getString("startTime");
+                        		endTime[i] = innerElem.getString("endTime");
+                        		menuForDay.startTime = innerElem.getString("startTime");
+                        		menuForDay.endTime = innerElem.getString("endTime");
+	                        }
+	                    }
+	                }
+	            }
+	        //} 
+	            menuForMonth[i] = menuForDay;
 			}
 
 			parsingComplete = false;
