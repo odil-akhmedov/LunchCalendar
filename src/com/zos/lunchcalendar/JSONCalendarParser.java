@@ -26,12 +26,14 @@ import android.widget.Toast;
 public class JSONCalendarParser {
 	final String TAG = "ParsingActivity";
 	
-	private String content[] = new String[50];
+	ArrayList<String> content = new ArrayList<String>();
+	
 	private String startTime[] = new String[50];
 	private String endTime[] = new String[50];
 	
 	private DailyMenu[] menuForMonth = new DailyMenu[50];
 	private DailyMenu menuForDay = new DailyMenu();
+	
 	
 	private String urlString = null;
 	private Context myContext;
@@ -42,7 +44,10 @@ public class JSONCalendarParser {
 		this.myContext = context;
 	}
 
-	public String[] getContentFromJson() {
+	/*public String[] getContentFromJson() {
+		return content;
+	}*/
+	public ArrayList<String> getContentFromJson(){
 		return content;
 	}
 	
@@ -65,8 +70,9 @@ public class JSONCalendarParser {
 			int dayCounter = 0;
 			for (int i = 0; i < array.length(); i++) { //initializing the monthly menu
 				JSONObject product = new JSONObject(array.getJSONObject(i).getString("title"));
-				content[i] = product.getString("$t");
-				menuForDay.title = content[i];
+				//content[i] = product.getString("$t");
+				content.add(product.getString("$t"));
+				menuForDay.title = product.getString("$t");
 							   
 				//for(int j = 0; j < array.length();j++){
 	            JSONObject elem = array.getJSONObject(i);

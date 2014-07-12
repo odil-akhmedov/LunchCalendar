@@ -1,5 +1,7 @@
 package com.zos.lunchcalendar;
 
+import java.util.ArrayList;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.util.Log;
@@ -12,7 +14,9 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	CustomAdapter adapter;
-	String result[] = new String[50];
+	//String result[] = new String[4];
+	ArrayList<String> result = new ArrayList<String>();
+	
 	private DailyMenu[] menuForMonth = new DailyMenu[50];
 	public DailyMenu menuForOneDay = new DailyMenu();
 	
