@@ -44,7 +44,7 @@ public class MainActivity extends Activity {
        result = obj.getContentFromJson();
        
        //menuForMonth = obj.getMenuFromJson();
-       menuForOneDay = obj.getMenuForOneDay();
+       //menuForOneDay = obj.getMenuForOneDay();
      
        //System.out.println("Date = " + menuForMonth[0].startTime);
        
@@ -62,6 +62,8 @@ public class MainActivity extends Activity {
 		ListView listView = (ListView) findViewById(R.id.listView1);
 
 		listView.setAdapter(adapter);*/
+		
+		//System.out.println("Date = " + menuForMonth[0].startTime);
 		
    }
 }

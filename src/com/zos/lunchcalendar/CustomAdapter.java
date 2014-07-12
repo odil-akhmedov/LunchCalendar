@@ -38,10 +38,10 @@ public class CustomAdapter extends ArrayAdapter<DailyMenu> {
 		// assign the caption
 		
 		TextView lunchDate = (TextView) row.findViewById(R.id.showDate);
-		lunchDate.setText(item.getStartTime());
+		lunchDate.setText(item.startTime);
 		
 		TextView lunchTitle = (TextView) row.findViewById(R.id.showTitle);
-		lunchTitle.setText(item.getTitle());
+		lunchTitle.setText(item.title);
 		// assign the icon
 		//ImageView lunchIcon = (ImageView) row.findViewById(R.id.imageview);
 

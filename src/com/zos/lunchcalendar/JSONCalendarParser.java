@@ -62,7 +62,7 @@ public class JSONCalendarParser {
 
 			JSONObject sys = reader.getJSONObject("feed");
 			JSONArray array = sys.getJSONArray("entry");
-
+			int dayCounter = 0;
 			for (int i = 0; i < array.length(); i++) { //initializing the monthly menu
 				JSONObject product = new JSONObject(array.getJSONObject(i).getString("title"));
 				content[i] = product.getString("$t");
@@ -85,7 +85,11 @@ public class JSONCalendarParser {
 	                }
 	            }
 	        //} 
-	            menuForMonth[i] = menuForDay;
+	            menuForMonth[dayCounter] = menuForDay;
+	            System.out.println("StartTime = " + menuForMonth[dayCounter].startTime);
+	            System.out.println("EndTime = " + menuForMonth[dayCounter].endTime);
+	            dayCounter++;
+	            
 			}
 
 			parsingComplete = false;
