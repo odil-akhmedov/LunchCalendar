@@ -11,10 +11,11 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
-	CalendarAdapters adapter;
+	CustomAdapter adapter;
 	String result[] = new String[50];
-
-	//private String url1 = "http://api.openweathermap.org/data/2.5/weather?q=newyork";
+	private DailyMenu[] menuForMonth = new DailyMenu[50];
+	public DailyMenu menuForDay = new DailyMenu();
+	
 	private String url1 = "http://www.google.com/calendar/feeds/gqccak2junkb7eup9ls76k919c@group.calendar.google.com/public/full?alt=json&orderby=starttime&max-results=15&singleevents=true&sortorder=ascending&futureevents=true";
 	private JSONCalendarParser obj;
 	
@@ -35,34 +36,32 @@ public class MainActivity extends Activity {
    }
 
    public void open(View view){
-	   //ListView lv = (ListView)findViewById(R.id.listView1);
-	   //lv.setAdapter(adapter);
-	   
-	   //jsonContent.setText(url1);
        obj = new JSONCalendarParser(url1, getApplicationContext());
        obj.fetchJSON();
        //Toast.makeText(getApplicationContext(), "msg msg", Toast.LENGTH_SHORT).show();
        while(obj.parsingComplete);
-      
-      //jsonContent.setText(obj.getContentFromJson().toString());
-      
-      //String result[] = obj.getContentFromJson();
-     
+    
        result = obj.getContentFromJson();
+       
+       //menuForMonth = obj.getMenuFromJson();
+       //menuForOneDay = obj.getMenuForOneDay();
      
-       System.out.println("Result = " + result);
-      
-       //jsonContent.setText(result[0]);
+       //System.out.println("Date = " + menuForMonth[0].startTime);
        
-       String[] separated = result[0].split("[0-9].");
-       
-       System.out.println("separated = " + separated);
        
       ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-    		  	android.R.layout.simple_list_item_1, result/*obj.getContentFromJson().toString()*/);
+    		  	android.R.layout.simple_list_item_1, result);
 
 		ListView menuList = (ListView) findViewById(R.id.listView1);
 		menuList.setAdapter(adapter);
 		//menuList.setOnItemClickListener(this);
+		      
+		/*CustomAdapter adapter = new CustomAdapter(this, R.layout.custom_row_textview,
+				menuForMonth);
+
+		ListView listView = (ListView) findViewById(R.id.listView1);
+
+		listView.setAdapter(adapter);*/
+		
    }
 }

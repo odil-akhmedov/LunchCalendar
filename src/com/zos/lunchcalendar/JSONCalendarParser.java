@@ -27,7 +27,11 @@ public class JSONCalendarParser {
 	final String TAG = "ParsingActivity";
 	
 	private String content[] = new String[50];
+	private String startTime[] = new String[50];
+	private String endTime[] = new String[50];
+	
 	private DailyMenu[] menuForMonth = new DailyMenu[50];
+	private DailyMenu menuForDay = new DailyMenu();
 	
 	private String urlString = null;
 	private Context myContext;
@@ -40,6 +44,14 @@ public class JSONCalendarParser {
 
 	public String[] getContentFromJson() {
 		return content;
+	}
+	
+	public DailyMenu[] getMenuFromJson() {
+		return menuForMonth;
+	}
+
+	public DailyMenu getMenuForOneDay() {
+		return menuForDay;
 	}
 
 
@@ -54,16 +66,26 @@ public class JSONCalendarParser {
 			for (int i = 0; i < array.length(); i++) { //initializing the monthly menu
 				JSONObject product = new JSONObject(array.getJSONObject(i).getString("title"));
 				content[i] = product.getString("$t");
-				
-				menuForMonth[i].title = product.getString("$t"); //basically is the list of food
-				
-				JSONObject id = new JSONObject(array.getJSONObject(i).getString("id"));
-				menuForMonth[i].id = id.getString("$t");
-				
-				JSONArray startEndDate = new JSONArray(array.getJSONObject(i).getJSONArray("gd$when"));
-				menuForMonth[i].startTime = startEndDate.getString(1); 	//In array from Json index 1 is startTime
-				menuForMonth[i].endTime = startEndDate.getString(0);	//And index 0 is endTime
-				
+				menuForDay.title = content[i];
+							   
+				//for(int j = 0; j < array.length();j++){
+				            JSONObject elem = array.getJSONObject(i);
+				            if(elem != null){
+				                JSONArray startEndTime = elem.getJSONArray("gd$when");
+				                if(startEndTime != null){
+				                    for(int k = 0; k < startEndTime.length();k++){
+				                        JSONObject innerElem = startEndTime.getJSONObject(k);
+				                        if(innerElem != null){
+				                            startTime[i] = innerElem.getString("startTime");
+		                            		endTime[i] = innerElem.getString("endTime");
+		                            		menuForDay.startTime = innerElem.getString("startTime");
+		                            		menuForDay.endTime = innerElem.getString("endTime");
+				                        }
+				                    }
+				                }
+				            }
+				        //} 
+						
 			}
 
 			parsingComplete = false;
