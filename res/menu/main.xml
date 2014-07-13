@@ -1,12 +1,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.zos.lunchcalendar.MainActivity" >
+    tools:context="com.wsu.flashcardsaok.MainActivity" >
 
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never"/>
-
+        android:id="@+id/listView"
+        android:title="@string/listView"
+        android:titleCondensed="@string/listView">
+    </item>
+    <item
+        android:id="@+id/gridView"
+        android:title="@string/gridView"
+        android:titleCondensed="@string/gridView">
+    </item>
+    <item
+        android:id="@+id/settings"
+        android:title="@string/settings"
+        android:titleCondensed="@string/settings">
+    </item>
 </menu>

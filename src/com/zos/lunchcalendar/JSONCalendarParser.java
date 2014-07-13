@@ -25,16 +25,14 @@ import android.widget.Toast;
 
 public class JSONCalendarParser {
 	final String TAG = "ParsingActivity";
-	
-	ArrayList<String> content = new ArrayList<String>();
-	
-	private String startTime[] = new String[50];
-	private String endTime[] = new String[50];
-	
-	private DailyMenu[] menuForMonth = new DailyMenu[50];
+
+	private ArrayList<String> content = new ArrayList<String>();
+	private ArrayList<String> startTime = new ArrayList<String>();
+	private ArrayList<String> endTime = new ArrayList<String>();
+
+	private ArrayList<DailyMenu> menuForMonth = new ArrayList<DailyMenu>();
 	private DailyMenu menuForDay = new DailyMenu();
-	
-	
+
 	private String urlString = null;
 	private Context myContext;
 	public volatile boolean parsingComplete = true;
@@ -44,21 +42,17 @@ public class JSONCalendarParser {
 		this.myContext = context;
 	}
 
-	/*public String[] getContentFromJson() {
-		return content;
-	}*/
-	public ArrayList<String> getContentFromJson(){
+	public ArrayList<String> getContentFromJson() {
 		return content;
 	}
-	
-	public DailyMenu[] getMenuFromJson() {
+
+	public ArrayList<DailyMenu> getMenuFromJson() {
 		return menuForMonth;
 	}
 
 	public DailyMenu getMenuForOneDay() {
 		return menuForDay;
 	}
-
 
 	@SuppressLint("NewApi")
 	public void readAndParseJSON(String in) {
@@ -67,35 +61,36 @@ public class JSONCalendarParser {
 
 			JSONObject sys = reader.getJSONObject("feed");
 			JSONArray array = sys.getJSONArray("entry");
-			int dayCounter = 0;
-			for (int i = 0; i < array.length(); i++) { //initializing the monthly menu
-				JSONObject product = new JSONObject(array.getJSONObject(i).getString("title"));
-				//content[i] = product.getString("$t");
+
+			for (int i = 0; i < array.length(); i++) { // initializing the
+														// monthly menu
+				JSONObject product = new JSONObject(array.getJSONObject(i)
+						.getString("title"));
 				content.add(product.getString("$t"));
 				menuForDay.title = product.getString("$t");
-							   
-				//for(int j = 0; j < array.length();j++){
-	            JSONObject elem = array.getJSONObject(i);
-	            if(elem != null){
-	                JSONArray startEndTime = elem.getJSONArray("gd$when");
-	                if(startEndTime != null){
-	                    for(int k = 0; k < startEndTime.length();k++){
-	                        JSONObject innerElem = startEndTime.getJSONObject(k);
-	                        if(innerElem != null){
-	                            startTime[i] = innerElem.getString("startTime");
-                        		endTime[i] = innerElem.getString("endTime");
-                        		menuForDay.startTime = innerElem.getString("startTime");
-                        		menuForDay.endTime = innerElem.getString("endTime");
-	                        }
-	                    }
-	                }
-	            }
-	        //} 
-	            menuForMonth[dayCounter] = menuForDay;
-	            System.out.println("StartTime = " + menuForMonth[dayCounter].startTime);
-	            System.out.println("EndTime = " + menuForMonth[dayCounter].endTime);
-	            dayCounter++;
-	            
+
+				JSONObject elem = array.getJSONObject(i);
+				if (elem != null) {
+					JSONArray startEndTime = elem.getJSONArray("gd$when");
+					if (startEndTime != null) {
+						for (int k = 0; k < startEndTime.length(); k++) {
+							JSONObject innerElem = startEndTime
+									.getJSONObject(k);
+							if (innerElem != null) {
+								startTime.add(innerElem.getString("startTime"));
+								endTime.add(innerElem.getString("endTime"));
+
+								menuForDay.startTime = innerElem
+										.getString("startTime");
+								menuForDay.endTime = innerElem
+										.getString("endTime");
+							}
+						}
+					}
+				}
+
+				menuForMonth.add(getMenuForOneDay());
+
 			}
 
 			parsingComplete = false;
@@ -108,24 +103,36 @@ public class JSONCalendarParser {
 	}
 
 	public void fetchJSON() {
-		
-		  Thread thread = new Thread(new Runnable() {
-		  
-		  @Override public void run() { try { URL url = new URL(urlString);
-		  HttpURLConnection conn = (HttpURLConnection) url .openConnection();
-		  conn.setReadTimeout(10000); conn.setConnectTimeout(15000);
-		  conn.setRequestMethod("GET"); conn.setDoInput(true);
-		  
-		  conn.connect(); InputStream stream = conn.getInputStream();
-		  
-		  String data = convertStreamToString(stream);
-		  
-		  readAndParseJSON(data); stream.close();
-		  
-		  } catch (Exception e) { e.printStackTrace(); } } });
-		  
-		  thread.start();
-		 
+
+		Thread thread = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				try {
+					URL url = new URL(urlString);
+					HttpURLConnection conn = (HttpURLConnection) url
+							.openConnection();
+					conn.setReadTimeout(10000);
+					conn.setConnectTimeout(15000);
+					conn.setRequestMethod("GET");
+					conn.setDoInput(true);
+
+					conn.connect();
+					InputStream stream = conn.getInputStream();
+
+					String data = convertStreamToString(stream);
+
+					readAndParseJSON(data);
+					stream.close();
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+
+		thread.start();
+
 		String data = loadJSONFromAsset();
 
 		readAndParseJSON(data);

@@ -1,5 +1,7 @@
 package com.zos.lunchcalendar;
 
+import java.util.ArrayList;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,11 +13,12 @@ import android.widget.TextView;
 public class CustomAdapter extends ArrayAdapter<DailyMenu> {
 
 	private Context context;
-	private DailyMenu[] data;
+	//private DailyMenu[] data;
+	private ArrayList<DailyMenu> data = new ArrayList<DailyMenu>();
 	private LayoutInflater layoutInflater;
 
 	public CustomAdapter(Context context, int textViewResourceId,
-			DailyMenu[] lunch_data) {
+			ArrayList<DailyMenu> lunch_data) {
 		super(context, textViewResourceId, lunch_data);
 
 		// store constructor parameters
@@ -34,7 +37,7 @@ public class CustomAdapter extends ArrayAdapter<DailyMenu> {
 			row = this.layoutInflater.inflate(R.layout.custom_row_textview, null);
 		}
 		// extract data
-		DailyMenu item = this.data[position];
+		DailyMenu item = this.data.get(position);
 		// assign the caption
 		
 		TextView lunchDate = (TextView) row.findViewById(R.id.showDate);
