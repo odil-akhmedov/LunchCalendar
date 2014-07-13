@@ -16,6 +16,9 @@ public final class R {
         public static final int abc_slide_out_bottom=0x7f040004;
         public static final int abc_slide_out_top=0x7f040005;
     }
+    public static final class array {
+        public static final int menu_choices=0x7f0c0000;
+    }
     public static final class attr {
         /**  Custom divider drawable to use for elements in the action bar. 
          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
@@ -1092,6 +1095,7 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f050016;
         public static final int action_menu_presenter=0x7f050017;
         public static final int action_mode_close_button=0x7f050024;
+        public static final int action_settings=0x7f05004a;
         public static final int activity_chooser_view_content=0x7f050025;
         public static final int always=0x7f05000b;
         public static final int beginning=0x7f050011;
@@ -1106,8 +1110,10 @@ containing a value of this type.
         public static final int end=0x7f050013;
         public static final int expand_activities_button=0x7f050026;
         public static final int expanded_menu=0x7f05002c;
+        public static final int favMeals=0x7f050042;
+        public static final int favoriteMeals=0x7f050043;
         public static final int grid=0x7f05003d;
-        public static final int gridViewMode=0x7f050044;
+        public static final int gridViewMode=0x7f050048;
         public static final int home=0x7f050014;
         public static final int homeAsUp=0x7f050005;
         public static final int icon=0x7f05002a;
@@ -1115,8 +1121,9 @@ containing a value of this type.
         public static final int image=0x7f050027;
         public static final int listMode=0x7f050001;
         public static final int listView1=0x7f050041;
-        public static final int listViewMode=0x7f050043;
+        public static final int listViewMode=0x7f050047;
         public static final int list_item=0x7f050029;
+        public static final int mealsList=0x7f050044;
         public static final int middle=0x7f050012;
         public static final int never=0x7f050009;
         public static final int none=0x7f050010;
@@ -1135,10 +1142,11 @@ containing a value of this type.
         public static final int search_plate=0x7f050036;
         public static final int search_src_text=0x7f050037;
         public static final int search_voice_btn=0x7f05003b;
-        public static final int settings=0x7f050045;
+        public static final int settings=0x7f050049;
         public static final int shortcut=0x7f05002e;
         public static final int showCustom=0x7f050007;
-        public static final int showDate=0x7f050042;
+        public static final int showData=0x7f050045;
+        public static final int showDate=0x7f050046;
         public static final int showHome=0x7f050004;
         public static final int showTitle=0x7f050006;
         public static final int split_action_bar=0x7f05001e;
@@ -1203,14 +1211,16 @@ containing a value of this type.
         public static final int abc_simple_decor=0x7f030017;
         public static final int activity_main_grid=0x7f030018;
         public static final int activity_main_list=0x7f030019;
-        public static final int custom_grid_textview=0x7f03001a;
-        public static final int custom_row_textview=0x7f03001b;
-        public static final int fragment_main=0x7f03001c;
-        public static final int grid_cell=0x7f03001d;
-        public static final int support_simple_spinner_dropdown_item=0x7f03001e;
+        public static final int activity_settings=0x7f03001a;
+        public static final int custom_grid_textview=0x7f03001b;
+        public static final int custom_row_textview=0x7f03001c;
+        public static final int fragment_main=0x7f03001d;
+        public static final int grid_cell=0x7f03001e;
+        public static final int support_simple_spinner_dropdown_item=0x7f03001f;
     }
     public static final class menu {
-        public static final int main=0x7f0c0000;
+        public static final int main=0x7f0d0000;
+        public static final int settings=0x7f0d0001;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
@@ -1255,11 +1265,16 @@ containing a value of this type.
         public static final int abc_shareactionprovider_share_with_application=0x7f0a000b;
         public static final int action_settings=0x7f0a000e;
         public static final int app_name=0x7f0a000d;
+        public static final int drawer_closed=0x7f0a0015;
+        public static final int drawer_open=0x7f0a0014;
         public static final int gridViewMode=0x7f0a0012;
         public static final int hello_world=0x7f0a000f;
         public static final int listViewMode=0x7f0a0011;
         public static final int parse=0x7f0a0010;
         public static final int settings=0x7f0a0013;
+        public static final int str_today=0x7f0a0016;
+        public static final int str_tomorrow=0x7f0a0017;
+        public static final int title_activity_settings=0x7f0a0018;
     }
     public static final class style {
         /** 

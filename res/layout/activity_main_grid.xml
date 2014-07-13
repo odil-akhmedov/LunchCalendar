@@ -4,22 +4,25 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-     <Button
+    <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="17dp"
         android:onClick="open"
         android:text="@string/parse" />
+
     <GridView
         android:id="@+id/grid"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:columnWidth="100dip"
+        android:columnWidth="150dip"
         android:gravity="center"
         android:horizontalSpacing="5dip"
         android:numColumns="auto_fit"
         android:stretchMode="columnWidth"
-        android:verticalSpacing="40dip" />
+        android:verticalSpacing="40dip"
+        android:textSize="12dp">
+    </GridView>
 
 </LinearLayout>

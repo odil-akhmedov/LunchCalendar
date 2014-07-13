@@ -34,12 +34,20 @@ public class JSONCalendarParser {
 	private DailyMenu menuForDay = new DailyMenu();
 
 	private String urlString = null;
+	private String filename;
 	private Context myContext;
 	public volatile boolean parsingComplete = true;
 
 	public JSONCalendarParser(String url, Context context) {
 		this.urlString = url;
 		this.myContext = context;
+	}
+
+	public JSONCalendarParser(String filename, Context context, boolean fromFile) {
+		if (fromFile) {
+			this.myContext = context;
+			this.filename = filename;
+		}
 	}
 
 	public ArrayList<String> getContentFromJson() {
@@ -133,9 +141,9 @@ public class JSONCalendarParser {
 
 		thread.start();
 
-		String data = loadJSONFromAsset();
+		// String data = loadJSONFromAsset();
 
-		readAndParseJSON(data);
+		// readAndParseJSON(data);
 	}
 
 	static String convertStreamToString(java.io.InputStream is) {
@@ -150,7 +158,7 @@ public class JSONCalendarParser {
 			AssetManager am = myContext.getAssets();
 			StringBuilder buf = new StringBuilder();
 			BufferedReader br = new BufferedReader(new InputStreamReader(
-					am.open("JSON.json")));
+					am.open(this.filename)));
 			String sCurrentLine;
 			while ((sCurrentLine = br.readLine()) != null) {
 				// Here we are printing each line at a time from the file we

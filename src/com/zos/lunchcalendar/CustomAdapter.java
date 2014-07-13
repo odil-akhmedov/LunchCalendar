@@ -13,14 +13,15 @@ import android.widget.TextView;
 public class CustomAdapter extends ArrayAdapter<DailyMenu> {
 
 	private Context context;
-	//private DailyMenu[] data;
+	private int viewType;
+	// private DailyMenu[] data;
 	private ArrayList<DailyMenu> data = new ArrayList<DailyMenu>();
 	private LayoutInflater layoutInflater;
 
 	public CustomAdapter(Context context, int textViewResourceId,
-			ArrayList<DailyMenu> lunch_data) {
+			ArrayList<DailyMenu> lunch_data, int viewType) {
 		super(context, textViewResourceId, lunch_data);
-
+		this.viewType = viewType;
 		// store constructor parameters
 		this.context = context;
 		this.data = lunch_data;
@@ -30,26 +31,47 @@ public class CustomAdapter extends ArrayAdapter<DailyMenu> {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		// if convertView isn't populated, use LayoutInflater to
-		// create a new row layout
-		View row = convertView;
-		if (row == null) {
-			row = this.layoutInflater.inflate(R.layout.custom_row_textview, null);
-		}
-		// extract data
-		DailyMenu item = this.data.get(position);
-		// assign the caption
-		
-		TextView lunchDate = (TextView) row.findViewById(R.id.showDate);
-		lunchDate.setText(item.startTime);
-		
-		TextView lunchTitle = (TextView) row.findViewById(R.id.showTitle);
-		lunchTitle.setText(item.title);
-		// assign the icon
-		//ImageView lunchIcon = (ImageView) row.findViewById(R.id.imageview);
+		if (this.viewType == 0) {
+			// if convertView isn't populated, use LayoutInflater to
+			// create a new row layout
+			View row = convertView;
+			if (row == null) {
+				row = this.layoutInflater.inflate(R.layout.custom_row_textview,
+						null);
+			}
+			// extract data
+			DailyMenu item = this.data.get(position);
+			// assign the caption
 
-		//lunchIcon.setImageResource(item.getIcon());
-		return row;
+			TextView lunchDate = (TextView) row.findViewById(R.id.showDate);
+			lunchDate.setText(item.startTime);
+
+			TextView lunchTitle = (TextView) row.findViewById(R.id.showTitle);
+			lunchTitle.setText(item.title);
+			// assign the icon
+			// ImageView lunchIcon = (ImageView)
+			// row.findViewById(R.id.imageview);
+
+			// lunchIcon.setImageResource(item.getIcon());
+			return row;
+		} else {
+			// if convertView isn't populated, use LayoutInflater to
+			// create a new row layout
+			View row = convertView;
+			if (row == null) {
+				row = this.layoutInflater.inflate(R.layout.custom_grid_textview, null);
+			}
+			// extract data
+			DailyMenu item = this.data.get(position);
+			// assign the caption
+			
+			System.out.println("StartTime grid = " + item.startTime);
+			
+			TextView lunchData = (TextView) row.findViewById(R.id.showData);
+			lunchData.setText(item.startTime +  "\n" + item.title);
+			return row;
+		}
+
 	}
 
 }
