@@ -188,6 +188,7 @@ public class MainActivity extends Activity {
 	public void startParsing() {
 		obj = new JSONCalendarParser(url, getApplicationContext());
 		obj.fetchJSON();
+		
 		while (obj.parsingComplete);
 
 		//result = obj.getContentFromJson();

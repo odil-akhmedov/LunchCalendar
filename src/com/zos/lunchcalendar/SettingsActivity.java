@@ -25,7 +25,7 @@ public class SettingsActivity extends ActionBarActivity {
 		setContentView(R.layout.activity_settings);
 		mealsList = (TextView)findViewById(R.id.mealsList);
 		
-		AssetManager am = getApplicationContext().getAssets();
+		/*AssetManager am = getApplicationContext().getAssets();
 		try {
 			if (am.open("JSON.json") != null){
 				obj = new JSONCalendarParser("JSON.json", getApplicationContext(), true);
@@ -44,7 +44,13 @@ public class SettingsActivity extends ActionBarActivity {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
+		obj = new JSONCalendarParser("JSON.json", getApplicationContext(), true);
+		obj.fetchJSON();
+		
+		while (obj.parsingComplete);
+
+		mealsListText = obj.getContentFromJson();
 		
 		mealsList.setText(mealsListText.get(0));
 	}

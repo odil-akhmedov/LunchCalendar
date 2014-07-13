@@ -34,7 +34,7 @@ public class JSONCalendarParser {
 	private DailyMenu menuForDay = new DailyMenu();
 
 	private String urlString = null;
-	private String filename;
+	private String filename = null;
 	private Context myContext;
 	public volatile boolean parsingComplete = true;
 
@@ -111,39 +111,41 @@ public class JSONCalendarParser {
 	}
 
 	public void fetchJSON() {
+		if (urlString != null) {
+			Thread thread = new Thread(new Runnable() {
 
-		Thread thread = new Thread(new Runnable() {
+				@Override
+				public void run() {
+					try {
+						URL url = new URL(urlString);
+						HttpURLConnection conn = (HttpURLConnection) url
+								.openConnection();
+						conn.setReadTimeout(10000);
+						conn.setConnectTimeout(15000);
+						conn.setRequestMethod("GET");
+						conn.setDoInput(true);
 
-			@Override
-			public void run() {
-				try {
-					URL url = new URL(urlString);
-					HttpURLConnection conn = (HttpURLConnection) url
-							.openConnection();
-					conn.setReadTimeout(10000);
-					conn.setConnectTimeout(15000);
-					conn.setRequestMethod("GET");
-					conn.setDoInput(true);
+						conn.connect();
+						InputStream stream = conn.getInputStream();
 
-					conn.connect();
-					InputStream stream = conn.getInputStream();
+						String data = convertStreamToString(stream);
 
-					String data = convertStreamToString(stream);
+						readAndParseJSON(data);
+						stream.close();
 
-					readAndParseJSON(data);
-					stream.close();
-
-				} catch (Exception e) {
-					e.printStackTrace();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
-			}
-		});
+			});
 
-		thread.start();
+			thread.start();
+		}
+		if (filename != null) {
+			String data = loadJSONFromAsset();
 
-		// String data = loadJSONFromAsset();
-
-		// readAndParseJSON(data);
+			readAndParseJSON(data);
+		}
 	}
 
 	static String convertStreamToString(java.io.InputStream is) {
