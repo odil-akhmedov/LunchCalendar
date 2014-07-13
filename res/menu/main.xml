@@ -3,14 +3,14 @@
     tools:context="com.wsu.flashcardsaok.MainActivity" >
 
     <item
-        android:id="@+id/listView"
-        android:title="@string/listView"
-        android:titleCondensed="@string/listView">
+        android:id="@+id/listViewMode"
+        android:title="@string/listViewMode"
+        android:titleCondensed="@string/listViewMode">
     </item>
     <item
-        android:id="@+id/gridView"
-        android:title="@string/gridView"
-        android:titleCondensed="@string/gridView">
+        android:id="@+id/gridViewMode"
+        android:title="@string/gridViewMode"
+        android:titleCondensed="@string/gridViewMode">
     </item>
     <item
         android:id="@+id/settings"
