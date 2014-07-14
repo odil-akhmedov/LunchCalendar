@@ -13,12 +13,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Select your favorite meals" />
-    
-      <ListView
-          android:id="@+id/favoriteMeals"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="20dp" >
-      </ListView>
-  
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="wrap_content"
+        android:layout_height="430dp"
+        android:layout_marginBottom="116dp"
+        android:layout_marginLeft="10dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <ListView
+                android:id="@+id/favoriteMeals"
+                android:layout_width="302dp"
+                android:layout_height="364dp" >
+            </ListView>
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/saveSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/scrollView1"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="18dp"
+        android:text="Save" />
+
 </RelativeLayout>

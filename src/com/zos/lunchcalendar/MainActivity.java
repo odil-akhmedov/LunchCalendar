@@ -159,14 +159,14 @@ public class MainActivity extends Activity {
 		case 0:
 			CustomAdapter adapter = new CustomAdapter(this,
 					R.layout.custom_row_textview, menuForMonth, viewType);
-			ListView listView = (ListView) findViewById(R.id.listView1);
+			ListView listView = (ListView) findViewById(R.id.listViewMain);
 
 			listView.setAdapter(adapter);
 			break;
 		case 1:
 			CustomAdapter adapter2 = new CustomAdapter(this,
 					R.layout.custom_grid_textview, menuForMonth, viewType);
-			GridView g = (GridView) findViewById(R.id.grid);
+			GridView g = (GridView) findViewById(R.id.gridViewMain);
 			g.setAdapter(adapter2);
 			// g.setAdapter(new ArrayAdapter<DailyMenu>(this,
 			// R.layout.grid_cell, menuForMonth));
@@ -198,15 +198,13 @@ public class MainActivity extends Activity {
 		case 0:
 			CustomAdapter adapter = new CustomAdapter(this,
 					R.layout.custom_row_textview, menuForMonth, viewType);
-
-			ListView listView = (ListView) findViewById(R.id.listView1);
-
+			ListView listView = (ListView) findViewById(R.id.listViewMain);
 			listView.setAdapter(adapter);
 			break;
 		case 1:
 			CustomAdapter adapter2 = new CustomAdapter(this,
 					R.layout.custom_grid_textview, menuForMonth, viewType);
-			GridView g = (GridView) findViewById(R.id.grid);
+			GridView g = (GridView) findViewById(R.id.gridViewMain);
 			g.setAdapter(adapter2);
 			// g.setOnItemClickListener(this);
 			break;

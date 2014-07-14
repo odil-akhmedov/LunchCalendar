@@ -38,7 +38,7 @@
             android:orientation="vertical" >
 
             <ListView
-                android:id="@+id/listView1"
+                android:id="@+id/listViewMain"
                 android:layout_width="302dp"
                 android:layout_height="406dp" >
             </ListView>
