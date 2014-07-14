@@ -2,12 +2,14 @@ package com.zos.lunchcalendar;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
 import android.support.v7.app.ActionBarActivity;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.CheckedTextView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class SettingsActivity extends ActionBarActivity {
@@ -23,10 +25,10 @@ public class SettingsActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_settings);
-		mealsList = (TextView)findViewById(R.id.mealsList);
+		//mealsList = (TextView)findViewById(R.id.mealsList);
 		
-		/*AssetManager am = getApplicationContext().getAssets();
-		try {
+		AssetManager am = getApplicationContext().getAssets();
+		/*try {
 			if (am.open("JSON.json") != null){
 				obj = new JSONCalendarParser("JSON.json", getApplicationContext(), true);
 				obj.loadJSONFromAsset();
@@ -44,15 +46,32 @@ public class SettingsActivity extends ActionBarActivity {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+		}
+		
+		//read from url
+		obj = new JSONCalendarParser(url, getApplicationContext());
+		obj.fetchJSON();
+		while (obj.parsingComplete);
+		menuForMonth = obj.getMenuFromJson();*/
+		
+		
+		
 		obj = new JSONCalendarParser("JSON.json", getApplicationContext(), true);
 		obj.fetchJSON();
 		
 		while (obj.parsingComplete);
 
 		mealsListText = obj.getContentFromJson();
+		String mealNumOne = mealsListText.get(0);
+		String mealz[] = mealNumOne.split("[[0-9]]+[.]+[' ']");
 		
-		mealsList.setText(mealsListText.get(0));
+		mealsList.setText(mealz[1]);
+		
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_1, mealz);
+
+		CheckedTextView menuList = (CheckedTextView) findViewById(R.id.favoriteMeals);
+		//menuList.setAdapter(adapter);
 	}
 
 	@Override
