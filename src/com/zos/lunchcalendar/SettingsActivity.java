@@ -8,8 +8,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.CheckedTextView;
+import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 public class SettingsActivity extends ActionBarActivity {
@@ -24,7 +27,7 @@ public class SettingsActivity extends ActionBarActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_settings);
+		setContentView(R.layout.activity_main_settings);
 		//mealsList = (TextView)findViewById(R.id.mealsList);
 		
 		AssetManager am = getApplicationContext().getAssets();
@@ -54,24 +57,32 @@ public class SettingsActivity extends ActionBarActivity {
 		while (obj.parsingComplete);
 		menuForMonth = obj.getMenuFromJson();*/
 		
-		
-		
 		obj = new JSONCalendarParser("JSON.json", getApplicationContext(), true);
 		obj.fetchJSON();
 		
 		while (obj.parsingComplete);
 
 		mealsListText = obj.getContentFromJson();
-		String mealNumOne = mealsListText.get(0);
-		String mealz[] = mealNumOne.split("[[0-9]]+[.]+[' ']");
+		ArrayList<String> mealz = new ArrayList<String>();
 		
-		mealsList.setText(mealz[1]);
-		
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, mealz);
-
-		CheckedTextView menuList = (CheckedTextView) findViewById(R.id.favoriteMeals);
-		//menuList.setAdapter(adapter);
+		for (int i = 0; i < mealsListText.size(); i++){
+			String mealNumOne = mealsListText.get(i);
+			String[] mealsAll = mealNumOne.split("[[0-9]]+[.]+[' ']");
+			
+			for (int j = 1; j < mealsAll.length; j++)
+				mealz.add(mealsAll[j]);
+		}
+	
+		//mealsList.setText(mealz.get(1));
+	        
+		ListView mealsListView = (ListView) findViewById(R.id.favoriteMeals);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                        android.R.layout.simple_list_item_multiple_choice, mealz);
+        mealsListView.setAdapter(adapter);
+        
+        mealsListView.setItemsCanFocus(false);
+        mealsListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+	
 	}
 
 	@Override

@@ -16,7 +16,10 @@ public class CustomAdapter extends ArrayAdapter<DailyMenu> {
 	private int viewType;
 	// private DailyMenu[] data;
 	private ArrayList<DailyMenu> data = new ArrayList<DailyMenu>();
+	private ArrayList<String> mealsList = new ArrayList<String>();
+	
 	private LayoutInflater layoutInflater;
+	
 
 	public CustomAdapter(Context context, int textViewResourceId,
 			ArrayList<DailyMenu> lunch_data, int viewType) {
@@ -29,6 +32,16 @@ public class CustomAdapter extends ArrayAdapter<DailyMenu> {
 		this.layoutInflater = LayoutInflater.from(this.context);
 	}
 
+	//special for Checked List
+	public CustomAdapter(String flag, Context context, int textViewResourceId, ArrayList<String> lunchList, int viewType) {
+		super(context, textViewResourceId);
+		this.viewType = viewType;
+		this.context = context;
+		this.mealsList = lunchList;
+		this.layoutInflater = LayoutInflater.from(this.context);
+	}
+	
+	
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		if (this.viewType == 0) {
@@ -54,23 +67,29 @@ public class CustomAdapter extends ArrayAdapter<DailyMenu> {
 
 			// lunchIcon.setImageResource(item.getIcon());
 			return row;
-		} else {
-			// if convertView isn't populated, use LayoutInflater to
-			// create a new row layout
+		} else if (this.viewType == 1) {
 			View row = convertView;
 			if (row == null) {
-				row = this.layoutInflater.inflate(R.layout.custom_grid_textview, null);
+				row = this.layoutInflater.inflate(
+						R.layout.custom_grid_textview, null);
 			}
-			// extract data
 			DailyMenu item = this.data.get(position);
-			// assign the caption
-			
 			System.out.println("StartTime grid = " + item.startTime);
-			
+
 			TextView lunchData = (TextView) row.findViewById(R.id.showData);
-			lunchData.setText(item.startTime +  "\n" + item.title);
+			lunchData.setText(item.startTime + "\n" + item.title);
 			return row;
-		}
+		} else  { // checked list
+			View row = convertView;
+			if (row == null) {
+				row = this.layoutInflater.inflate(
+						R.layout.custom_checked_textview, null);
+			}
+			String item = this.mealsList.get(position);
+			TextView lunchData = (TextView) row.findViewById(R.id.mealsList);
+			lunchData.setText(item);
+			return row;
+		} 
 
 	}
 

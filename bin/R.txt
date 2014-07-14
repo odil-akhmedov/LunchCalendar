@@ -338,7 +338,7 @@ int layout abc_search_view 0x7f030016
 int layout abc_simple_decor 0x7f030017
 int layout activity_main_grid 0x7f030018
 int layout activity_main_list 0x7f030019
-int layout activity_settings 0x7f03001a
+int layout activity_main_settings 0x7f03001a
 int layout custom_checked_textview 0x7f03001b
 int layout custom_grid_textview 0x7f03001c
 int layout custom_row_textview 0x7f03001d
