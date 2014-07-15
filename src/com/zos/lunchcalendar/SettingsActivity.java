@@ -7,6 +7,7 @@ import java.util.HashSet;
 import android.support.v7.app.ActionBarActivity;
 import android.content.res.AssetManager;
 import android.os.Bundle;
+import android.util.SparseBooleanArray;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -61,8 +62,7 @@ public class SettingsActivity extends ActionBarActivity {
 		obj = new JSONCalendarParser("JSON.json", getApplicationContext(), true);
 		obj.fetchJSON();
 
-		while (obj.parsingComplete)
-			;
+		while (obj.parsingComplete);
 
 		mealsListText = obj.getContentFromJson();
 		ArrayList<String> mealz = new ArrayList<String>();
@@ -95,23 +95,29 @@ public class SettingsActivity extends ActionBarActivity {
 
 		save = (Button) findViewById(R.id.saveSettings);
 		save.setOnClickListener(new View.OnClickListener() {
-
+		String checked = "";
+		String unChecked = "";
 			@Override
 			public void onClick(View v) {
 
 				// TODO Auto-generated method stub
+				SparseBooleanArray sparseBooleanArray = mealsListView.getCheckedItemPositions();
+				
 				for (int i = 0; i < mealsListView.getCount(); i++) {
-					View vListSortOrder;
-					vListSortOrder = mealsListView.getChildAt(i);
-
-					EditText edit = (EditText) vListSortOrder
-							.findViewById(R.id.share_comment_edit);
-					String temp = edit.getText().toString();
+					if(sparseBooleanArray.get(i) == true) 
+				     {
+				         checked += mealsListView.getItemAtPosition(i).toString() + "\n";
+				         Toast.makeText(getApplicationContext(), checked, Toast.LENGTH_SHORT).show();
+				     }
+					
+					//View vListSortOrder;
+					//vListSortOrder = mealsListView.getChildAt(i);
+					
+					
+					//EditText edit = (EditText) vListSortOrder
+						//	.findViewById(R.id.share_comment_edit);
+					//String temp = edit.getText().toString();
 				}
-
-				Toast.makeText(getBaseContext(),
-						"EditText Value, checkbox value and other values",
-						Toast.LENGTH_SHORT).show();
 			}
 		});
 

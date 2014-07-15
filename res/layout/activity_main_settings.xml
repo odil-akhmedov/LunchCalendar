@@ -8,12 +8,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.zos.lunchcalendar.SettingsActivity" >
 
-    <TextView
-        android:id="@+id/favMeals"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Select your favorite meals" />
-
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="wrap_content"
@@ -28,8 +22,8 @@
 
             <ListView
                 android:id="@+id/favoriteMeals"
-                android:layout_width="302dp"
-                android:layout_height="364dp" >
+                android:layout_width="match_parent"
+                android:layout_height="232dp" >
             </ListView>
         </LinearLayout>
     </ScrollView>
@@ -38,9 +32,44 @@
         android:id="@+id/saveSettings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/scrollView1"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="18dp"
+        android:layout_alignRight="@+id/scrollView1"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="22dp"
         android:text="Save" />
+
+    <Spinner
+        android:id="@+id/timeSpinner"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_alignBottom="@+id/saveSettings"
+        android:layout_alignLeft="@+id/scrollView1"
+        android:layout_marginBottom="19dp"
+        android:entries="@array/time_clock" />
+
+    <Spinner
+        android:id="@+id/daySpinner"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_alignBottom="@+id/saveSettings"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:entries="@array/week_days" />
+
+    <TextView
+        android:id="@+id/favMeals"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/daySpinner"
+        android:layout_alignTop="@+id/scrollView1"
+        android:text="Select your favorite meals" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/timeSpinner"
+        android:layout_alignLeft="@+id/scrollView1"
+        android:text="When to notify: " />
 
 </RelativeLayout>
