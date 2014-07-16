@@ -11,7 +11,7 @@
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="wrap_content"
-        android:layout_height="430dp"
+        android:layout_height="300dp"
         android:layout_marginBottom="116dp"
         android:layout_marginLeft="10dp" >
 
@@ -47,6 +47,7 @@
         android:layout_marginBottom="19dp"
         android:entries="@array/time_clock" />
 
+    <!--
     <Spinner
         android:id="@+id/daySpinner"
         android:layout_width="100dp"
@@ -54,7 +55,7 @@
         android:layout_alignBottom="@+id/saveSettings"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp"
-        android:entries="@array/week_days" />
+        android:entries="@array/week_days" />   -->
 
     <TextView
         android:id="@+id/favMeals"
@@ -68,8 +69,33 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/timeSpinner"
-        android:layout_alignLeft="@+id/scrollView1"
+        android:layout_alignRight="@+id/favMeals"
+        android:layout_below="@+id/relativeLayout1"
+        android:layout_marginRight="17dp"
         android:text="When to notify: " />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/scrollView1"
+        android:orientation="vertical" >
+
+        <com.zos.lunchcalendar.MultiSelectionSpinner
+            android:id="@+id/mySpinner1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <!--
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView1"
+        android:layout_toRightOf="@+id/favMeals"
+        android:onClick="onClickDD"
+        android:text="Get Items" />
+    -->
 
 </RelativeLayout>
