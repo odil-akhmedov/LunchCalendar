@@ -122,9 +122,7 @@ public class SettingsActivity extends ActionBarActivity {
 
 				// TODO Auto-generated method stub
 				SparseBooleanArray sparseBooleanArray = mealsListView
-						.getCheckedItemPositions();
-
-				
+						.getCheckedItemPositions();				
 
 				for (int i = 0; i < mealsListView.getCount(); i++) {
 					if (sparseBooleanArray.get(i) == true) {
@@ -138,19 +136,15 @@ public class SettingsActivity extends ActionBarActivity {
 			
 				preferredDays = daySpinner.getSelectedArrayStrings();
 				
-				savePreferences("PreferredMeals", preferredMeals);
+				/*savePreferences("PreferredMeals", preferredMeals);
 				savePreferences("PreferredTime", preferredTime);
 				savePreferences("PreferredDays", preferredDays);
-				
-				/*savePreferences("CheckBox_Value", checkBox.isChecked());
-				if (checkBox.isChecked())
-					savePreferences("storedName", editText.getText().toString());*/
 
-				finish();
+				finish();*/
 
 			}
 		});
-		loadSavedPreferences();
+		//loadSavedPreferences();
 
 	}
 

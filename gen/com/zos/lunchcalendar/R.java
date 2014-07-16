@@ -1086,6 +1086,7 @@ containing a value of this type.
     }
     public static final class id {
         public static final int LinearLayout1=0x7f05003e;
+        public static final int RelativeLayout1=0x7f050042;
         public static final int action_bar=0x7f05001c;
         public static final int action_bar_activity_content=0x7f050015;
         public static final int action_bar_container=0x7f05001b;
@@ -1113,8 +1114,8 @@ containing a value of this type.
         public static final int end=0x7f050013;
         public static final int expand_activities_button=0x7f050026;
         public static final int expanded_menu=0x7f05002c;
-        public static final int favMeals=0x7f050045;
-        public static final int favoriteMeals=0x7f050042;
+        public static final int favMeals=0x7f050049;
+        public static final int favoriteMeals=0x7f050043;
         public static final int gridViewMain=0x7f05003d;
         public static final int gridViewMode=0x7f05004d;
         public static final int home=0x7f050014;
@@ -1126,17 +1127,15 @@ containing a value of this type.
         public static final int listViewMain=0x7f050041;
         public static final int listViewMode=0x7f05004c;
         public static final int list_item=0x7f050029;
-        public static final int mealsList=0x7f050049;
+        public static final int mealsList=0x7f050048;
         public static final int middle=0x7f050012;
-        public static final int mySpinner1=0x7f050048;
         public static final int never=0x7f050009;
         public static final int none=0x7f050010;
         public static final int normal=0x7f050000;
         public static final int progress_circular=0x7f050018;
         public static final int progress_horizontal=0x7f050019;
         public static final int radio=0x7f05002f;
-        public static final int relativeLayout1=0x7f050047;
-        public static final int saveSettings=0x7f050043;
+        public static final int saveSettings=0x7f050047;
         public static final int scrollView1=0x7f050040;
         public static final int search_badge=0x7f050032;
         public static final int search_bar=0x7f050031;
@@ -1159,7 +1158,8 @@ containing a value of this type.
         public static final int submit_area=0x7f050039;
         public static final int tabMode=0x7f050002;
         public static final int textView1=0x7f05003f;
-        public static final int timeSpinner=0x7f050044;
+        public static final int textView2=0x7f050044;
+        public static final int timeSpinner=0x7f050045;
         public static final int title=0x7f05002b;
         public static final int top_action_bar=0x7f050020;
         public static final int up=0x7f050021;
@@ -1224,7 +1224,8 @@ containing a value of this type.
         public static final int custom_row_textview=0x7f03001d;
         public static final int fragment_main=0x7f03001e;
         public static final int grid_cell=0x7f03001f;
-        public static final int support_simple_spinner_dropdown_item=0x7f030020;
+        public static final int seetings2=0x7f030020;
+        public static final int support_simple_spinner_dropdown_item=0x7f030021;
     }
     public static final class menu {
         public static final int main=0x7f0d0000;
