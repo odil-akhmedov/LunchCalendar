@@ -43,8 +43,8 @@ public class SettingsActivity extends ActionBarActivity {
 	String preferredTime;
 	ArrayList<String> preferredDays = new ArrayList<String>();
 	
-	Set preferredMealsFromArray = new HashSet();
-	Set preferredDaysFromArray = new HashSet();
+	Set<String> preferredMealsFromArray = new HashSet<String>();
+	Set<String> preferredDaysFromArray = new HashSet<String>();
 
 	Button save;
 
@@ -202,7 +202,7 @@ public class SettingsActivity extends ActionBarActivity {
 	private void savePreferences(String key, ArrayList<String> value) {
 		SharedPreferences sharedPreferences = PreferenceManager
 				.getDefaultSharedPreferences(this);
-		Set preferredMealsSet = new HashSet();
+		Set<String> preferredMealsSet = new HashSet<String>();
 		
 		for (int i = 0; i < value.size(); i++)
 			preferredMealsSet.add(value.get(i));
