@@ -120,7 +120,7 @@ public class SettingsActivity extends ActionBarActivity {
 
 		
 		save = (Button) findViewById(R.id.saveSettings);
-		//loadSavedPreferences();
+		loadSavedPreferences();
 		
 		save.setOnClickListener(new View.OnClickListener() {
 
@@ -145,11 +145,11 @@ public class SettingsActivity extends ActionBarActivity {
 				
 				/** Save to shared preferences **/
 					
-				/*savePreferences("PreferredMeals", preferredMeals);
+				savePreferences("PreferredMeals", preferredMeals);
 				savePreferences("PreferredTime", preferredTime);
 				savePreferences("PreferredDays", preferredDays);
 
-				finish();*/
+				finish();
 
 			}
 		});
@@ -171,17 +171,16 @@ public class SettingsActivity extends ActionBarActivity {
         
         preferredTime = sharedPreferences.getString("PreferredTime", "06:00");
         
-        //the value you want the position for
+        //set the saved time to time spinner
 
         @SuppressWarnings("unchecked")
 		ArrayAdapter<String> myAdap = (ArrayAdapter<String>)timeSpinner.getAdapter(); //cast to an ArrayAdapter
 
         int spinnerPosition = myAdap.getPosition(preferredTime);
 
-        //set the default according to value
+        //set the default time according to value
         timeSpinner.setSelection(spinnerPosition);
-        
-
+         
         preferredDaysFromArray = sharedPreferences.getStringSet("PreferredDays", null);
 		Iterator<String> itr2 = preferredDaysFromArray.iterator();
 		
