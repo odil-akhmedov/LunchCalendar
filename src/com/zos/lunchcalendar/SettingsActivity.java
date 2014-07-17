@@ -170,8 +170,18 @@ public class SettingsActivity extends ActionBarActivity {
         }
         
         preferredTime = sharedPreferences.getString("PreferredTime", "06:00");
-        //timeSpinner
         
+        //the value you want the position for
+
+        @SuppressWarnings("unchecked")
+		ArrayAdapter<String> myAdap = (ArrayAdapter<String>)timeSpinner.getAdapter(); //cast to an ArrayAdapter
+
+        int spinnerPosition = myAdap.getPosition(preferredTime);
+
+        //set the default according to value
+        timeSpinner.setSelection(spinnerPosition);
+        
+
         preferredDaysFromArray = sharedPreferences.getStringSet("PreferredDays", null);
 		Iterator<String> itr2 = preferredDaysFromArray.iterator();
 		
