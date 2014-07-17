@@ -39,10 +39,12 @@ public class SettingsActivity extends ActionBarActivity {
 	ListView mealsListView;
 	Spinner timeSpinner;
 
+	//Here we save preferences
 	ArrayList<String> preferredMeals = new ArrayList<String>();
 	String preferredTime;
 	ArrayList<String> preferredDays = new ArrayList<String>();
 	
+	//get values from shared prefs
 	Set<String> preferredMealsFromArray = new HashSet<String>();
 	Set<String> preferredDaysFromArray = new HashSet<String>();
 
@@ -86,6 +88,9 @@ public class SettingsActivity extends ActionBarActivity {
 		while (obj.parsingComplete);
 
 		mealsListText = obj.getContentFromJson();
+		
+		//getting actual lunch items
+		//yes we need to use regular expressions
 		ArrayList<String> mealz = new ArrayList<String>();
 
 		HashSet<String> hs = new HashSet<String>();
@@ -113,7 +118,7 @@ public class SettingsActivity extends ActionBarActivity {
 
 		timeSpinner = (Spinner) findViewById(R.id.timeSpinner);
 
-
+		
 		save = (Button) findViewById(R.id.saveSettings);
 		//loadSavedPreferences();
 		
@@ -133,11 +138,13 @@ public class SettingsActivity extends ActionBarActivity {
 					}
 				}
 				
-				/** Save to shared preferences **/
 				preferredTime = timeSpinner.getSelectedItem().toString();
-			
-				preferredDays = daySpinner.getSelectedArrayStrings();
 				
+				preferredDays = daySpinner.getSelectedArrayStrings();
+			
+				
+				/** Save to shared preferences **/
+					
 				/*savePreferences("PreferredMeals", preferredMeals);
 				savePreferences("PreferredTime", preferredTime);
 				savePreferences("PreferredDays", preferredDays);
@@ -163,7 +170,7 @@ public class SettingsActivity extends ActionBarActivity {
         }
         
         preferredTime = sharedPreferences.getString("PreferredTime", "06:00");
-        
+        //timeSpinner
         
         preferredDaysFromArray = sharedPreferences.getStringSet("PreferredDays", null);
 		Iterator<String> itr2 = preferredDaysFromArray.iterator();
