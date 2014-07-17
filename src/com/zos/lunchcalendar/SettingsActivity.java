@@ -115,6 +115,8 @@ public class SettingsActivity extends ActionBarActivity {
 
 
 		save = (Button) findViewById(R.id.saveSettings);
+		//loadSavedPreferences();
+		
 		save.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -144,7 +146,7 @@ public class SettingsActivity extends ActionBarActivity {
 
 			}
 		});
-		//loadSavedPreferences();
+		
 
 	}
 
