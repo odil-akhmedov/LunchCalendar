@@ -62,8 +62,7 @@ public class SettingsActivity extends ActionBarActivity {
 		setContentView(R.layout.activity_main_settings);
 		// mealsList = (TextView)findViewById(R.id.mealsList);
 
-		String[] daysArray = { "Sunday", "Monday", "Tuesday", "Wednesday",
-				"Thursday", "Friday" };
+		String[] daysArray = { "Two day Before", "A day before", "Same day"};
 		daySpinner = (MultiSelectionSpinner) findViewById(R.id.daySpinner);
 		daySpinner.setItems(daysArray);
 
@@ -112,6 +111,7 @@ public class SettingsActivity extends ActionBarActivity {
 			mealz.addAll(hs);
 		}
 
+		//We can use multispinner, and then grab the results from the spinner titles
 		mealsListView = (ListView) findViewById(R.id.favoriteMeals);
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_multiple_choice, mealz);
