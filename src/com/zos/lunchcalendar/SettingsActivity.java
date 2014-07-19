@@ -36,7 +36,6 @@ public class SettingsActivity extends ActionBarActivity {
 
 	TextView mealsList;
 	//MultiSelectionSpinner daySpinner;
-	MultiSelectionSpinner mealSpinner;
 	Spinner daySpinner;
 	ListView mealsListView;
 	Spinner timeSpinner;
@@ -66,9 +65,8 @@ public class SettingsActivity extends ActionBarActivity {
 		// mealsList = (TextView)findViewById(R.id.mealsList);
 
 		String[] daysArray = { "Two day Before", "A day before", "Same day"};
-		mealSpinner = (MultiSelectionSpinner) findViewById(R.id.mealSpinner);
-		mealSpinner.setItems(daysArray);
-		
+		//daySpinner = (MultiSelectionSpinner) findViewById(R.id.daySpinner);
+		//daySpinner.setItems(daysArray);
 		timeSpinner = (Spinner) findViewById(R.id.timeSpinner);
 		daySpinner = (Spinner) findViewById(R.id.daySpinner);
 
