@@ -2,6 +2,7 @@ package com.zos.lunchcalendar;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -164,8 +165,23 @@ public class SettingsActivity extends ActionBarActivity {
 
 		preferredMealsFromArray = sharedPreferences.getStringSet(
 				"PreferredMeals", null);
+		
 		for (String str : preferredMealsFromArray)
 			preferredMeals.add(str);
+		
+		/*if (sharedPreferences.contains("PreferredMeals")) {
+	        //String savedItems = sharedPreferences.getString("PreferredMeals", "");
+	        //ArrayList<String> savedItemsList = (ArrayList<String>) Arrays.asList(savedItems.split(","));
+	        int count = this.mealsListView.getAdapter().getCount();
+	        for (int i = 0; i < count; i++) {
+	            String currentItem = (String) this.mealsListView.getAdapter().getItem(i);
+	            if (preferredMeals.contains(currentItem)) {
+	                this.mealsListView.setItemChecked(i, true);
+	            } else {
+	                this.mealsListView.setItemChecked(i, false);
+	            }
+	        }
+	    }*/
 
 		preferredTime = sharedPreferences.getString("PreferredTime", "06:00");
 
