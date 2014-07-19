@@ -68,8 +68,7 @@ public class SettingsActivity extends ActionBarActivity {
 		String[] daysArray = { "Two day Before", "A day before", "Same day"};
 		//daySpinner = (MultiSelectionSpinner) findViewById(R.id.daySpinner);
 		//daySpinner.setItems(daysArray);
-		mealSpinner = (MultiSelectionSpinner) findViewById(R.id.mealSpinner);
-		mealSpinner.setItems(daysArray);
+		
 		timeSpinner = (Spinner) findViewById(R.id.timeSpinner);
 		daySpinner = (Spinner) findViewById(R.id.daySpinner);
 
@@ -117,6 +116,12 @@ public class SettingsActivity extends ActionBarActivity {
 			mealz.clear();
 			mealz.addAll(hs);
 		}
+		
+		String[] mealArr = new String[mealz.size()];
+		mealArr = mealz.toArray(mealArr);
+		
+		mealSpinner = (MultiSelectionSpinner) findViewById(R.id.mealSpinner);
+		mealSpinner.setItems(mealArr);
 
 		//We can use multispinner, and then grab the results from the spinner titles
 		mealsListView = (ListView) findViewById(R.id.favoriteMeals);
@@ -126,8 +131,6 @@ public class SettingsActivity extends ActionBarActivity {
 
 		mealsListView.setItemsCanFocus(false);
 		mealsListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-
-		
 
 		save = (Button) findViewById(R.id.saveSettings);
 		loadSavedPreferences();
