@@ -2,7 +2,6 @@ package com.zos.lunchcalendar;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -116,13 +115,13 @@ public class SettingsActivity extends ActionBarActivity {
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_multiple_choice, mealz);
 		mealsListView.setAdapter(adapter);
+
 		mealsListView.setItemsCanFocus(false);
 		mealsListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
 		timeSpinner = (Spinner) findViewById(R.id.timeSpinner);
 
 		save = (Button) findViewById(R.id.saveSettings);
-
 		loadSavedPreferences();
 
 		save.setOnClickListener(new View.OnClickListener() {
@@ -149,9 +148,9 @@ public class SettingsActivity extends ActionBarActivity {
 
 				savePreferences("PreferredMeals", preferredMeals);
 				savePreferences("PreferredTime", preferredTime);
-				// savePreferences("PreferredDays", preferredDays);
+				//savePreferences("PreferredDays", preferredDays);
 
-				finish();
+				 finish();
 
 			}
 		});
@@ -163,37 +162,10 @@ public class SettingsActivity extends ActionBarActivity {
 		SharedPreferences sharedPreferences = PreferenceManager
 				.getDefaultSharedPreferences(this);
 
-		// Loading preffered lunch items
 		preferredMealsFromArray = sharedPreferences.getStringSet(
 				"PreferredMeals", null);
-		for (String str : preferredMealsFromArray) {
+		for (String str : preferredMealsFromArray)
 			preferredMeals.add(str);
-		}
-		
-		if (sharedPreferences.contains("PreferredMeals")) {
-	        //String savedItems = sharedPreferences.getString("PreferredMeals", "");
-	        //ArrayList<String> savedItemsList = (ArrayList<String>) Arrays.asList(savedItems.split(","));
-	        int count = this.mealsListView.getAdapter().getCount();
-	        for (int i = 0; i < count; i++) {
-	            String currentItem = (String) this.mealsListView.getAdapter().getItem(i);
-	            if (preferredMeals.contains(currentItem)) {
-	                this.mealsListView.setItemChecked(i, true);
-	            } else {
-	                this.mealsListView.setItemChecked(i, false);
-	            }
-	        }
-	    }
-		
-
-		@SuppressWarnings("unchecked")
-		ArrayAdapter<String> adapter = (ArrayAdapter<String>) mealsListView
-				.getAdapter();
-
-		int lunchPositions = adapter.getPosition(preferredMeals.get(1));
-
-		mealsListView.setSelection(lunchPositions);
-
-		// Loading preferred notification time
 
 		preferredTime = sharedPreferences.getString("PreferredTime", "06:00");
 
@@ -205,13 +177,12 @@ public class SettingsActivity extends ActionBarActivity {
 
 		timeSpinner.setSelection(spinnerPosition);
 
-		/*
-		 * preferredDaysFromArray = sharedPreferences.getStringSet(
-		 * "PreferredDays", null); for (String str2 : preferredDaysFromArray)
-		 * preferredDays.add(str2);
-		 */
+		/*preferredDaysFromArray = sharedPreferences.getStringSet(
+				"PreferredDays", null);
+		for (String str2 : preferredDaysFromArray)
+			preferredDays.add(str2);*/
 
-	}
+			}
 
 	private void savePreferences(String key, String value) {
 		SharedPreferences sharedPreferences = PreferenceManager
@@ -236,7 +207,7 @@ public class SettingsActivity extends ActionBarActivity {
 		editor.commit();
 	}
 
-	@Override
+		@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.settings, menu);
