@@ -35,7 +35,7 @@ public class SettingsActivity extends ActionBarActivity {
 	private ArrayList<DailyMenu> menuForMonth = new ArrayList<DailyMenu>();
 
 	TextView mealsList;
-	//MultiSelectionSpinner daySpinner;
+	// MultiSelectionSpinner daySpinner;
 	MultiSelectionSpinner mealSpinner;
 	Spinner daySpinner;
 	ListView mealsListView;
@@ -44,9 +44,9 @@ public class SettingsActivity extends ActionBarActivity {
 	// Here we save preferences
 	ArrayList<String> preferredMeals = new ArrayList<String>();
 	String preferredTime;
-	//ArrayList<String> preferredDays = new ArrayList<String>();
+	// ArrayList<String> preferredDays = new ArrayList<String>();
 	String preferredDay;
-	
+
 	// get values from shared prefs
 	Set<String> preferredMealsFromArray = new HashSet<String>();
 	Set<String> preferredDaysFromArray = new HashSet<String>();
@@ -65,10 +65,10 @@ public class SettingsActivity extends ActionBarActivity {
 		setContentView(R.layout.activity_main_settings);
 		// mealsList = (TextView)findViewById(R.id.mealsList);
 
-		String[] daysArray = { "Two day Before", "A day before", "Same day"};
-		//daySpinner = (MultiSelectionSpinner) findViewById(R.id.daySpinner);
-		//daySpinner.setItems(daysArray);
-		
+		String[] daysArray = { "Two day Before", "A day before", "Same day" };
+		// daySpinner = (MultiSelectionSpinner) findViewById(R.id.daySpinner);
+		// daySpinner.setItems(daysArray);
+
 		timeSpinner = (Spinner) findViewById(R.id.timeSpinner);
 		daySpinner = (Spinner) findViewById(R.id.daySpinner);
 
@@ -94,7 +94,8 @@ public class SettingsActivity extends ActionBarActivity {
 		obj = new JSONCalendarParser("JSON.json", getApplicationContext(), true);
 		obj.fetchJSON();
 
-		while (obj.parsingComplete);
+		while (obj.parsingComplete)
+			;
 
 		mealsListText = obj.getContentFromJson();
 
@@ -116,14 +117,15 @@ public class SettingsActivity extends ActionBarActivity {
 			mealz.clear();
 			mealz.addAll(hs);
 		}
-		
-		//String[] mealArr = new String[mealz.size()];
-		//mealArr = mealz.toArray(mealArr);
-		
+
+		// String[] mealArr = new String[mealz.size()];
+		// mealArr = mealz.toArray(mealArr);
+
 		mealSpinner = (MultiSelectionSpinner) findViewById(R.id.mealSpinner);
 		mealSpinner.setItems(mealz);
 
-		//We can use multispinner, and then grab the results from the spinner titles
+		// We can use multispinner, and then grab the results from the spinner
+		// titles
 		mealsListView = (ListView) findViewById(R.id.favoriteMeals);
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_multiple_choice, mealz);
@@ -149,17 +151,19 @@ public class SettingsActivity extends ActionBarActivity {
 						preferredMeals.add(mealsListView.getItemAtPosition(i)
 								.toString());
 					} else {
-						preferredMeals.remove(mealsListView.getItemAtPosition(i).toString());
+						preferredMeals.remove(mealsListView
+								.getItemAtPosition(i).toString());
 					}
 				}
 
 				String s = mealSpinner.getSelectedItemsAsString();
 				ArrayList<String> d = mealSpinner.getSelectedArrayStrings();
 
-				Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
-				
-				//preferredMeals = d;
-				
+				Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG)
+						.show();
+
+				// preferredMeals = d;
+
 				preferredTime = timeSpinner.getSelectedItem().toString();
 
 				preferredDay = daySpinner.getSelectedItem().toString();
@@ -170,7 +174,7 @@ public class SettingsActivity extends ActionBarActivity {
 				savePreferences("PreferredTime", preferredTime);
 				savePreferences("PreferredDay", preferredDay);
 
-				 finish();
+				finish();
 
 			}
 		});
@@ -184,27 +188,29 @@ public class SettingsActivity extends ActionBarActivity {
 
 		preferredMealsFromArray = sharedPreferences.getStringSet(
 				"PreferredMeals", null);
-		
+
 		for (String str : preferredMealsFromArray)
 			preferredMeals.add(str);
-		
-		if (sharedPreferences.contains("PreferredMeals")) {
-	        //String savedItems = sharedPreferences.getString("PreferredMeals", "");
-	        //ArrayList<String> savedItemsList = (ArrayList<String>) Arrays.asList(savedItems.split(","));
-	        int count = this.mealsListView.getAdapter().getCount();
-	        for (int i = 0; i < count; i++) {
-	            String currentItem = (String) this.mealsListView.getAdapter().getItem(i);
-	            if (preferredMeals.contains(currentItem)) {
-	                this.mealsListView.setItemChecked(i, true);
-	            } else {
-	                this.mealsListView.setItemChecked(i, false);
-	            }
-	        }
-	    }
 
-		//loading for preferred time
+		if (sharedPreferences.contains("PreferredMeals")) {
+			// String savedItems = sharedPreferences.getString("PreferredMeals",
+			// "");
+			// ArrayList<String> savedItemsList = (ArrayList<String>)
+			// Arrays.asList(savedItems.split(","));
+			int count = this.mealsListView.getAdapter().getCount();
+			for (int i = 0; i < count; i++) {
+				String currentItem = (String) this.mealsListView.getAdapter()
+						.getItem(i);
+				if (preferredMeals.contains(currentItem)) {
+					this.mealsListView.setItemChecked(i, true);
+				} else {
+					this.mealsListView.setItemChecked(i, false);
+				}
+			}
+		}
+
+		// loading for preferred time
 		preferredTime = sharedPreferences.getString("PreferredTime", "06:00");
-		
 
 		@SuppressWarnings("unchecked")
 		ArrayAdapter<String> timeAdap = (ArrayAdapter<String>) timeSpinner
@@ -214,9 +220,9 @@ public class SettingsActivity extends ActionBarActivity {
 
 		timeSpinner.setSelection(timePosition);
 
-		//Loading for preferred days
+		// Loading for preferred days
 		preferredDay = sharedPreferences.getString("PreferredDay", "");
-		
+
 		@SuppressWarnings("unchecked")
 		ArrayAdapter<String> dayAdap = (ArrayAdapter<String>) daySpinner
 				.getAdapter(); // cast to an ArrayAdapter
@@ -224,14 +230,14 @@ public class SettingsActivity extends ActionBarActivity {
 		int dayPosition = dayAdap.getPosition(preferredDay);
 
 		daySpinner.setSelection(dayPosition);
-		
-		
-		/*preferredDaysFromArray = sharedPreferences.getStringSet(
-				"PreferredDays", null);
-		for (String str2 : preferredDaysFromArray)
-			preferredDays.add(str2);*/
 
-			}
+		/*
+		 * preferredDaysFromArray = sharedPreferences.getStringSet(
+		 * "PreferredDays", null); for (String str2 : preferredDaysFromArray)
+		 * preferredDays.add(str2);
+		 */
+
+	}
 
 	private void savePreferences(String key, String value) {
 		SharedPreferences sharedPreferences = PreferenceManager
@@ -256,7 +262,7 @@ public class SettingsActivity extends ActionBarActivity {
 		editor.commit();
 	}
 
-		@Override
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.settings, menu);

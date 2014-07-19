@@ -5,6 +5,9 @@ import android.R.string;
 import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.util.Log;
@@ -32,9 +35,32 @@ public class MainActivity extends Activity {
 	private String url = "http://www.google.com/calendar/feeds/gqccak2junkb7eup9ls76k919c@group.calendar.google.com/public/full?alt=json&orderby=starttime&max-results=15&singleevents=true&sortorder=ascending&futureevents=true";
 	private JSONCalendarParser obj;
 
-	@Override
+	@SuppressLint("NewApi") @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+		
+		String longText="Meals you saved is going to be served soon";
+		
+		PendingIntent pIntent = PendingIntent.getActivity(
+					    getApplicationContext(),
+					    0,
+					    new Intent(), // add this
+					    PendingIntent.FLAG_UPDATE_CURRENT);
+				
+				
+				Notification n = new Notification.Builder(this)
+						.setContentTitle("Your favorite meal spotted!")
+						.setContentText("Subject").setSmallIcon(R.drawable.ic_launcher)
+						.setContentIntent(pIntent).setAutoCancel(true)
+						.addAction(R.drawable.ic_launcher, "More", pIntent)
+						.setStyle(new Notification.BigTextStyle().bigText(longText)).build();
+
+			
+
+				notificationManager.notify(0, n);
+		
+		
 		//if (settings != null){
 			//viewType = settings.getInt("VIEW_TYPE");
 		//} else 
