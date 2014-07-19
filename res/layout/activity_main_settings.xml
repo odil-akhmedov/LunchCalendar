@@ -15,7 +15,7 @@
 
     <ScrollView
         android:id="@+id/scrollView1"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="250dp"
         android:layout_marginBottom="116dp"
         android:layout_marginLeft="10dp" >
@@ -53,7 +53,7 @@
         android:layout_marginTop="36dp"
         android:entries="@array/time_clock" />
 
-    <!-- 
+    <!--
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -66,7 +66,8 @@
             android:id="@+id/daySpinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-    </RelativeLayout>-->
+    </RelativeLayout>
+    -->
 
     <Button
         android:id="@+id/saveSettings"
@@ -85,5 +86,19 @@
         android:layout_above="@+id/saveSettings"
         android:layout_alignParentRight="true"
         android:entries="@array/days_to_notify" />
+
+    <RelativeLayout
+        android:id="@+id/spinnerForMeals"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_alignBottom="@+id/scrollView1"
+        android:layout_alignLeft="@+id/daySpinner"
+        android:layout_marginBottom="33dp" >
+
+        <com.zos.lunchcalendar.MultiSelectionSpinner
+            android:id="@+id/mealSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
 
 </RelativeLayout>
