@@ -191,7 +191,7 @@ public class SettingsActivity extends ActionBarActivity {
 
 		//loading for preferred time
 		preferredTime = sharedPreferences.getString("PreferredTime", "06:00");
-		preferredTime = sharedPreferences.getString("PreferredDay", "Same day");
+		
 
 		@SuppressWarnings("unchecked")
 		ArrayAdapter<String> timeAdap = (ArrayAdapter<String>) timeSpinner
@@ -202,6 +202,8 @@ public class SettingsActivity extends ActionBarActivity {
 		timeSpinner.setSelection(timePosition);
 
 		//Loading for preferred days
+		preferredDay = sharedPreferences.getString("PreferredDay", "");
+		
 		@SuppressWarnings("unchecked")
 		ArrayAdapter<String> dayAdap = (ArrayAdapter<String>) daySpinner
 				.getAdapter(); // cast to an ArrayAdapter
