@@ -20,8 +20,7 @@
         <item>Settings</item>
         <item>About</item>
     </string-array>
-    
-     <string-array name="week_days">
+    <string-array name="week_days">
         <item>Sunday</item>
         <item>Monday</item>
         <item>Tuesday</item>
@@ -30,10 +29,12 @@
         <item>Friday</item>
         <item>Saturday</item>
     </string-array>
-    
-    
-    
-     <string-array name="time_clock">
+    <string-array name="days_to_notify">
+        <item>Two days before</item>
+        <item>A day before</item>
+        <item>Same day</item>
+    </string-array>
+    <string-array name="time_clock">
         <item>00:00</item>
         <item>01:00</item>
         <item>02:00</item>
@@ -57,9 +58,8 @@
         <item>20:00</item>
         <item>21:00</item>
         <item>22:00</item>
-        <item>23:00</item>        
+        <item>23:00</item>
     </string-array>
-    
 
     <string name="str_today">TODAY:</string>
     <string name="str_tomorrow">TOMORROW:</string>

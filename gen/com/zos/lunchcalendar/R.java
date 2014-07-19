@@ -17,8 +17,9 @@ public final class R {
         public static final int abc_slide_out_top=0x7f040005;
     }
     public static final class array {
+        public static final int days_to_notify=0x7f0c0002;
         public static final int menu_choices=0x7f0c0000;
-        public static final int time_clock=0x7f0c0002;
+        public static final int time_clock=0x7f0c0003;
         public static final int week_days=0x7f0c0001;
     }
     public static final class attr {
@@ -1105,7 +1106,7 @@ containing a value of this type.
         public static final int button1=0x7f05003c;
         public static final int checkbox=0x7f05002d;
         public static final int collapseActionView=0x7f05000d;
-        public static final int daySpinner=0x7f050046;
+        public static final int daySpinner=0x7f050047;
         public static final int default_activity_button=0x7f050028;
         public static final int dialog=0x7f05000e;
         public static final int disableHome=0x7f050008;
@@ -1135,7 +1136,7 @@ containing a value of this type.
         public static final int progress_circular=0x7f050018;
         public static final int progress_horizontal=0x7f050019;
         public static final int radio=0x7f05002f;
-        public static final int saveSettings=0x7f050047;
+        public static final int saveSettings=0x7f050046;
         public static final int scrollView1=0x7f050040;
         public static final int search_badge=0x7f050032;
         public static final int search_bar=0x7f050031;

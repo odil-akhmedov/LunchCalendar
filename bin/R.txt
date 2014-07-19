@@ -4,8 +4,9 @@ int anim abc_slide_in_bottom 0x7f040002
 int anim abc_slide_in_top 0x7f040003
 int anim abc_slide_out_bottom 0x7f040004
 int anim abc_slide_out_top 0x7f040005
+int array days_to_notify 0x7f0c0002
 int array menu_choices 0x7f0c0000
-int array time_clock 0x7f0c0002
+int array time_clock 0x7f0c0003
 int array week_days 0x7f0c0001
 int attr actionBarDivider 0x7f01000f
 int attr actionBarItemBackground 0x7f010010
@@ -258,7 +259,7 @@ int id beginning 0x7f050011
 int id button1 0x7f05003c
 int id checkbox 0x7f05002d
 int id collapseActionView 0x7f05000d
-int id daySpinner 0x7f050046
+int id daySpinner 0x7f050047
 int id default_activity_button 0x7f050028
 int id dialog 0x7f05000e
 int id disableHome 0x7f050008
@@ -288,7 +289,7 @@ int id normal 0x7f050000
 int id progress_circular 0x7f050018
 int id progress_horizontal 0x7f050019
 int id radio 0x7f05002f
-int id saveSettings 0x7f050047
+int id saveSettings 0x7f050046
 int id scrollView1 0x7f050040
 int id search_badge 0x7f050032
 int id search_bar 0x7f050031

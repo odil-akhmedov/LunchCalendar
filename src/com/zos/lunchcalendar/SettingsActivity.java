@@ -35,7 +35,8 @@ public class SettingsActivity extends ActionBarActivity {
 	private ArrayList<DailyMenu> menuForMonth = new ArrayList<DailyMenu>();
 
 	TextView mealsList;
-	MultiSelectionSpinner daySpinner;
+	//MultiSelectionSpinner daySpinner;
+	Spinner daySpinner;
 	ListView mealsListView;
 	Spinner timeSpinner;
 
@@ -63,8 +64,9 @@ public class SettingsActivity extends ActionBarActivity {
 		// mealsList = (TextView)findViewById(R.id.mealsList);
 
 		String[] daysArray = { "Two day Before", "A day before", "Same day"};
-		daySpinner = (MultiSelectionSpinner) findViewById(R.id.daySpinner);
-		daySpinner.setItems(daysArray);
+		//daySpinner = (MultiSelectionSpinner) findViewById(R.id.daySpinner);
+		//daySpinner.setItems(daysArray);
+		daySpinner = (Spinner) findViewById(R.id.daySpinner);
 
 		AssetManager am = getApplicationContext().getAssets();
 		/*
@@ -145,7 +147,7 @@ public class SettingsActivity extends ActionBarActivity {
 
 				preferredTime = timeSpinner.getSelectedItem().toString();
 
-				preferredDays = daySpinner.getSelectedArrayStrings();
+				//preferredDays = daySpinner.getSelectedArrayStrings();
 
 				/** Save to shared preferences **/
 
@@ -244,8 +246,8 @@ public class SettingsActivity extends ActionBarActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	public void onClickDD(View v) {
+	/*public void onClickDD(View v) {
 		String s = daySpinner.getSelectedItemsAsString();
 		Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
-	}
+	}*/
 }

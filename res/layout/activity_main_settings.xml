@@ -53,6 +53,7 @@
         android:layout_marginTop="36dp"
         android:entries="@array/time_clock" />
 
+    <!-- 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -65,7 +66,7 @@
             android:id="@+id/daySpinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-    </RelativeLayout>
+    </RelativeLayout>-->
 
     <Button
         android:id="@+id/saveSettings"
@@ -76,5 +77,13 @@
         android:layout_marginTop="16dp"
         android:layout_toRightOf="@+id/textView1"
         android:text="Save" />
+
+    <Spinner
+        android:id="@+id/daySpinner"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/timeSpinner"
+        android:entries="@array/days_to_notify" />
 
 </RelativeLayout>
