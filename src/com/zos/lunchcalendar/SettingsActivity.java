@@ -51,7 +51,9 @@ public class SettingsActivity extends ActionBarActivity {
 	Button save;
 
 	private String url = "http://www.google.com/calendar/feeds/gqccak2junkb7eup9ls76k919c@group.calendar.google.com/public/full?alt=json&orderby=starttime&max-results=15&singleevents=true&sortorder=ascending&futureevents=true";
-
+	//4vtl6sns8n6apup80ns7lrcd08@group.calendar.google.com
+	//private String url = "http://www.google.com/calendar/feeds/gqccak2junkb7eup9ls76k919c@group.calendar.google.com/public/full?alt=json&orderby=starttime&max-results=15&singleevents=true&sortorder=ascending&futureevents=true";
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -149,7 +151,7 @@ public class SettingsActivity extends ActionBarActivity {
 				savePreferences("PreferredTime", preferredTime);
 				savePreferences("PreferredDays", preferredDays);
 
-				finish();
+				//finish();
 
 			}
 		});
@@ -162,31 +164,33 @@ public class SettingsActivity extends ActionBarActivity {
 		SharedPreferences sharedPreferences = PreferenceManager
 				.getDefaultSharedPreferences(this);
 		
-		preferredMealsFromArray = sharedPreferences.getStringSet("PreferredMeals", null);
-		Iterator<String> itr = preferredMealsFromArray.iterator();
 		
-        while(itr.hasNext()){	//from hashSet to ArrayString
-            preferredMeals.add(itr.next());
+		
+		preferredTime = sharedPreferences.getString("PreferredTime", "06:00");
+		
+		 @SuppressWarnings("unchecked")
+			ArrayAdapter<String> myAdap = (ArrayAdapter<String>)timeSpinner.getAdapter(); //cast to an ArrayAdapter
+
+	        int spinnerPosition = myAdap.getPosition(preferredTime);
+
+	        timeSpinner.setSelection(spinnerPosition);
+		
+			
+		preferredMealsFromArray = sharedPreferences.getStringSet("PreferredMeals", null);
+		
+		
+		/*  Iterator<String> itr = preferredMealsFromArray.iterator();
+		
+        while(itr.hasNext()){	
+            preferredMeals.add(itr.next().toString());
         }
-        
-        preferredTime = sharedPreferences.getString("PreferredTime", "06:00");
-        
-        //set the saved time to time spinner
-
-        @SuppressWarnings("unchecked")
-		ArrayAdapter<String> myAdap = (ArrayAdapter<String>)timeSpinner.getAdapter(); //cast to an ArrayAdapter
-
-        int spinnerPosition = myAdap.getPosition(preferredTime);
-
-        //set the default time according to value
-        timeSpinner.setSelection(spinnerPosition);
          
         preferredDaysFromArray = sharedPreferences.getStringSet("PreferredDays", null);
 		Iterator<String> itr2 = preferredDaysFromArray.iterator();
 		
-        while(itr.hasNext()){	//from hashSet to ArrayString
+        while(itr.hasNext()){	
             preferredDays.add(itr2.next());
-        }
+        }*/
         
 		/*boolean checkBoxValue = sharedPreferences.getBoolean("CheckBox_Value", false);
 		String name = sharedPreferences.getString("storedName", "YourName");
@@ -198,20 +202,11 @@ public class SettingsActivity extends ActionBarActivity {
 
 		editText.setText(name);*/
 	}
-
-	private void savePreferences(String key, boolean value) {
-		SharedPreferences sharedPreferences = PreferenceManager
-				.getDefaultSharedPreferences(this);
-		Editor editor = sharedPreferences.edit();
-		editor.putBoolean(key, value);
-		editor.commit();
-	}
-
 	private void savePreferences(String key, String value) {
 		SharedPreferences sharedPreferences = PreferenceManager
 				.getDefaultSharedPreferences(this);
 		
-		Editor editor = sharedPreferences.edit();
+		SharedPreferences.Editor editor = sharedPreferences.edit();
 		editor.putString(key, value);
 		editor.commit();
 	}
@@ -225,10 +220,23 @@ public class SettingsActivity extends ActionBarActivity {
 		for (int i = 0; i < value.size(); i++)
 			preferredMealsSet.add(value.get(i));
 		
-		Editor editor = sharedPreferences.edit();
+		SharedPreferences.Editor editor = sharedPreferences.edit();
 		editor.putStringSet("PreferredMeals", preferredMealsSet);
 		editor.commit();
 	}
+	
+	/*private void savePreferences(String mealsKey, String daysKey, ArrayList<String> mealsValue, ArrayList<String> daysValue) {
+		SharedPreferences sharedPreferences = PreferenceManager
+				.getDefaultSharedPreferences(this);
+		Set<String> preferredMealsSet = new HashSet<String>();
+		
+		for (int i = 0; i < value.size(); i++)
+			preferredMealsSet.add(value.get(i));
+		
+		Editor editor = sharedPreferences.edit();
+		editor.putStringSet("PreferredMeals", preferredMealsSet);
+		editor.commit();
+	}*/
 
 
 	/*
