@@ -138,6 +138,8 @@ public class SettingsActivity extends ActionBarActivity {
 					if (sparseBooleanArray.get(i) == true) {
 						preferredMeals.add(mealsListView.getItemAtPosition(i)
 								.toString());
+					} else {
+						preferredMeals.remove(mealsListView.getItemAtPosition(i).toString());
 					}
 				}
 
@@ -169,7 +171,7 @@ public class SettingsActivity extends ActionBarActivity {
 		for (String str : preferredMealsFromArray)
 			preferredMeals.add(str);
 		
-		/*if (sharedPreferences.contains("PreferredMeals")) {
+		if (sharedPreferences.contains("PreferredMeals")) {
 	        //String savedItems = sharedPreferences.getString("PreferredMeals", "");
 	        //ArrayList<String> savedItemsList = (ArrayList<String>) Arrays.asList(savedItems.split(","));
 	        int count = this.mealsListView.getAdapter().getCount();
@@ -181,7 +183,7 @@ public class SettingsActivity extends ActionBarActivity {
 	                this.mealsListView.setItemChecked(i, false);
 	            }
 	        }
-	    }*/
+	    }
 
 		preferredTime = sharedPreferences.getString("PreferredTime", "06:00");
 
