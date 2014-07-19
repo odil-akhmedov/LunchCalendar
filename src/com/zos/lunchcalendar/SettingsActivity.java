@@ -117,11 +117,11 @@ public class SettingsActivity extends ActionBarActivity {
 			mealz.addAll(hs);
 		}
 		
-		String[] mealArr = new String[mealz.size()];
-		mealArr = mealz.toArray(mealArr);
+		//String[] mealArr = new String[mealz.size()];
+		//mealArr = mealz.toArray(mealArr);
 		
 		mealSpinner = (MultiSelectionSpinner) findViewById(R.id.mealSpinner);
-		mealSpinner.setItems(mealArr);
+		mealSpinner.setItems(mealz);
 
 		//We can use multispinner, and then grab the results from the spinner titles
 		mealsListView = (ListView) findViewById(R.id.favoriteMeals);
@@ -153,6 +153,13 @@ public class SettingsActivity extends ActionBarActivity {
 					}
 				}
 
+				String s = mealSpinner.getSelectedItemsAsString();
+				ArrayList<String> d = mealSpinner.getSelectedArrayStrings();
+
+				Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
+				
+				//preferredMeals = d;
+				
 				preferredTime = timeSpinner.getSelectedItem().toString();
 
 				preferredDay = daySpinner.getSelectedItem().toString();
@@ -268,8 +275,8 @@ public class SettingsActivity extends ActionBarActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	/*public void onClickDD(View v) {
-		String s = daySpinner.getSelectedItemsAsString();
+	public void onClickDD(View v) {
+		String s = mealSpinner.getSelectedItemsAsString();
 		Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
-	}*/
+	}
 }
