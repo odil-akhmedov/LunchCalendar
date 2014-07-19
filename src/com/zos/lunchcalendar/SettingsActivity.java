@@ -94,10 +94,10 @@ public class SettingsActivity extends ActionBarActivity {
 		obj = new JSONCalendarParser("JSON.json", getApplicationContext(), true);
 		obj.fetchJSON();
 
-		while (obj.parsingComplete)
-			;
+		while (obj.parsingComplete);
 
 		mealsListText = obj.getContentFromJson();
+		menuForMonth = obj.getMenuFromJson();
 
 		// getting actual lunch items
 		// yes we need to use regular expressions
@@ -159,8 +159,7 @@ public class SettingsActivity extends ActionBarActivity {
 				String s = mealSpinner.getSelectedItemsAsString();
 				ArrayList<String> d = mealSpinner.getSelectedArrayStrings();
 
-				Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG)
-						.show();
+				//Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
 
 				// preferredMeals = d;
 

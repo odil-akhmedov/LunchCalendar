@@ -40,7 +40,7 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 		
-		String longText="Meals you saved is going to be served soon";
+		String longText = "Meals you saved is going to be served soon";
 		
 		PendingIntent pIntent = PendingIntent.getActivity(
 					    getApplicationContext(),
@@ -55,9 +55,7 @@ public class MainActivity extends Activity {
 						.setContentIntent(pIntent).setAutoCancel(true)
 						.addAction(R.drawable.ic_launcher, "More", pIntent)
 						.setStyle(new Notification.BigTextStyle().bigText(longText)).build();
-
-			
-
+				
 				notificationManager.notify(0, n);
 		
 		
