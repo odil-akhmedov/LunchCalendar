@@ -25,7 +25,7 @@ public class MainActivity extends Activity {
 	private int viewType = 1; // 0 - for list view, 1 for grid view
 
 	private Bundle settings;
-	
+
 	CustomAdapter adapter;
 	ArrayList<String> result = new ArrayList<String>();
 
@@ -35,41 +35,22 @@ public class MainActivity extends Activity {
 	private String url = "http://www.google.com/calendar/feeds/gqccak2junkb7eup9ls76k919c@group.calendar.google.com/public/full?alt=json&orderby=starttime&max-results=15&singleevents=true&sortorder=ascending&futureevents=true";
 	private JSONCalendarParser obj;
 
-	@SuppressLint("NewApi") @Override
+	@SuppressLint("NewApi")
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-		
-		String longText = "Meals you saved is going to be served soon";
-		
-		PendingIntent pIntent = PendingIntent.getActivity(
-					    getApplicationContext(),
-					    0,
-					    new Intent(), // add this
-					    PendingIntent.FLAG_UPDATE_CURRENT);
-				
-				
-				Notification n = new Notification.Builder(this)
-						.setContentTitle("Your favorite meal spotted!")
-						.setContentText("Subject").setSmallIcon(R.drawable.ic_launcher)
-						.setContentIntent(pIntent).setAutoCancel(true)
-						.addAction(R.drawable.ic_launcher, "More", pIntent)
-						.setStyle(new Notification.BigTextStyle().bigText(longText)).build();
-				
-				notificationManager.notify(0, n);
-		
-		
-		//if (settings != null){
-			//viewType = settings.getInt("VIEW_TYPE");
-		//} else 
-			//viewType = 0;
-			
+
+		// if (settings != null){
+		// viewType = settings.getInt("VIEW_TYPE");
+		// } else
+		// viewType = 0;
+
 		if (savedInstanceState != null) {
 			Log.v(TAG, "onRestoreInstanceState called");
 			Log.v(TAG, "Values restored in onRestoreInstanceState = "
 					+ savedInstanceState.getInt("VIEWTYPE"));
 		}
-		
+
 		switch (viewType) {
 		case 0:
 			setContentView(R.layout.activity_main_list);
@@ -81,8 +62,24 @@ public class MainActivity extends Activity {
 
 		startParsing();
 		// adapter = new CalendarAdapters(getApplicationContext());
+		//Notifications
+		NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
-		
+		String longText = "Meals you saved is going to be served soon";
+
+		PendingIntent pIntent = PendingIntent.getActivity(
+				getApplicationContext(), 0, new Intent(), // add this
+				PendingIntent.FLAG_UPDATE_CURRENT);
+
+		Notification n = new Notification.Builder(this)
+				.setContentTitle("Your favorite meal spotted!")
+				.setContentText("Subject").setSmallIcon(R.drawable.ic_launcher)
+				.setContentIntent(pIntent).setAutoCancel(true)
+				.addAction(R.drawable.ic_launcher, "More", pIntent)
+				.setStyle(new Notification.BigTextStyle().bigText(longText))
+				.build();
+
+		notificationManager.notify(0, n);
 
 	}
 
@@ -151,9 +148,9 @@ public class MainActivity extends Activity {
 			viewType = 0; // List
 			i = new Intent(this, MainActivity.class);
 			i.putExtra("VIEW_TYPE", viewType);
-			startActivity(i);			
+			startActivity(i);
 			return true;
-			
+
 		case R.id.gridViewMode:
 			viewType = 1; // Grid
 			i = new Intent(this, MainActivity.class);
@@ -174,7 +171,8 @@ public class MainActivity extends Activity {
 		obj.fetchJSON();
 		// Toast.makeText(getApplicationContext(), "msg msg",
 		// Toast.LENGTH_SHORT).show();
-		while (obj.parsingComplete);
+		while (obj.parsingComplete)
+			;
 
 		result = obj.getContentFromJson();
 
@@ -212,10 +210,11 @@ public class MainActivity extends Activity {
 	public void startParsing() {
 		obj = new JSONCalendarParser(url, getApplicationContext());
 		obj.fetchJSON();
-		
-		while (obj.parsingComplete);
 
-		//result = obj.getContentFromJson();
+		while (obj.parsingComplete)
+			;
+
+		// result = obj.getContentFromJson();
 
 		menuForMonth = obj.getMenuFromJson();
 		switch (viewType) {
