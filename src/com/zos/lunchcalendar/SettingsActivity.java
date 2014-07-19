@@ -177,7 +177,8 @@ public class SettingsActivity extends ActionBarActivity {
 		
 			
 		preferredMealsFromArray = sharedPreferences.getStringSet("PreferredMeals", null);
-		
+		for (String str : preferredMealsFromArray)
+			preferredMeals.add(str);
 		
 		/*  Iterator<String> itr = preferredMealsFromArray.iterator();
 		
