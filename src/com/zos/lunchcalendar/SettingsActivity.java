@@ -43,8 +43,9 @@ public class SettingsActivity extends ActionBarActivity {
 	// Here we save preferences
 	ArrayList<String> preferredMeals = new ArrayList<String>();
 	String preferredTime;
-	ArrayList<String> preferredDays = new ArrayList<String>();
-
+	//ArrayList<String> preferredDays = new ArrayList<String>();
+	String preferredDay;
+	
 	// get values from shared prefs
 	Set<String> preferredMealsFromArray = new HashSet<String>();
 	Set<String> preferredDaysFromArray = new HashSet<String>();
@@ -66,6 +67,7 @@ public class SettingsActivity extends ActionBarActivity {
 		String[] daysArray = { "Two day Before", "A day before", "Same day"};
 		//daySpinner = (MultiSelectionSpinner) findViewById(R.id.daySpinner);
 		//daySpinner.setItems(daysArray);
+		timeSpinner = (Spinner) findViewById(R.id.timeSpinner);
 		daySpinner = (Spinner) findViewById(R.id.daySpinner);
 
 		AssetManager am = getApplicationContext().getAssets();
@@ -122,7 +124,7 @@ public class SettingsActivity extends ActionBarActivity {
 		mealsListView.setItemsCanFocus(false);
 		mealsListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
-		timeSpinner = (Spinner) findViewById(R.id.timeSpinner);
+		
 
 		save = (Button) findViewById(R.id.saveSettings);
 		loadSavedPreferences();
@@ -147,13 +149,13 @@ public class SettingsActivity extends ActionBarActivity {
 
 				preferredTime = timeSpinner.getSelectedItem().toString();
 
-				//preferredDays = daySpinner.getSelectedArrayStrings();
+				preferredDay = daySpinner.getSelectedItem().toString();
 
 				/** Save to shared preferences **/
 
 				savePreferences("PreferredMeals", preferredMeals);
 				savePreferences("PreferredTime", preferredTime);
-				//savePreferences("PreferredDays", preferredDays);
+				savePreferences("PreferredDay", preferredDay);
 
 				 finish();
 
@@ -187,16 +189,28 @@ public class SettingsActivity extends ActionBarActivity {
 	        }
 	    }
 
+		//loading for preferred time
 		preferredTime = sharedPreferences.getString("PreferredTime", "06:00");
+		preferredTime = sharedPreferences.getString("PreferredDay", "Same day");
 
 		@SuppressWarnings("unchecked")
-		ArrayAdapter<String> myAdap = (ArrayAdapter<String>) timeSpinner
+		ArrayAdapter<String> timeAdap = (ArrayAdapter<String>) timeSpinner
 				.getAdapter(); // cast to an ArrayAdapter
 
-		int spinnerPosition = myAdap.getPosition(preferredTime);
+		int timePosition = timeAdap.getPosition(preferredTime);
 
-		timeSpinner.setSelection(spinnerPosition);
+		timeSpinner.setSelection(timePosition);
 
+		//Loading for preferred days
+		@SuppressWarnings("unchecked")
+		ArrayAdapter<String> dayAdap = (ArrayAdapter<String>) daySpinner
+				.getAdapter(); // cast to an ArrayAdapter
+
+		int dayPosition = dayAdap.getPosition(preferredDay);
+
+		daySpinner.setSelection(dayPosition);
+		
+		
 		/*preferredDaysFromArray = sharedPreferences.getStringSet(
 				"PreferredDays", null);
 		for (String str2 : preferredDaysFromArray)

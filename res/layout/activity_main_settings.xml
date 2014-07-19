@@ -83,7 +83,8 @@
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/timeSpinner"
+        android:layout_alignTop="@+id/textView2"
+        android:layout_marginTop="22dp"
         android:entries="@array/days_to_notify" />
 
 </RelativeLayout>
