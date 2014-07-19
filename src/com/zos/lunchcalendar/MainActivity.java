@@ -3,12 +3,14 @@ package com.zos.lunchcalendar;
 import java.util.ArrayList;
 import android.R.string;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.util.Log;
 import android.view.Menu;
@@ -34,7 +36,9 @@ public class MainActivity extends Activity {
 
 	private String url = "http://www.google.com/calendar/feeds/gqccak2junkb7eup9ls76k919c@group.calendar.google.com/public/full?alt=json&orderby=starttime&max-results=15&singleevents=true&sortorder=ascending&futureevents=true";
 	private JSONCalendarParser obj;
-
+	SharedPreferences sharedPreferences;
+	
+	
 	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +67,13 @@ public class MainActivity extends Activity {
 		startParsing();
 		// adapter = new CalendarAdapters(getApplicationContext());
 		//Notifications
+		
+		sharedPreferences = PreferenceManager
+				.getDefaultSharedPreferences(this);
+
+		//preferredMealsFromArray = sharedPreferences.getStringSet(
+			//	"PreferredMeals", null);
+		
 		NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
 		String longText = "Meals you saved is going to be served soon";
