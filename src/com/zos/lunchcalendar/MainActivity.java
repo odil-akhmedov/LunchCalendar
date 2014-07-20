@@ -1,6 +1,9 @@
 package com.zos.lunchcalendar;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -256,7 +259,20 @@ public class MainActivity extends Activity {
 			for (int i = 0; i < preferredMeals.size(); i++){
 				if (menuForMonth.contains(preferredMeals.get(i))){
 					int index = menuForMonth.indexOf(preferredMeals.get(i));
-					menuForMonth.get(index).getStartTime();
+					String startTime = menuForMonth.get(index).getStartTime();
+					
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+					Date date = null;
+					try {
+						date = sdf.parse(startTime);
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					Calendar calendar = Calendar.getInstance();
+					calendar.setTimeInMillis(date.getTime());
+				
+
 				}
 			}
 				
