@@ -1,6 +1,7 @@
 package com.zos.lunchcalendar;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -42,6 +43,7 @@ public class MainActivity extends Activity {
 	SharedPreferences sharedPreferences;
 	Set<String> preferredMealsFromArray = new HashSet<String>();
 	String preferredDay; //Day before, same day...
+	Date notificationTime;
 	
 	
 	@SuppressLint("NewApi")
@@ -94,7 +96,7 @@ public class MainActivity extends Activity {
 				.setContentIntent(pIntent).setAutoCancel(true)
 				.addAction(R.drawable.ic_launcher, "More", pIntent)
 				.setStyle(new Notification.BigTextStyle().bigText(longText))
-				.build();
+				.setWhen(System.currentTimeMillis()).build();
 
 		notificationManager.notify(0, n);
 
@@ -188,8 +190,7 @@ public class MainActivity extends Activity {
 		obj.fetchJSON();
 		// Toast.makeText(getApplicationContext(), "msg msg",
 		// Toast.LENGTH_SHORT).show();
-		while (obj.parsingComplete)
-			;
+		while (obj.parsingComplete);
 
 		result = obj.getContentFromJson();
 
@@ -228,12 +229,12 @@ public class MainActivity extends Activity {
 		obj = new JSONCalendarParser(url, getApplicationContext());
 		obj.fetchJSON();
 
-		while (obj.parsingComplete)
-			;
+		while (obj.parsingComplete);
 
 		// result = obj.getContentFromJson();
 
 		menuForMonth = obj.getMenuFromJson();
+		menuForMonth.get(1);
 		switch (viewType) {
 		case 0:
 			CustomAdapter adapter = new CustomAdapter(this,
