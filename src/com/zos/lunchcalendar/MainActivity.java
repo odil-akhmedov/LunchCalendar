@@ -41,8 +41,11 @@ public class MainActivity extends Activity {
 	private String url = "http://www.google.com/calendar/feeds/gqccak2junkb7eup9ls76k919c@group.calendar.google.com/public/full?alt=json&orderby=starttime&max-results=15&singleevents=true&sortorder=ascending&futureevents=true";
 	private JSONCalendarParser obj;
 	SharedPreferences sharedPreferences;
+	
 	Set<String> preferredMealsFromArray = new HashSet<String>();
+	ArrayList<String> preferredMeals = new ArrayList<String>();
 	String preferredDay; //Day before, same day...
+	
 	Date notificationTime;
 	
 	
@@ -234,7 +237,6 @@ public class MainActivity extends Activity {
 		// result = obj.getContentFromJson();
 
 		menuForMonth = obj.getMenuFromJson();
-		menuForMonth.get(1);
 		switch (viewType) {
 		case 0:
 			CustomAdapter adapter = new CustomAdapter(this,
@@ -247,6 +249,18 @@ public class MainActivity extends Activity {
 					R.layout.custom_grid_textview, menuForMonth, viewType);
 			GridView g = (GridView) findViewById(R.id.gridViewMain);
 			g.setAdapter(adapter2);
+			
+			for (String str : preferredMealsFromArray)
+				preferredMeals.add(str);
+
+			for (int i = 0; i < preferredMeals.size(); i++){
+				if (menuForMonth.contains(preferredMeals.get(i))){
+					int index = menuForMonth.indexOf(preferredMeals.get(i));
+					menuForMonth.get(index).getStartTime();
+				}
+			}
+				
+			
 			// g.setOnItemClickListener(this);
 			break;
 		}

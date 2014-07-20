@@ -192,10 +192,6 @@ public class SettingsActivity extends ActionBarActivity {
 			preferredMeals.add(str);
 
 		if (sharedPreferences.contains("PreferredMeals")) {
-			// String savedItems = sharedPreferences.getString("PreferredMeals",
-			// "");
-			// ArrayList<String> savedItemsList = (ArrayList<String>)
-			// Arrays.asList(savedItems.split(","));
 			int count = this.mealsListView.getAdapter().getCount();
 			for (int i = 0; i < count; i++) {
 				String currentItem = (String) this.mealsListView.getAdapter()
