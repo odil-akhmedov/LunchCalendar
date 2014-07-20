@@ -261,7 +261,7 @@ public class SettingsActivity extends ActionBarActivity {
 			if (menuForMonth.contains(preferredMeals.get(i))){
 				int index = menuForMonth.indexOf(preferredMeals.get(i));
 				String startTime = menuForMonth.get(index).getStartTime();
-				
+				//String startTime = "2014-07-20";
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 				Date date = null;
 				try {
