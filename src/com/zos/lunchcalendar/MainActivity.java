@@ -1,6 +1,9 @@
 package com.zos.lunchcalendar;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
 import android.R.string;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -37,6 +40,8 @@ public class MainActivity extends Activity {
 	private String url = "http://www.google.com/calendar/feeds/gqccak2junkb7eup9ls76k919c@group.calendar.google.com/public/full?alt=json&orderby=starttime&max-results=15&singleevents=true&sortorder=ascending&futureevents=true";
 	private JSONCalendarParser obj;
 	SharedPreferences sharedPreferences;
+	Set<String> preferredMealsFromArray = new HashSet<String>();
+	String preferredDay; //Day before, same day...
 	
 	
 	@SuppressLint("NewApi")
@@ -71,8 +76,9 @@ public class MainActivity extends Activity {
 		sharedPreferences = PreferenceManager
 				.getDefaultSharedPreferences(this);
 
-		//preferredMealsFromArray = sharedPreferences.getStringSet(
-			//	"PreferredMeals", null);
+		preferredMealsFromArray = sharedPreferences.getStringSet(
+				"PreferredMeals", null);
+		
 		
 		NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
