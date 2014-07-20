@@ -273,6 +273,8 @@ public class SettingsActivity extends ActionBarActivity {
 				Calendar calendar = Calendar.getInstance();
 				calendar.setTimeInMillis(date.getTime());
 				//timeToNotify.add(date.getTime());
+				//if e.g. the user wants to be notified the day before 
+				//at 8:00 am, then we have to calculate date.getTime() - (24-8)*3600*1000s
 
 			}
 		}
