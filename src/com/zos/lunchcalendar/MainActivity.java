@@ -81,6 +81,22 @@ import android.widget.Toast;
 		// adapter = new CalendarAdapters(getApplicationContext());
 		//Notifications
 		
+		String startTime = "2014-07-20 16:00:00";
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		long notifyTime;
+		Date date = null;
+		try {
+			date = sdf.parse(startTime);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTimeInMillis(date.getTime());
+		notifyTime = date.getTime();
+		
+		
 		sharedPreferences = PreferenceManager
 				.getDefaultSharedPreferences(this);
 
@@ -102,7 +118,7 @@ import android.widget.Toast;
 				.setContentIntent(pIntent).setAutoCancel(true)
 				.addAction(R.drawable.ic_launcher, "More", pIntent)
 				.setStyle(new Notification.BigTextStyle().bigText(longText))
-				.setWhen(System.currentTimeMillis()).build();
+				.setShowWhen(true).setWhen(notifyTime).build();
 
 		notificationManager.notify(0, n);
 
