@@ -16,7 +16,6 @@ import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -53,7 +52,6 @@ import android.widget.Toast;
 	Date notificationTime;
 	
 	
-	@SuppressWarnings("deprecation")
 	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +81,7 @@ import android.widget.Toast;
 		// adapter = new CalendarAdapters(getApplicationContext());
 		//Notifications
 		
-		String startTime = "2014-07-20 16:14:20";
+		String startTime = "2014-07-20 16:00:00";
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		long notifyTime;
@@ -106,7 +104,7 @@ import android.widget.Toast;
 				"PreferredMeals", null);
 		
 		
-		/*NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+		NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
 		String longText = "Meals you saved is going to be served soon";
 
@@ -119,34 +117,9 @@ import android.widget.Toast;
 				.setContentText("Subject").setSmallIcon(R.drawable.ic_launcher)
 				.setContentIntent(pIntent).setAutoCancel(true)
 				.addAction(R.drawable.ic_launcher, "More", pIntent)
-				.setStyle(new Notification.BigTextStyle().bigText(longText))
-				.setShowWhen(true).setWhen(notifyTime).build();
+				.setStyle(new Notification.BigTextStyle().bigText(longText)).build();
 
-		notificationManager.notify(0, n);*/
-		
-		//part 1 – notification icon alert
-		int icon = R.drawable.ic_launcher;
-		// a ticker text message or sound or vibration or flashlight can be used for alert
-		CharSequence ticker = "Your favorite meal spotted!";
-		long showAt = System.currentTimeMillis(); //immediately
-		//long showAt = notifyTime;
-		
-		Notification notification = new Notification(icon, ticker, showAt);
-		//part 2 – associate notification message with details shown on message expansion to activity/intent
-		CharSequence notificationTitle = "Notification:";
-		CharSequence notificationMessage = "SMS Received.";
-		Intent intent = new Intent(this, Activity.class);
-		PendingIntent objPendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
-		Context ctx = getApplicationContext();
-	
-		notification.setLatestEventInfo(ctx, notificationTitle, notificationMessage, objPendingIntent);
-		//part 3 – register the notification message with notification manager
-		final int notificationIdentifier = 101; //an unique number set by developer to identify a notification, using this notification can be updated/replaced
-		NotificationManager notificationManager = (NotificationManager)
-		getSystemService(Context.NOTIFICATION_SERVICE);
-		
-		notificationManager.notify(notificationIdentifier, notification);
-
+		notificationManager.notify(0, n);
 
 	}
 
