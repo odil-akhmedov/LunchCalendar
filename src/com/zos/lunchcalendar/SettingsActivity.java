@@ -1,8 +1,12 @@
 package com.zos.lunchcalendar;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -50,6 +54,7 @@ public class SettingsActivity extends ActionBarActivity {
 	// get values from shared prefs
 	Set<String> preferredMealsFromArray = new HashSet<String>();
 	Set<String> preferredDaysFromArray = new HashSet<String>();
+	Set<String> timeToNotify = new HashSet<String>();
 
 	Button save;
 
@@ -252,6 +257,27 @@ public class SettingsActivity extends ActionBarActivity {
 		for (int i = 0; i < value.size(); i++)
 			preferredMealsSet.add(value.get(i));
 
+		for (int i = 0; i < preferredMeals.size(); i++){
+			if (menuForMonth.contains(preferredMeals.get(i))){
+				int index = menuForMonth.indexOf(preferredMeals.get(i));
+				String startTime = menuForMonth.get(index).getStartTime();
+				
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				Date date = null;
+				try {
+					date = sdf.parse(startTime);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				Calendar calendar = Calendar.getInstance();
+				calendar.setTimeInMillis(date.getTime());
+				//timeToNotify.add(date.getTime());
+
+			}
+		}
+		
+		
 		SharedPreferences.Editor editor = sharedPreferences.edit();
 		editor.putStringSet("PreferredMeals", preferredMealsSet);
 		editor.commit();

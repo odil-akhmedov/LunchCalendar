@@ -29,7 +29,7 @@ import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class MainActivity extends Activity {
+@SuppressLint("SimpleDateFormat") public class MainActivity extends Activity {
 	final String TAG = "MainActivity";
 	private int viewType = 1; // 0 - for list view, 1 for grid view
 
@@ -253,28 +253,7 @@ public class MainActivity extends Activity {
 			GridView g = (GridView) findViewById(R.id.gridViewMain);
 			g.setAdapter(adapter2);
 			
-			for (String str : preferredMealsFromArray)
-				preferredMeals.add(str);
-
-			for (int i = 0; i < preferredMeals.size(); i++){
-				if (menuForMonth.contains(preferredMeals.get(i))){
-					int index = menuForMonth.indexOf(preferredMeals.get(i));
-					String startTime = menuForMonth.get(index).getStartTime();
-					
-					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-					Date date = null;
-					try {
-						date = sdf.parse(startTime);
-					} catch (ParseException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					Calendar calendar = Calendar.getInstance();
-					calendar.setTimeInMillis(date.getTime());
-				
-
-				}
-			}
+						
 				
 			
 			// g.setOnItemClickListener(this);
