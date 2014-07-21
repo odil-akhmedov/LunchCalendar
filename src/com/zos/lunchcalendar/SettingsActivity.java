@@ -169,16 +169,22 @@ public class SettingsActivity extends ActionBarActivity {
 
 	protected void setNotificationTime() {
 		// TODO Auto-generated method stub
-		long additionalTime; //we need to add it to adjust for Same Day, Two days before...
-		if (preferredDay == "A day before"){
-			additionalTime = 24*60*60*1000; //24 hours before
-		} else if (preferredDay == "Two days before"){
-			additionalTime = 48*60*60*1000; //48 hours before
-		} else if (preferredDay == "Same day")
-			additionalTime = 0; //same day
-		else 
-			additionalTime = 0;
+		long additionalTime = convertToTimeStamp(preferredTime, "hh:mm"); 
+		System.out.println("additionalTime = " + additionalTime);
+		long dayHoursAdjustment;
+		//we need to add it to adjust for Same Day, Two days before...
 		
+		if (preferredDay.equals("A day before")){
+			dayHoursAdjustment = 24*60*60*1000 ; //24 hours before + preferredTime
+		} else if (preferredDay.equals("Two days before")){
+			dayHoursAdjustment = 48*60*60*1000; //48 hours before + preferredTime
+		} else if (preferredDay.equals("Same day"))
+			dayHoursAdjustment = 0; //same day + preferredTime
+		else 
+			dayHoursAdjustment = 0;
+		
+		 System.out.println("additionalTimeDay = \"" + preferredDay + "\"");
+		 
 		ArrayList<Long> notifyTime = new ArrayList<Long>();
 		String startTime = "";// = "2014-07-20 21:08:00";
 		for (int i = 0; i < preferredMeals.size(); i++) {
@@ -186,11 +192,15 @@ public class SettingsActivity extends ActionBarActivity {
 				if (preferredMeals.get(i).contains(
 						menuForMonth.get(j).getTitle())) {
 					startTime = menuForMonth.get(i).getStartTime();
-					notifyTime.add(convertToTimeStamp(startTime, "yyyy-MM-dd") + additionalTime);
+					notifyTime.add(convertToTimeStamp(startTime, "yyyy-MM-dd") - dayHoursAdjustment + additionalTime);
+					System.out.println("NotifyTimeTrueStart = " + convertToTimeStamp(startTime, "yyyy-MM-dd"));
+					System.out.println("NotifyTimeTrue = " + (convertToTimeStamp(startTime, "yyyy-MM-dd") - dayHoursAdjustment + additionalTime));
+					
 				}
 			}
 		}
-		 System.out.println("NotifyTimeTrue = " + notifyTime.get(0));
+		 
+		 
 		Intent myIntent = new Intent(SettingsActivity.this, MyReceiver.class);
 		pendingIntent = PendingIntent.getBroadcast(SettingsActivity.this, 0,
 				myIntent, 0);
