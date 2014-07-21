@@ -73,33 +73,38 @@ public class SettingsActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_settings);
-		// mealsList = (TextView)findViewById(R.id.mealsList);
-
-		String[] daysArray = { "Two day Before", "A day before", "Same day" };
-		// daySpinner = (MultiSelectionSpinner) findViewById(R.id.daySpinner);
-		// daySpinner.setItems(daysArray);
 
 		timeSpinner = (Spinner) findViewById(R.id.timeSpinner);
 		daySpinner = (Spinner) findViewById(R.id.daySpinner);
 
 		AssetManager am = getApplicationContext().getAssets();
-		/*
-		 * try { if (am.open("JSON.json") != null){ obj = new
-		 * JSONCalendarParser("JSON.json", getApplicationContext(), true);
-		 * obj.loadJSONFromAsset();
-		 * 
-		 * while (obj.parsingComplete);
-		 * 
-		 * mealsListText = obj.getContentFromJson(); } else { obj = new
-		 * JSONCalendarParser(url, getApplicationContext()); obj.fetchJSON();
-		 * while (obj.parsingComplete); menuForMonth = obj.getMenuFromJson(); }
-		 * } catch (IOException e) { // TODO Auto-generated catch block
-		 * e.printStackTrace(); }
-		 * 
-		 * //read from url obj = new JSONCalendarParser(url,
-		 * getApplicationContext()); obj.fetchJSON(); while
-		 * (obj.parsingComplete); menuForMonth = obj.getMenuFromJsonmu();
-		 */
+
+		try {
+			if (am.open("JSON.json") != null) {
+				obj = new JSONCalendarParser("JSON.json",
+						getApplicationContext(), true);
+				obj.loadJSONFromAsset();
+
+				while(obj.parsingComplete);
+
+				mealsListText = obj.getContentFromJson();
+			} else {
+				obj = new JSONCalendarParser(url, getApplicationContext());
+				obj.fetchJSON();
+				while(obj.parsingComplete);
+				menuForMonth = obj.getMenuFromJson();
+			}
+
+		} catch (IOException e) { // TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		// read from url obj = new JSONCalendarParser(url,
+		getApplicationContext();
+		obj.fetchJSON();
+		while (obj.parsingComplete)
+			;
+		menuForMonth = obj.getMenuFromJson();
 
 		obj = new JSONCalendarParser("JSON.json", getApplicationContext(), true);
 		obj.fetchJSON();
@@ -113,19 +118,6 @@ public class SettingsActivity extends ActionBarActivity {
 		// getting actual lunch items
 		mealSpinner = (MultiSelectionSpinner) findViewById(R.id.mealSpinner);
 		mealSpinner.setItems(mealsListText, preferredMeals);
-
-		// We can use multispinner, and then grab the results from the spinner
-		// titles
-		/*
-		 * mealsListView = (ListView) findViewById(R.id.favoriteMeals);
-		 * ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-		 * android.R.layout.simple_list_item_multiple_choice, mealsListText);
-		 * mealsListView.setAdapter(adapter);
-		 * 
-		 * mealsListView.setItemsCanFocus(false);
-		 * mealsListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-		 */
-
 		save = (Button) findViewById(R.id.saveSettings);
 
 		loadSavedPreferences();
@@ -135,8 +127,6 @@ public class SettingsActivity extends ActionBarActivity {
 			public void onClick(View v) {
 
 				// TODO Auto-generated method stub
-
-				// String s = mealSpinner.getSelectedItemsAsString();
 				preferredMeals = mealSpinner.getSelectedArrayStrings();
 
 				System.out.println("Multispinner = " + preferredMeals);
@@ -248,16 +238,6 @@ public class SettingsActivity extends ActionBarActivity {
 		if (preferredMealsFromArray != null) {
 			for (String str : preferredMealsFromArray)
 				preferredMeals.add(str);
-
-			/*
-			 * if (sharedPreferences.contains("PreferredMeals")) { int count =
-			 * this.mealsListView.getAdapter().getCount(); for (int i = 0; i <
-			 * count; i++) { String currentItem = (String)
-			 * this.mealsListView.getAdapter() .getItem(i); if
-			 * (preferredMeals.contains(currentItem)) {
-			 * this.mealsListView.setItemChecked(i, true); } else {
-			 * this.mealsListView.setItemChecked(i, false); } } }
-			 */
 
 			// loading for preferred time
 			preferredTime = sharedPreferences.getString("PreferredTime",
