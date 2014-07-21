@@ -104,8 +104,7 @@ public class SettingsActivity extends ActionBarActivity {
 		obj = new JSONCalendarParser("JSON.json", getApplicationContext(), true);
 		obj.fetchJSON();
 
-		while (obj.parsingComplete)
-			;
+		while (obj.parsingComplete);
 
 		mealsListText = obj.getContentFromJson();
 		menuForMonth = obj.getMenuFromJson();
@@ -196,25 +195,25 @@ public class SettingsActivity extends ActionBarActivity {
 	protected void setNotificationTime() {
 		// TODO Auto-generated method stub
 
-		String startTime = "2014-07-20 21:08:00";
-		for (int i = 0; i < menuForMonth.size(); i++) {
-
-			if (preferredMeals.contains(menuForMonth.get(i))) {
-				startTime = menuForMonth.get(0).getStartTime();
+		String startTime = "";// = "2014-07-20 21:08:00";
+		long notifyTime = 0;
+		for (int i = 0; i < preferredMeals.size(); i++) {
+			for (int j = 0; j < menuForMonth.size(); j++) {
+				if (preferredMeals.get(i).contains(menuForMonth.get(j).getTitle())) {
+					startTime = menuForMonth.get(i).getStartTime();
+					notifyTime = convertToTimeStamp(startTime,
+							"yyyy-MM-dd");
+				}
 			}
 		}
 
-		long notifyTime = convertToTimeStamp(startTime, "yyyy-MM-dd");
-		/*SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		
-		Date date = null;
-		try {
-			date = sdf.parse(startTime);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		notifyTime = date.getTime();*/
+		/*
+		 * SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		 * 
+		 * Date date = null; try { date = sdf.parse(startTime); } catch
+		 * (ParseException e) { // TODO Auto-generated catch block
+		 * e.printStackTrace(); } notifyTime = date.getTime();
+		 */
 		System.out.println("NotifyTime1 = " + startTime);
 		System.out.println("NotifyTime2 = " + notifyTime);
 
@@ -228,7 +227,8 @@ public class SettingsActivity extends ActionBarActivity {
 
 		AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 		alarmManager.set(AlarmManager.RTC, notifyTime, pendingIntent);
-		//alarmManager.set(AlarmManager.RTC, System.currentTimeMillis(),pendingIntent);
+		// alarmManager.set(AlarmManager.RTC,
+		// System.currentTimeMillis(),pendingIntent);
 	}
 
 	private long convertToTimeStamp(String time, String format) {
