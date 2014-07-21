@@ -35,7 +35,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-@SuppressLint("SimpleDateFormat") public class SettingsActivity extends ActionBarActivity {
+@SuppressLint("SimpleDateFormat")
+public class SettingsActivity extends ActionBarActivity {
 
 	private JSONCalendarParser obj;
 	private ArrayList<String> mealsListText = new ArrayList<String>();
@@ -103,7 +104,8 @@ import android.widget.Toast;
 		obj = new JSONCalendarParser("JSON.json", getApplicationContext(), true);
 		obj.fetchJSON();
 
-		while (obj.parsingComplete);
+		while (obj.parsingComplete)
+			;
 
 		mealsListText = obj.getContentFromJson();
 		menuForMonth = obj.getMenuFromJson();
@@ -150,7 +152,7 @@ import android.widget.Toast;
 
 			@Override
 			public void onClick(View v) {
-				
+
 				// TODO Auto-generated method stub
 				SparseBooleanArray sparseBooleanArray = mealsListView
 						.getCheckedItemPositions();
@@ -168,7 +170,8 @@ import android.widget.Toast;
 				String s = mealSpinner.getSelectedItemsAsString();
 				ArrayList<String> d = mealSpinner.getSelectedArrayStrings();
 
-				//Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
+				// Toast.makeText(getApplicationContext(), s,
+				// Toast.LENGTH_LONG).show();
 
 				// preferredMeals = d;
 
@@ -181,7 +184,7 @@ import android.widget.Toast;
 				savePreferences("PreferredMeals", preferredMeals);
 				savePreferences("PreferredTime", preferredTime);
 				savePreferences("PreferredDay", preferredDay);
-				
+
 				setNotificationTime();
 				finish();
 
@@ -192,10 +195,17 @@ import android.widget.Toast;
 
 	protected void setNotificationTime() {
 		// TODO Auto-generated method stub
-		
+
 		String startTime = "2014-07-20 21:08:00";
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		for (int i = 0; i < menuForMonth.size(); i++) {
+
+			if (preferredMeals.contains(menuForMonth.get(i))) {
+				startTime = menuForMonth.get(i).getStartTime();
+			}
+		}
+
+		startTime = convertToTimeStamp(startTime, "yyyy-MM-dd");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		long notifyTime;
 		Date date = null;
 		try {
@@ -205,17 +215,34 @@ import android.widget.Toast;
 			e.printStackTrace();
 		}
 		notifyTime = date.getTime();
-		
-		 Calendar calendar = Calendar.getInstance();
-	     
-	      calendar.set(2014, 6, 20, 20, 58, 4); //omg months start from 0 o_O
-	     
-	      Intent myIntent = new Intent(SettingsActivity.this, MyReceiver.class);
-	      pendingIntent = PendingIntent.getBroadcast(SettingsActivity.this, 0, myIntent,0);
-	     
-	      AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
-	      //alarmManager.set(AlarmManager.RTC, notifyTime, pendingIntent);
-	      alarmManager.set(AlarmManager.RTC, System.currentTimeMillis(), pendingIntent);
+
+		Calendar calendar = Calendar.getInstance();
+
+		calendar.set(2014, 6, 20, 20, 58, 4); // omg months start from 0 o_O
+
+		Intent myIntent = new Intent(SettingsActivity.this, MyReceiver.class);
+		pendingIntent = PendingIntent.getBroadcast(SettingsActivity.this, 0,
+				myIntent, 0);
+
+		AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+		// alarmManager.set(AlarmManager.RTC, notifyTime, pendingIntent);
+		alarmManager.set(AlarmManager.RTC, System.currentTimeMillis(),
+				pendingIntent);
+	}
+
+	private String convertToTimeStamp(String time, String format) {
+		// TODO Auto-generated method stub
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		long notifyTime;
+		Date date = null;
+		try {
+			date = sdf.parse(startTime);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		notifyTime = date.getTime();
+		return null;
 	}
 
 	@SuppressLint("NewApi")
@@ -290,11 +317,11 @@ import android.widget.Toast;
 		for (int i = 0; i < value.size(); i++)
 			preferredMealsSet.add(value.get(i));
 
-		for (int i = 0; i < preferredMeals.size(); i++){
-			if (menuForMonth.contains(preferredMeals.get(i))){
+		for (int i = 0; i < preferredMeals.size(); i++) {
+			if (menuForMonth.contains(preferredMeals.get(i))) {
 				int index = menuForMonth.indexOf(preferredMeals.get(i));
 				String startTime = menuForMonth.get(index).getStartTime();
-				//String startTime = "2014-07-20";
+				// String startTime = "2014-07-20";
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 				Date date = null;
 				try {
@@ -305,14 +332,14 @@ import android.widget.Toast;
 				}
 				Calendar calendar = Calendar.getInstance();
 				calendar.setTimeInMillis(date.getTime());
-				//timeToNotify.add(date.getTime());
-				//if e.g. the user wants to be notified the day before 
-				//at 8:00 am, then we have to calculate date.getTime() - (24-8)*3600*1000s
+				// timeToNotify.add(date.getTime());
+				// if e.g. the user wants to be notified the day before
+				// at 8:00 am, then we have to calculate date.getTime() -
+				// (24-8)*3600*1000s
 
 			}
 		}
-		
-		
+
 		SharedPreferences.Editor editor = sharedPreferences.edit();
 		editor.putStringSet("PreferredMeals", preferredMealsSet);
 		editor.commit();
