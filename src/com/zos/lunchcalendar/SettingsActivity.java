@@ -104,7 +104,8 @@ public class SettingsActivity extends ActionBarActivity {
 		obj = new JSONCalendarParser("JSON.json", getApplicationContext(), true);
 		obj.fetchJSON();
 
-		while (obj.parsingComplete);
+		while (obj.parsingComplete)
+			;
 
 		mealsListText = obj.getContentFromJson();
 		menuForMonth = obj.getMenuFromJson();
@@ -169,22 +170,36 @@ public class SettingsActivity extends ActionBarActivity {
 
 	protected void setNotificationTime() {
 		// TODO Auto-generated method stub
-		long additionalTime = convertToTimeStamp(preferredTime, "hh:mm"); 
-		System.out.println("additionalTime = " + additionalTime);
-		long dayHoursAdjustment;
-		//we need to add it to adjust for Same Day, Two days before...
-		
-		if (preferredDay.equals("A day before")){
-			dayHoursAdjustment = 24*60*60*1000 ; //24 hours before + preferredTime
-		} else if (preferredDay.equals("Two days before")){
-			dayHoursAdjustment = 48*60*60*1000; //48 hours before + preferredTime
+		/* Converting preferredTime into milliseconds (e.g. 05:00 =
+		  5*60*60*1000)	 */
+		long adjustingTime = 0;
+
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+		Date date = null;
+		try {
+			date = sdf.parse(preferredTime);
+			adjustingTime = date.getTime();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		cal.setTime(date);
+		int hour = cal.get(Calendar.HOUR);
+		adjustingTime = hour * 60 * 60 * 1000;
+
+		// we need to add it to adjust for Same Day, Two days before...
+		if (preferredDay.equals("A day before")) {
+			adjustingTime = 86400000 - adjustingTime; // 24 hours before +
+														// preferredTime
+		} else if (preferredDay.equals("Two days before")) {
+			adjustingTime = 172800000 - adjustingTime; // 48 hours before +
+														// preferredTime
 		} else if (preferredDay.equals("Same day"))
-			dayHoursAdjustment = 0; //same day + preferredTime
-		else 
-			dayHoursAdjustment = 0;
-		
-		 System.out.println("additionalTimeDay = \"" + preferredDay + "\"");
-		 
+			adjustingTime = 0 - adjustingTime; // same day + preferredTime
+		else
+			adjustingTime = 0 - adjustingTime;
+
 		ArrayList<Long> notifyTime = new ArrayList<Long>();
 		String startTime = "";// = "2014-07-20 21:08:00";
 		for (int i = 0; i < preferredMeals.size(); i++) {
@@ -192,15 +207,12 @@ public class SettingsActivity extends ActionBarActivity {
 				if (preferredMeals.get(i).contains(
 						menuForMonth.get(j).getTitle())) {
 					startTime = menuForMonth.get(i).getStartTime();
-					notifyTime.add(convertToTimeStamp(startTime, "yyyy-MM-dd") - dayHoursAdjustment + additionalTime);
-					System.out.println("NotifyTimeTrueStart = " + convertToTimeStamp(startTime, "yyyy-MM-dd"));
-					System.out.println("NotifyTimeTrue = " + (convertToTimeStamp(startTime, "yyyy-MM-dd") - dayHoursAdjustment + additionalTime));
-					
+					notifyTime.add(convertToTimeStamp(startTime, "yyyy-MM-dd")
+							- adjustingTime);
 				}
 			}
 		}
-		 
-		 
+
 		Intent myIntent = new Intent(SettingsActivity.this, MyReceiver.class);
 		pendingIntent = PendingIntent.getBroadcast(SettingsActivity.this, 0,
 				myIntent, 0);
@@ -209,7 +221,7 @@ public class SettingsActivity extends ActionBarActivity {
 		for (int i = 0; i < notifyTime.size(); i++)
 			alarmManager
 					.set(AlarmManager.RTC, notifyTime.get(i), pendingIntent);
-		
+
 	}
 
 	private long convertToTimeStamp(String time, String format) {
