@@ -61,7 +61,7 @@ public class SettingsActivity extends ActionBarActivity {
 	Set<String> timeToNotify = new HashSet<String>();
 
 	Button save;
-	private PendingIntent pendingIntent;
+	// private PendingIntent pendingIntent[];
 
 	private String url = "http://www.google.com/calendar/feeds/gqccak2junkb7eup9ls76k919c@group.calendar.google.com/public/full?alt=json&orderby=starttime&max-results=15&singleevents=true&sortorder=ascending&futureevents=true";
 
@@ -170,8 +170,10 @@ public class SettingsActivity extends ActionBarActivity {
 
 	protected void setNotificationTime() {
 		// TODO Auto-generated method stub
-		/* Converting preferredTime into milliseconds (e.g. 05:00 =
-		  5*60*60*1000)	 */
+		/*
+		 * Converting preferredTime into milliseconds (e.g. 05:00 =
+		 * 5*60*60*1000)
+		 */
 		long adjustingTime = 0;
 
 		Calendar cal = Calendar.getInstance();
@@ -212,17 +214,22 @@ public class SettingsActivity extends ActionBarActivity {
 				}
 			}
 		}
-		for (int i = 0; i < notifyTime.size(); i++){
-		Intent myIntent = new Intent(SettingsActivity.this, MyReceiver.class);
-		myIntent.putExtra("MEAL", preferredMeals.get(i));
-		pendingIntent = PendingIntent.getBroadcast(SettingsActivity.this, 0,
-				myIntent, 0);
 
-		AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-		
-			alarmManager
-					.set(AlarmManager.RTC, notifyTime.get(i), pendingIntent);
+		ArrayList<PendingIntent> pendingIntent = new ArrayList<PendingIntent>();
+		ArrayList<Intent> Intent = new ArrayList<Intent>();
+		for (int i = 0; i < notifyTime.size(); i++) {
+			if (System.currentTimeMillis() < notifyTime.get(i)) {
+				Intent.add(new Intent(SettingsActivity.this, MyReceiver.class));
+				Intent.get(i).putExtra("MEAL" + i, preferredMeals.get(i));
+				pendingIntent.add(PendingIntent.getBroadcast(
+						SettingsActivity.this, 0, Intent.get(i), 0));
+
+				AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+				alarmManager.set(AlarmManager.RTC, notifyTime.get(i),
+						pendingIntent.get(i));
 			}
+		}
 
 	}
 
