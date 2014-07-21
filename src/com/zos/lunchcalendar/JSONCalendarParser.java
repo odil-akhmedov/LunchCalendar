@@ -62,6 +62,7 @@ public class JSONCalendarParser {
 		DailyMenu menuForDay;
 		
 		HashSet<String> hs = new HashSet<String>();
+		System.out.println("myContent.size() = " + myContent.size());
 		for (int i = 0; i < myContent.size(); i++) {
 			String mealNumOne = myContent.get(i);
 			String[] mealsAll = mealNumOne.split("[[0-9]]+[.]+[' ']");
@@ -92,7 +93,7 @@ public class JSONCalendarParser {
 	}
 
 	public ArrayList<DailyMenu> getMenuFromJson() {
-		//buildMenuForMonth();
+		buildMenuForMonth();
 		return menuForMonth;
 	}
 
