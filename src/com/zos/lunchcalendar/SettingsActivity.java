@@ -104,14 +104,12 @@ public class SettingsActivity extends ActionBarActivity {
 		obj = new JSONCalendarParser("JSON.json", getApplicationContext(), true);
 		obj.fetchJSON();
 
-		while (obj.parsingComplete);
+		while (obj.parsingComplete)
+			;
 
 		mealsListText = obj.getContentFromJson();
 		menuForMonth = obj.getMenuFromJson();
 
-		for (int i = 0; i < menuForMonth.size(); i++)
-			System.out.println("StartTime = "+ menuForMonth.get(i).getStartTime());
-		
 		// getting actual lunch items
 		mealSpinner = (MultiSelectionSpinner) findViewById(R.id.mealSpinner);
 		mealSpinner.setItems(mealsListText);
@@ -222,7 +220,7 @@ public class SettingsActivity extends ActionBarActivity {
 		for (int i = 0; i < notifyTime.size(); i++) {
 			if (System.currentTimeMillis() < notifyTime.get(i)) {
 				Intent.add(new Intent(SettingsActivity.this, MyReceiver.class));
-				Intent.get(i).putExtra("MEAL", preferredMeals.get(i));
+				Intent.get(i).putExtra("MEAL" + i, preferredMeals.get(i));
 				pendingIntent.add(PendingIntent.getBroadcast(
 						SettingsActivity.this, 0, Intent.get(i), 0));
 
