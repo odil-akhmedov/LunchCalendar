@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -49,6 +50,7 @@ public class MultiSelectionSpinner extends Spinner implements
 		}
 	}
 
+	@SuppressLint("ClickableViewAccessibility") 
 	@Override
 	public boolean performClick() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -180,6 +182,22 @@ public class MultiSelectionSpinner extends Spinner implements
 			}
 		}
 		return sb.toString();
+	}
+	
+	public ArrayList<String> getSelectedItemsList(){
+		ArrayList<String> result = new ArrayList<String>();
+		boolean foundOne = false;
+		
+		for (int i = 0; i < _items.length; ++i) {
+			if (mSelection[i]) {
+				if (foundOne) {
+					result.add(_items[i]);
+				}
+				foundOne = true;
+			}
+		}
+		return result;
+		
 	}
 
 	public String getSelectedItemsAsString() {
