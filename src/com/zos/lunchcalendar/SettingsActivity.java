@@ -111,7 +111,7 @@ public class SettingsActivity extends ActionBarActivity {
 
 		// getting actual lunch items
 		mealSpinner = (MultiSelectionSpinner) findViewById(R.id.mealSpinner);
-		mealSpinner.setItems(mealsListText);
+		
 
 		// We can use multispinner, and then grab the results from the spinner
 		// titles
@@ -125,15 +125,16 @@ public class SettingsActivity extends ActionBarActivity {
 		mealsListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
 		save = (Button) findViewById(R.id.saveSettings);
+		
+		mealSpinner.setItems(mealsListText, preferredMeals);
 		loadSavedPreferences();
-
 		save.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 
 				// TODO Auto-generated method stub
-				SparseBooleanArray sparseBooleanArray = mealsListView
+				/*SparseBooleanArray sparseBooleanArray = mealsListView
 						.getCheckedItemPositions();
 
 				for (int i = 0; i < mealsListView.getCount(); i++) {
@@ -144,12 +145,12 @@ public class SettingsActivity extends ActionBarActivity {
 						preferredMeals.remove(mealsListView
 								.getItemAtPosition(i).toString());
 					}
-				}
+				}*/
 
 				//String s = mealSpinner.getSelectedItemsAsString();
-				ArrayList<String> d = mealSpinner.getSelectedArrayStrings();
+				preferredMeals = mealSpinner.getSelectedArrayStrings();
 
-				System.out.println("Multispinner = " + d);
+				System.out.println("Multispinner = " + preferredMeals);
 				preferredTime = timeSpinner.getSelectedItem().toString();
 
 				preferredDay = daySpinner.getSelectedItem().toString();

@@ -20,6 +20,7 @@ public class MultiSelectionSpinner extends Spinner implements
 	String[] _items = null;
 	boolean[] mSelection = null;
 
+	private ArrayList<String> checkPreferredItems = new ArrayList<String>();
 	ArrayAdapter<String> simple_adapter;
 
 	public MultiSelectionSpinner(Context context) {
@@ -39,6 +40,7 @@ public class MultiSelectionSpinner extends Spinner implements
 	}
 
 	public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+		setCheckedItemsFromPrefs();
 		if (mSelection != null && which < mSelection.length) {
 			mSelection[which] = isChecked;
 
@@ -50,13 +52,26 @@ public class MultiSelectionSpinner extends Spinner implements
 		}
 	}
 
-	@SuppressLint("ClickableViewAccessibility") 
+	@SuppressLint("ClickableViewAccessibility")
 	@Override
 	public boolean performClick() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+		setCheckedItemsFromPrefs();
 		builder.setMultiChoiceItems(_items, mSelection, this);
 		builder.show();
 		return true;
+	}
+
+	private void setCheckedItemsFromPrefs() {
+		// TODO Auto-generated method stub
+		if (checkPreferredItems != null) {
+			for (int i = 0; i < _items.length; i++) {
+				for (int j = 0; j < checkPreferredItems.size(); j++) {
+					if (_items[i].contains(checkPreferredItems.get(j)))
+						this.mSelection[i] = true;
+				}
+			}
+		}
 	}
 
 	@Override
@@ -73,7 +88,8 @@ public class MultiSelectionSpinner extends Spinner implements
 		Arrays.fill(mSelection, false);
 	}
 
-	public void setItems(List<String> items) {
+	public void setItems(List<String> items, ArrayList<String> meals) {
+		this.checkPreferredItems = meals;
 		_items = items.toArray(new String[items.size()]);
 		mSelection = new boolean[_items.length];
 		simple_adapter.clear();
@@ -155,8 +171,7 @@ public class MultiSelectionSpinner extends Spinner implements
 		}
 		return selection;
 	}
-	
-	
+
 	public List<Integer> getSelectedIndicies() {
 		List<Integer> selection = new LinkedList<Integer>();
 		for (int i = 0; i < _items.length; ++i) {
