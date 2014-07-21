@@ -111,10 +111,9 @@ public class SettingsActivity extends ActionBarActivity {
 
 		// getting actual lunch items
 		mealSpinner = (MultiSelectionSpinner) findViewById(R.id.mealSpinner);
-		
+		mealSpinner.setItems(mealsListText, preferredMeals);
 
-		// We can use multispinner, and then grab the results from the spinner
-		// titles
+		/*
 		mealsListView = (ListView) findViewById(R.id.favoriteMeals);
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_multiple_choice,
@@ -122,11 +121,11 @@ public class SettingsActivity extends ActionBarActivity {
 		mealsListView.setAdapter(adapter);
 
 		mealsListView.setItemsCanFocus(false);
-		mealsListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+		mealsListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);*/
 
 		save = (Button) findViewById(R.id.saveSettings);
 		
-		mealSpinner.setItems(mealsListText, preferredMeals);
+		
 		loadSavedPreferences();
 		save.setOnClickListener(new View.OnClickListener() {
 
@@ -147,12 +146,8 @@ public class SettingsActivity extends ActionBarActivity {
 					}
 				}*/
 
-				//String s = mealSpinner.getSelectedItemsAsString();
 				preferredMeals = mealSpinner.getSelectedArrayStrings();
-
-				System.out.println("Multispinner = " + preferredMeals);
 				preferredTime = timeSpinner.getSelectedItem().toString();
-
 				preferredDay = daySpinner.getSelectedItem().toString();
 
 				/** Save to shared preferences **/
