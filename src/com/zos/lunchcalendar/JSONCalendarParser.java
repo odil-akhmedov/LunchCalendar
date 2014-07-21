@@ -110,12 +110,7 @@ public class JSONCalendarParser {
 			JSONObject sys = reader.getJSONObject("feed");
 			
 			JSONArray array = sys.getJSONArray("entry");
-			JSONObject feed = array.getJSONObject(0);
-			
-			System.out.println("Feed title = " + feed.getString("published"));
-			
-			System.out.println("ArrayLength = " + array.length());
-			
+
 			for (int i = 0; i < array.length(); i++) { // initializing the
 														// monthly menu
 				JSONObject product = new JSONObject(array.getJSONObject(i)
