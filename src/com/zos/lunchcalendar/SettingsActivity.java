@@ -13,6 +13,9 @@ import java.util.Set;
 
 import android.support.v7.app.ActionBarActivity;
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.AssetManager;
@@ -57,6 +60,7 @@ public class SettingsActivity extends ActionBarActivity {
 	Set<String> timeToNotify = new HashSet<String>();
 
 	Button save;
+	private PendingIntent pendingIntent;
 
 	private String url = "http://www.google.com/calendar/feeds/gqccak2junkb7eup9ls76k919c@group.calendar.google.com/public/full?alt=json&orderby=starttime&max-results=15&singleevents=true&sortorder=ascending&futureevents=true";
 
@@ -146,7 +150,7 @@ public class SettingsActivity extends ActionBarActivity {
 
 			@Override
 			public void onClick(View v) {
-				setNotificationTime();
+				
 				// TODO Auto-generated method stub
 				SparseBooleanArray sparseBooleanArray = mealsListView
 						.getCheckedItemPositions();
@@ -177,7 +181,8 @@ public class SettingsActivity extends ActionBarActivity {
 				savePreferences("PreferredMeals", preferredMeals);
 				savePreferences("PreferredTime", preferredTime);
 				savePreferences("PreferredDay", preferredDay);
-
+				
+				setNotificationTime();
 				finish();
 
 			}
@@ -189,10 +194,10 @@ public class SettingsActivity extends ActionBarActivity {
 		// TODO Auto-generated method stub
 		Calendar calendar = Calendar.getInstance();
 	     
-	      calendar.set(2014, 6, 20, 20, 48, 4); //omg months start from 0 o_O
+	      calendar.set(2014, 6, 20, 20, 58, 4); //omg months start from 0 o_O
 	     
-	      Intent myIntent = new Intent(MainActivity.this, MyReceiver.class);
-	      pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, myIntent,0);
+	      Intent myIntent = new Intent(SettingsActivity.this, MyReceiver.class);
+	      pendingIntent = PendingIntent.getBroadcast(SettingsActivity.this, 0, myIntent,0);
 	     
 	      AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
 	      alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
