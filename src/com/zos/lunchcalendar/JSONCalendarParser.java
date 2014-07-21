@@ -85,15 +85,16 @@ public class JSONCalendarParser {
 	
 	protected void buildMenuForMonth() {
 		// TODO Auto-generated method stub
-		System.out.println("ContentSize = " + content.size());
+		
 		for (int i = 0; i < content.size(); i++){
+			System.out.println("ContentInside= " + content.get(i));
 			DailyMenu menuForDay = new DailyMenu(content.get(i), startTime.get(i), endTime.get(i));
 			menuForMonth.add(menuForDay);
 		}
 	}
 
 	public ArrayList<DailyMenu> getMenuFromJson() {
-		buildMenuForMonth();
+		//buildMenuForMonth();
 		return menuForMonth;
 	}
 
