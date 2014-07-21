@@ -110,27 +110,6 @@ public class SettingsActivity extends ActionBarActivity {
 		menuForMonth = obj.getMenuFromJson();
 
 		// getting actual lunch items
-		// yes we need to use regular expressions
-		ArrayList<String> mealz = new ArrayList<String>();
-
-		HashSet<String> hs = new HashSet<String>();
-		for (int i = 0; i < mealsListText.size(); i++) {
-			String mealNumOne = mealsListText.get(i);
-			//System.out.println("Start time = " + menuForMonth.get(i).getStartTime());
-			String[] mealsAll = mealNumOne.split("[[0-9]]+[.]+[' ']");
-
-			for (int j = 1; j < mealsAll.length; j++) {
-				mealsAll[j] = mealsAll[j].replace(" or ", ";");
-				mealz.add(mealsAll[j]);
-			}
-			hs.addAll(mealz);
-			mealz.clear();
-			mealz.addAll(hs);
-		}
-
-		// String[] mealArr = new String[mealz.size()];
-		// mealArr = mealz.toArray(mealArr);
-
 		mealSpinner = (MultiSelectionSpinner) findViewById(R.id.mealSpinner);
 		mealSpinner.setItems(mealsListText);
 
