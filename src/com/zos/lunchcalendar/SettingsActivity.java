@@ -98,14 +98,13 @@ public class SettingsActivity extends ActionBarActivity {
 		 * 
 		 * //read from url obj = new JSONCalendarParser(url,
 		 * getApplicationContext()); obj.fetchJSON(); while
-		 * (obj.parsingComplete); menuForMonth = obj.getMenuFromJson();
+		 * (obj.parsingComplete); menuForMonth = obj.getMenuFromJsonmu();
 		 */
 
 		obj = new JSONCalendarParser("JSON.json", getApplicationContext(), true);
 		obj.fetchJSON();
 
-		while (obj.parsingComplete)
-			;
+		while (obj.parsingComplete);
 
 		mealsListText = obj.getContentFromJson();
 		menuForMonth = obj.getMenuFromJson();
@@ -147,9 +146,10 @@ public class SettingsActivity extends ActionBarActivity {
 					}
 				}
 
-				String s = mealSpinner.getSelectedItemsAsString();
+				//String s = mealSpinner.getSelectedItemsAsString();
 				ArrayList<String> d = mealSpinner.getSelectedArrayStrings();
 
+				System.out.println("Multispinner = " + d);
 				preferredTime = timeSpinner.getSelectedItem().toString();
 
 				preferredDay = daySpinner.getSelectedItem().toString();
