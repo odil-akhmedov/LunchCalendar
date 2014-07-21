@@ -104,7 +104,8 @@ public class SettingsActivity extends ActionBarActivity {
 		obj = new JSONCalendarParser("JSON.json", getApplicationContext(), true);
 		obj.fetchJSON();
 
-		while (obj.parsingComplete);
+		while (obj.parsingComplete)
+			;
 
 		mealsListText = obj.getContentFromJson();
 		menuForMonth = obj.getMenuFromJson();
@@ -115,18 +116,18 @@ public class SettingsActivity extends ActionBarActivity {
 
 		// We can use multispinner, and then grab the results from the spinner
 		// titles
-		/*mealsListView = (ListView) findViewById(R.id.favoriteMeals);
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_multiple_choice,
-				mealsListText);
-		mealsListView.setAdapter(adapter);
-
-		mealsListView.setItemsCanFocus(false);
-		mealsListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);*/
+		/*
+		 * mealsListView = (ListView) findViewById(R.id.favoriteMeals);
+		 * ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+		 * android.R.layout.simple_list_item_multiple_choice, mealsListText);
+		 * mealsListView.setAdapter(adapter);
+		 * 
+		 * mealsListView.setItemsCanFocus(false);
+		 * mealsListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+		 */
 
 		save = (Button) findViewById(R.id.saveSettings);
-		
-		
+
 		loadSavedPreferences();
 		save.setOnClickListener(new View.OnClickListener() {
 
@@ -134,8 +135,8 @@ public class SettingsActivity extends ActionBarActivity {
 			public void onClick(View v) {
 
 				// TODO Auto-generated method stub
-	
-				//String s = mealSpinner.getSelectedItemsAsString();
+
+				// String s = mealSpinner.getSelectedItemsAsString();
 				preferredMeals = mealSpinner.getSelectedArrayStrings();
 
 				System.out.println("Multispinner = " + preferredMeals);
@@ -244,50 +245,43 @@ public class SettingsActivity extends ActionBarActivity {
 
 		preferredMealsFromArray = sharedPreferences.getStringSet(
 				"PreferredMeals", null);
+		if (preferredMealsFromArray != null) {
+			for (String str : preferredMealsFromArray)
+				preferredMeals.add(str);
 
-		for (String str : preferredMealsFromArray)
-			preferredMeals.add(str);
+			/*
+			 * if (sharedPreferences.contains("PreferredMeals")) { int count =
+			 * this.mealsListView.getAdapter().getCount(); for (int i = 0; i <
+			 * count; i++) { String currentItem = (String)
+			 * this.mealsListView.getAdapter() .getItem(i); if
+			 * (preferredMeals.contains(currentItem)) {
+			 * this.mealsListView.setItemChecked(i, true); } else {
+			 * this.mealsListView.setItemChecked(i, false); } } }
+			 */
 
-		/*if (sharedPreferences.contains("PreferredMeals")) {
-			int count = this.mealsListView.getAdapter().getCount();
-			for (int i = 0; i < count; i++) {
-				String currentItem = (String) this.mealsListView.getAdapter()
-						.getItem(i);
-				if (preferredMeals.contains(currentItem)) {
-					this.mealsListView.setItemChecked(i, true);
-				} else {
-					this.mealsListView.setItemChecked(i, false);
-				}
-			}
-		}*/
+			// loading for preferred time
+			preferredTime = sharedPreferences.getString("PreferredTime",
+					"06:00");
 
-		// loading for preferred time
-		preferredTime = sharedPreferences.getString("PreferredTime", "06:00");
+			@SuppressWarnings("unchecked")
+			ArrayAdapter<String> timeAdap = (ArrayAdapter<String>) timeSpinner
+					.getAdapter(); // cast to an ArrayAdapter
 
-		@SuppressWarnings("unchecked")
-		ArrayAdapter<String> timeAdap = (ArrayAdapter<String>) timeSpinner
-				.getAdapter(); // cast to an ArrayAdapter
+			int timePosition = timeAdap.getPosition(preferredTime);
 
-		int timePosition = timeAdap.getPosition(preferredTime);
+			timeSpinner.setSelection(timePosition);
 
-		timeSpinner.setSelection(timePosition);
+			// Loading for preferred days
+			preferredDay = sharedPreferences.getString("PreferredDay", "");
 
-		// Loading for preferred days
-		preferredDay = sharedPreferences.getString("PreferredDay", "");
+			@SuppressWarnings("unchecked")
+			ArrayAdapter<String> dayAdap = (ArrayAdapter<String>) daySpinner
+					.getAdapter(); // cast to an ArrayAdapter
 
-		@SuppressWarnings("unchecked")
-		ArrayAdapter<String> dayAdap = (ArrayAdapter<String>) daySpinner
-				.getAdapter(); // cast to an ArrayAdapter
+			int dayPosition = dayAdap.getPosition(preferredDay);
 
-		int dayPosition = dayAdap.getPosition(preferredDay);
-
-		daySpinner.setSelection(dayPosition);
-
-		/*
-		 * preferredDaysFromArray = sharedPreferences.getStringSet(
-		 * "PreferredDays", null); for (String str2 : preferredDaysFromArray)
-		 * preferredDays.add(str2);
-		 */
+			daySpinner.setSelection(dayPosition);
+		}
 
 	}
 
