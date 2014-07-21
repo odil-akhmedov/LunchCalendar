@@ -5,11 +5,12 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.IBinder;
 
 public class MyAlarmService extends Service 
 {
-      
+	Bundle extras;   
    private NotificationManager mManager;
  
     @Override
@@ -31,7 +32,9 @@ public class MyAlarmService extends Service
    public void onStart(Intent intent, int startId)
    {
        super.onStart(intent, startId);
-      
+       extras = intent.getExtras();
+       String meal = extras.getString("MYMEAL");
+       
        mManager = (NotificationManager) this.getApplicationContext().getSystemService(this.getApplicationContext().NOTIFICATION_SERVICE);
        Intent intent1 = new Intent(this.getApplicationContext(),MainActivity.class);
      

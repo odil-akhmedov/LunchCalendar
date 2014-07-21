@@ -214,6 +214,7 @@ public class SettingsActivity extends ActionBarActivity {
 		}
 
 		Intent myIntent = new Intent(SettingsActivity.this, MyReceiver.class);
+		myIntent.putExtra("MEAL", preferredMeals.get(0));
 		pendingIntent = PendingIntent.getBroadcast(SettingsActivity.this, 0,
 				myIntent, 0);
 
