@@ -32,7 +32,7 @@ public class JSONCalendarParser {
 	private ArrayList<String> endTime = new ArrayList<String>();
 
 	private ArrayList<DailyMenu> menuForMonth = new ArrayList<DailyMenu>();
-	//private DailyMenu menuForDay = new DailyMenu();
+	// private DailyMenu menuForDay = new DailyMenu();
 
 	private String urlString = null;
 	private String filename = null;
@@ -60,7 +60,7 @@ public class JSONCalendarParser {
 		// TODO Auto-generated method stub
 		ArrayList<String> mealz = new ArrayList<String>();
 		DailyMenu menuForDay;
-		
+
 		HashSet<String> hs = new HashSet<String>();
 		System.out.println("myContent.size() = " + myContent.size());
 		for (int i = 0; i < myContent.size(); i++) {
@@ -71,8 +71,9 @@ public class JSONCalendarParser {
 				mealsAll[j] = mealsAll[j].replace(" or ", ";");
 				mealz.add(mealsAll[j]);
 			}
-			for (int k = 0; k < mealz.size(); k++){
-				menuForDay = new DailyMenu(mealz.get(k), startTime.get(i), endTime.get(i));
+			for (int k = 0; k < mealz.size(); k++) {
+				menuForDay = new DailyMenu(mealz.get(k), startTime.get(i),
+						endTime.get(i));
 				menuForMonth.add(menuForDay);
 			}
 			hs.addAll(mealz);
@@ -80,27 +81,28 @@ public class JSONCalendarParser {
 			mealz.addAll(hs);
 		}
 		return mealz;
-		
+
 	}
-	
+
 	protected void buildMenuForMonth() {
 		// TODO Auto-generated method stub
-		
-		for (int i = 0; i < content.size(); i++){
+
+		for (int i = 0; i < content.size(); i++) {
 			System.out.println("ContentInside= " + content.get(i));
-			DailyMenu menuForDay = new DailyMenu(content.get(i), startTime.get(i), endTime.get(i));
+			DailyMenu menuForDay = new DailyMenu(content.get(i),
+					startTime.get(i), endTime.get(i));
 			menuForMonth.add(menuForDay);
 		}
 	}
 
 	public ArrayList<DailyMenu> getMenuFromJson() {
-		//buildMenuForMonth();
+		// buildMenuForMonth();
 		return menuForMonth;
 	}
 
-	//public DailyMenu getMenuForOneDay() {
-		//return menuForDay;
-	//}
+	// public DailyMenu getMenuForOneDay() {
+	// return menuForDay;
+	// }
 
 	@SuppressLint("NewApi")
 	public void readAndParseJSON(String in) {
@@ -109,7 +111,7 @@ public class JSONCalendarParser {
 			JSONObject reader = new JSONObject(in);
 
 			JSONObject sys = reader.getJSONObject("feed");
-			
+
 			JSONArray array = sys.getJSONArray("entry");
 
 			for (int i = 0; i < array.length(); i++) { // initializing the
@@ -117,7 +119,7 @@ public class JSONCalendarParser {
 				JSONObject product = new JSONObject(array.getJSONObject(i)
 						.getString("title"));
 				content.add(product.getString("$t"));
-		
+
 				JSONObject elem = array.getJSONObject(i);
 				if (elem != null) {
 					JSONArray startEndTime = elem.getJSONArray("gd$when");
@@ -128,8 +130,7 @@ public class JSONCalendarParser {
 							if (innerElem != null) {
 								startTime.add(innerElem.getString("startTime"));
 								endTime.add(innerElem.getString("endTime"));
-								
-								
+
 							}
 						}
 					}
@@ -166,7 +167,7 @@ public class JSONCalendarParser {
 						String data = convertStreamToString(stream);
 
 						readAndParseJSON(data);
-						
+
 						stream.close();
 
 					} catch (Exception e) {
@@ -183,8 +184,6 @@ public class JSONCalendarParser {
 			readAndParseJSON(data);
 		}
 	}
-
-
 
 	static String convertStreamToString(java.io.InputStream is) {
 		java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
