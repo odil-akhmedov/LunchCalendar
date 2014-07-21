@@ -173,15 +173,14 @@ public class SettingsActivity extends ActionBarActivity {
 
 	protected void setNotificationTime() {
 		// TODO Auto-generated method stub
-
+		ArrayList<Long> notifyTime = new ArrayList<Long>(); 
 		String startTime = "";// = "2014-07-20 21:08:00";
-		long notifyTime = 0;
 		for (int i = 0; i < preferredMeals.size(); i++) {
 			for (int j = 0; j < menuForMonth.size(); j++) {
 				if (preferredMeals.get(i).contains(menuForMonth.get(j).getTitle())) {
 					startTime = menuForMonth.get(i).getStartTime();
-					notifyTime = convertToTimeStamp(startTime,
-							"yyyy-MM-dd");
+					notifyTime.add(convertToTimeStamp(startTime,
+							"yyyy-MM-dd"));
 				}
 			}
 		}
@@ -193,8 +192,6 @@ public class SettingsActivity extends ActionBarActivity {
 		 * (ParseException e) { // TODO Auto-generated catch block
 		 * e.printStackTrace(); } notifyTime = date.getTime();
 		 */
-		System.out.println("NotifyTime1 = " + startTime);
-		System.out.println("NotifyTime2 = " + notifyTime);
 
 		Calendar calendar = Calendar.getInstance();
 
@@ -205,9 +202,9 @@ public class SettingsActivity extends ActionBarActivity {
 				myIntent, 0);
 
 		AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-		alarmManager.set(AlarmManager.RTC, notifyTime, pendingIntent);
-		// alarmManager.set(AlarmManager.RTC,
-		// System.currentTimeMillis(),pendingIntent);
+		for (int i = 0; i < notifyTime.size(); i++)
+			alarmManager.set(AlarmManager.RTC, notifyTime.get(i), pendingIntent);
+		//System.out.println("NotifyTimeTrue = " + notifyTime);
 	}
 
 	private long convertToTimeStamp(String time, String format) {
