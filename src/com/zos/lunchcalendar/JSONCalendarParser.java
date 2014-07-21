@@ -82,6 +82,9 @@ public class JSONCalendarParser {
 				JSONObject elem = array.getJSONObject(i);
 				if (elem != null) {
 					JSONArray startEndTime = elem.getJSONArray("gd$when");
+					JSONObject startETime = startEndTime.getJSONObject(0);
+					String startEtime2 = startETime.getString("startTime");
+					System.out.println("startETime2 = " + startEtime2);
 					if (startEndTime != null) {
 						for (int k = 0; k < startEndTime.length(); k++) {
 							JSONObject innerElem = startEndTime
@@ -94,7 +97,7 @@ public class JSONCalendarParser {
 										.getString("startTime");
 								menuForDay.endTime = innerElem
 										.getString("endTime");
-								System.out.println("Start time = " + menuForDay.startTime);
+								//System.out.println("startEndTime= " + startEndTime.length());
 								menuForMonth.add(menuForDay);
 							}
 						}
