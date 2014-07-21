@@ -77,40 +77,39 @@ public class SettingsActivity extends ActionBarActivity {
 		timeSpinner = (Spinner) findViewById(R.id.timeSpinner);
 		daySpinner = (Spinner) findViewById(R.id.daySpinner);
 
-		AssetManager am = getApplicationContext().getAssets();
+		/*AssetManager am = getApplicationContext().getAssets();
 
 		try {
 			if (am.open("JSON.json") != null) {
-				obj = new JSONCalendarParser("JSON.json",
-						getApplicationContext(), true);
-				obj.loadJSONFromAsset();
+				obj = new JSONCalendarParser("JSON.json", getApplicationContext(), true);
+				obj.fetchJSON();
 
 				while(obj.parsingComplete);
 
 				mealsListText = obj.getContentFromJson();
+				menuForMonth = obj.getMenuFromJson();
+				am.close();
 			} else {
+				am.close();
 				obj = new JSONCalendarParser(url, getApplicationContext());
 				obj.fetchJSON();
+
 				while(obj.parsingComplete);
+
+				mealsListText = obj.getContentFromJson();
 				menuForMonth = obj.getMenuFromJson();
 			}
-
 		} catch (IOException e) { // TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 
-		// read from url obj = new JSONCalendarParser(url,
-		getApplicationContext();
-		obj.fetchJSON();
-		while (obj.parsingComplete)
-			;
-		menuForMonth = obj.getMenuFromJson();
-
-		obj = new JSONCalendarParser("JSON.json", getApplicationContext(), true);
+		/** working **/
+		//obj = new JSONCalendarParser("JSON.json", getApplicationContext(), true);
+		obj = new JSONCalendarParser(url, getApplicationContext());
+		
 		obj.fetchJSON();
 
-		while (obj.parsingComplete)
-			;
+		while(obj.parsingComplete);
 
 		mealsListText = obj.getContentFromJson();
 		menuForMonth = obj.getMenuFromJson();
