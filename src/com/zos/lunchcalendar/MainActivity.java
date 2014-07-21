@@ -30,7 +30,7 @@ import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-@SuppressLint("SimpleDateFormat") 
+@SuppressLint("SimpleDateFormat")
 public class MainActivity extends Activity {
 	final String TAG = "MainActivity";
 	private int viewType = 0; // 0 - for list view, 1 for grid view
@@ -46,14 +46,14 @@ public class MainActivity extends Activity {
 	private String url = "http://www.google.com/calendar/feeds/gqccak2junkb7eup9ls76k919c@group.calendar.google.com/public/full?alt=json&orderby=starttime&max-results=15&singleevents=true&sortorder=ascending&futureevents=true";
 	private JSONCalendarParser obj;
 	SharedPreferences sharedPreferences;
-	
+
 	Set<String> preferredMealsFromArray = new HashSet<String>();
 	ArrayList<String> preferredMeals = new ArrayList<String>();
-	String preferredDay; //Day before, same day...
-	
+	String preferredDay; // Day before, same day...
+
 	Date notificationTime;
 	private PendingIntent pendingIntent;
-	
+
 	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -81,10 +81,10 @@ public class MainActivity extends Activity {
 
 		startParsing();
 		// adapter = new CalendarAdapters(getApplicationContext());
-		//Notifications
-		
+		// Notifications
+
 		String startTime = "2014-07-20 21:00:00";
-		
+
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		long notifyTime;
 		Date date = null;
@@ -94,46 +94,51 @@ public class MainActivity extends Activity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//Calendar calendar = Calendar.getInstance();
-		//calendar.setTimeInMillis(date.getTime());
+		// Calendar calendar = Calendar.getInstance();
+		// calendar.setTimeInMillis(date.getTime());
 		notifyTime = date.getTime();
-		
+
 		System.out.println("Notifytime = " + notifyTime);
-		
-		sharedPreferences = PreferenceManager
-				.getDefaultSharedPreferences(this);
+
+		sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
 		preferredMealsFromArray = sharedPreferences.getStringSet(
 				"PreferredMeals", null);
-		
-		/*Calendar calendar = Calendar.getInstance();
-	     
-	      calendar.set(2014, 6, 20, 20, 48, 4); //omg months start from 0 o_O
-	     
-	      Intent myIntent = new Intent(MainActivity.this, MyReceiver.class);
-	      pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, myIntent,0);
-	     
-	      AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
-	      alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
-	      alarmManager.set(AlarmManager.RTC, System.currentTimeMillis(), pendingIntent);
-	      
-				
-		NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
-		String longText = "Meals you saved is going to be served soon";
-
-		PendingIntent pIntent = PendingIntent.getActivity(
-				getApplicationContext(), 0, new Intent(), // add this
-				PendingIntent.FLAG_UPDATE_CURRENT);
-
-		Notification n = new Notification.Builder(this)
-				.setContentTitle("Your favorite meal spotted!")
-				.setContentText("Subject").setSmallIcon(R.drawable.ic_launcher)
-				.setContentIntent(pIntent).setAutoCancel(true)
-				.addAction(R.drawable.ic_launcher, "More", pIntent)
-				.setStyle(new Notification.BigTextStyle().bigText(longText)).build();
-
-		notificationManager.notify(0, n);*/
+		/*
+		 * Calendar calendar = Calendar.getInstance();
+		 * 
+		 * calendar.set(2014, 6, 20, 20, 48, 4); //omg months start from 0 o_O
+		 * 
+		 * Intent myIntent = new Intent(MainActivity.this, MyReceiver.class);
+		 * pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0,
+		 * myIntent,0);
+		 * 
+		 * AlarmManager alarmManager =
+		 * (AlarmManager)getSystemService(ALARM_SERVICE);
+		 * alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(),
+		 * pendingIntent); alarmManager.set(AlarmManager.RTC,
+		 * System.currentTimeMillis(), pendingIntent);
+		 * 
+		 * 
+		 * NotificationManager notificationManager = (NotificationManager)
+		 * getSystemService(NOTIFICATION_SERVICE);
+		 * 
+		 * String longText = "Meals you saved is going to be served soon";
+		 * 
+		 * PendingIntent pIntent = PendingIntent.getActivity(
+		 * getApplicationContext(), 0, new Intent(), // add this
+		 * PendingIntent.FLAG_UPDATE_CURRENT);
+		 * 
+		 * Notification n = new Notification.Builder(this)
+		 * .setContentTitle("Your favorite meal spotted!")
+		 * .setContentText("Subject").setSmallIcon(R.drawable.ic_launcher)
+		 * .setContentIntent(pIntent).setAutoCancel(true)
+		 * .addAction(R.drawable.ic_launcher, "More", pIntent) .setStyle(new
+		 * Notification.BigTextStyle().bigText(longText)).build();
+		 * 
+		 * notificationManager.notify(0, n);
+		 */
 
 	}
 
@@ -223,8 +228,32 @@ public class MainActivity extends Activity {
 	public void open(View view) {
 		obj = new JSONCalendarParser(url, getApplicationContext());
 		obj.fetchJSON();
-		// Toast.makeText(getApplicationContext(), "msg msg",
-		// Toast.LENGTH_SHORT).show();
+		while (obj.parsingComplete)
+			;
+
+		result = obj.getContentFromJson();
+
+		menuForMonth = obj.getMenuFromJson();
+		switch (viewType) {
+		case 0:
+			CustomAdapter adapter = new CustomAdapter(this,
+					R.layout.custom_row_textview, menuForMonth, viewType);
+			ListView listView = (ListView) findViewById(R.id.listViewMain);
+
+			listView.setAdapter(adapter);
+			break;
+		case 1:
+			CustomAdapter adapter2 = new CustomAdapter(this,
+					R.layout.custom_grid_textview, menuForMonth, viewType);
+			GridView g = (GridView) findViewById(R.id.gridViewMain);
+			g.setAdapter(adapter2);
+			break;
+		}
+	}
+
+	public void startParsing() {
+		obj = new JSONCalendarParser(url, getApplicationContext());
+		obj.fetchJSON();
 		while (obj.parsingComplete);
 
 		result = obj.getContentFromJson();
@@ -243,50 +272,8 @@ public class MainActivity extends Activity {
 					R.layout.custom_grid_textview, menuForMonth, viewType);
 			GridView g = (GridView) findViewById(R.id.gridViewMain);
 			g.setAdapter(adapter2);
-			// g.setAdapter(new ArrayAdapter<DailyMenu>(this,
-			// R.layout.grid_cell, menuForMonth));
-			// g.setOnItemClickListener(this);
 			break;
 		}
 
-		/*
-		 * ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-		 * android.R.layout.simple_list_item_1, result);
-		 * 
-		 * ListView menuList = (ListView) findViewById(R.id.listView1);
-		 * menuList.setAdapter(adapter);
-		 */
-		// menuList.setOnItemClickListener(this);
-
-	}
-
-	public void startParsing() {
-		obj = new JSONCalendarParser(url, getApplicationContext());
-		obj.fetchJSON();
-
-		while (obj.parsingComplete);
-
-		// result = obj.getContentFromJson();
-
-		menuForMonth = obj.getMenuFromJson();
-		switch (viewType) {
-		case 0:
-			CustomAdapter adapter = new CustomAdapter(this,
-					R.layout.custom_row_textview, menuForMonth, viewType);
-			ListView listView = (ListView) findViewById(R.id.listViewMain);
-			listView.setAdapter(adapter);
-			break;
-		case 1:
-			CustomAdapter adapter2 = new CustomAdapter(this,
-					R.layout.custom_grid_textview, menuForMonth, viewType);
-			GridView g = (GridView) findViewById(R.id.gridViewMain);
-			g.setAdapter(adapter2);
-			
-						
-				
-			
-			// g.setOnItemClickListener(this);
-			break;
-		}
 	}
 }

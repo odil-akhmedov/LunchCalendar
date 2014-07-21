@@ -57,10 +57,10 @@ public class CustomAdapter extends ArrayAdapter<DailyMenu> {
 			// assign the caption
 
 			TextView lunchDate = (TextView) row.findViewById(R.id.showDate);
-			lunchDate.setText(item.startTime);
+			lunchDate.setText(item.getStartTime());
 
 			TextView lunchTitle = (TextView) row.findViewById(R.id.showTitle);
-			lunchTitle.setText(item.title);
+			lunchTitle.setText(item.getTitle());
 			// assign the icon
 			// ImageView lunchIcon = (ImageView)
 			// row.findViewById(R.id.imageview);
@@ -74,10 +74,10 @@ public class CustomAdapter extends ArrayAdapter<DailyMenu> {
 						R.layout.custom_grid_textview, null);
 			}
 			DailyMenu item = this.data.get(position);
-			System.out.println("StartTime grid = " + item.startTime);
+			System.out.println("StartTime grid = " + item.getStartTime());
 
 			TextView lunchData = (TextView) row.findViewById(R.id.showData);
-			lunchData.setText(item.startTime + "\n" + item.title);
+			lunchData.setText(item.getStartTime() + "\n" + item.getTitle());
 			return row;
 		} else  { // checked list
 			View row = convertView;

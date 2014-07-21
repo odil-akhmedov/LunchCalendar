@@ -117,7 +117,8 @@ public class SettingsActivity extends ActionBarActivity {
 		// titles
 		mealsListView = (ListView) findViewById(R.id.favoriteMeals);
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_multiple_choice, mealsListText);
+				android.R.layout.simple_list_item_multiple_choice,
+				mealsListText);
 		mealsListView.setAdapter(adapter);
 
 		mealsListView.setItemsCanFocus(false);
@@ -148,11 +149,6 @@ public class SettingsActivity extends ActionBarActivity {
 				String s = mealSpinner.getSelectedItemsAsString();
 				ArrayList<String> d = mealSpinner.getSelectedArrayStrings();
 
-				// Toast.makeText(getApplicationContext(), s,
-				// Toast.LENGTH_LONG).show();
-
-				// preferredMeals = d;
-
 				preferredTime = timeSpinner.getSelectedItem().toString();
 
 				preferredDay = daySpinner.getSelectedItem().toString();
@@ -173,25 +169,17 @@ public class SettingsActivity extends ActionBarActivity {
 
 	protected void setNotificationTime() {
 		// TODO Auto-generated method stub
-		ArrayList<Long> notifyTime = new ArrayList<Long>(); 
+		ArrayList<Long> notifyTime = new ArrayList<Long>();
 		String startTime = "";// = "2014-07-20 21:08:00";
 		for (int i = 0; i < preferredMeals.size(); i++) {
 			for (int j = 0; j < menuForMonth.size(); j++) {
-				if (preferredMeals.get(i).contains(menuForMonth.get(j).getTitle())) {
+				if (preferredMeals.get(i).contains(
+						menuForMonth.get(j).getTitle())) {
 					startTime = menuForMonth.get(i).getStartTime();
-					notifyTime.add(convertToTimeStamp(startTime,
-							"yyyy-MM-dd"));
+					notifyTime.add(convertToTimeStamp(startTime, "yyyy-MM-dd"));
 				}
 			}
 		}
-
-		/*
-		 * SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		 * 
-		 * Date date = null; try { date = sdf.parse(startTime); } catch
-		 * (ParseException e) { // TODO Auto-generated catch block
-		 * e.printStackTrace(); } notifyTime = date.getTime();
-		 */
 
 		Calendar calendar = Calendar.getInstance();
 
@@ -203,8 +191,9 @@ public class SettingsActivity extends ActionBarActivity {
 
 		AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 		for (int i = 0; i < notifyTime.size(); i++)
-			alarmManager.set(AlarmManager.RTC, notifyTime.get(i), pendingIntent);
-		//System.out.println("NotifyTimeTrue = " + notifyTime);
+			alarmManager
+					.set(AlarmManager.RTC, notifyTime.get(i), pendingIntent);
+		// System.out.println("NotifyTimeTrue = " + notifyTime);
 	}
 
 	private long convertToTimeStamp(String time, String format) {
