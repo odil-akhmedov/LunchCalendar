@@ -117,6 +117,7 @@ public class SettingsActivity extends ActionBarActivity {
 
 		for (int i = 0; i < menuForMonth.size(); i++) {
 			String mealNumOne = menuForMonth.get(i).getTitle();
+			//System.out.println("Start time = " + menuForMonth.get(i).getStartTime());
 			String[] mealsAll = mealNumOne.split("[[0-9]]+[.]+[' ']");
 
 			for (int j = 1; j < mealsAll.length; j++) {
