@@ -114,15 +114,6 @@ public class SettingsActivity extends ActionBarActivity {
 		ArrayList<String> mealz = new ArrayList<String>();
 
 		HashSet<String> hs = new HashSet<String>();
-		System.out.println("menuForMonth = " + menuForMonth.size());
-		
-		for (int i = 0; i < menuForMonth.size(); i++){
-			System.out.println("menuForMonthContent = " + mealsListText.get(i));
-			System.out.println("menuForMonthTitle = " + menuForMonth.get(i).getTitle());
-			System.out.println("menuForMonthStart = " + menuForMonth.get(i).getStartTime());
-			System.out.println("menuForMonthEnd = " + menuForMonth.get(i).getEndTime());
-		}
-		
 		for (int i = 0; i < mealsListText.size(); i++) {
 			String mealNumOne = mealsListText.get(i);
 			//System.out.println("Start time = " + menuForMonth.get(i).getStartTime());
@@ -147,7 +138,7 @@ public class SettingsActivity extends ActionBarActivity {
 		// titles
 		mealsListView = (ListView) findViewById(R.id.favoriteMeals);
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_multiple_choice, mealz);
+				android.R.layout.simple_list_item_multiple_choice, mealsListText);
 		mealsListView.setAdapter(adapter);
 
 		mealsListView.setItemsCanFocus(false);

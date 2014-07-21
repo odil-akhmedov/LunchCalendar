@@ -9,6 +9,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -51,7 +52,30 @@ public class JSONCalendarParser {
 	}
 
 	public ArrayList<String> getContentFromJson() {
-		return content;
+		ArrayList<String> result = splitContent();
+		return result;
+	}
+
+	private ArrayList<String> splitContent() {
+		// TODO Auto-generated method stub
+		ArrayList<String> mealz = new ArrayList<String>();
+
+		HashSet<String> hs = new HashSet<String>();
+		for (int i = 0; i < content.size(); i++) {
+			String mealNumOne = content.get(i);
+			//System.out.println("Start time = " + menuForMonth.get(i).getStartTime());
+			String[] mealsAll = mealNumOne.split("[[0-9]]+[.]+[' ']");
+
+			for (int j = 1; j < mealsAll.length; j++) {
+				mealsAll[j] = mealsAll[j].replace(" or ", ";");
+				mealz.add(mealsAll[j]);
+			}
+			hs.addAll(mealz);
+			mealz.clear();
+			mealz.addAll(hs);
+		}
+		return mealz;
+		
 	}
 
 	public ArrayList<DailyMenu> getMenuFromJson() {
