@@ -170,65 +170,59 @@ public class SettingsActivity extends ActionBarActivity {
 
 	protected void setNotificationTime() {
 		// TODO Auto-generated method stub
-		/*
-		 * Converting preferredTime into milliseconds (e.g. 05:00 =
-		 * 5*60*60*1000)
-		 */
-		if (preferredMeals != null) {
-			long adjustingTime = 0;
+		/* Converting preferredTime into milliseconds (e.g. 05:00 =
+		  5*60*60*1000)	 */
+		long adjustingTime = 0;
 
-			Calendar cal = Calendar.getInstance();
-			SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-			Date date = null;
-			try {
-				date = sdf.parse(preferredTime);
-				adjustingTime = date.getTime();
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			cal.setTime(date);
-			int hour = cal.get(Calendar.HOUR);
-			adjustingTime = hour * 60 * 60 * 1000;
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+		Date date = null;
+		try {
+			date = sdf.parse(preferredTime);
+			adjustingTime = date.getTime();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		cal.setTime(date);
+		int hour = cal.get(Calendar.HOUR);
+		adjustingTime = hour * 60 * 60 * 1000;
 
-			// we need to add it to adjust for Same Day, Two days before...
-			if (preferredDay.equals("A day before")) {
-				adjustingTime = 86400000 - adjustingTime; // 24 hours before +
-															// preferredTime
-			} else if (preferredDay.equals("Two days before")) {
-				adjustingTime = 172800000 - adjustingTime; // 48 hours before +
-															// preferredTime
-			} else if (preferredDay.equals("Same day"))
-				adjustingTime = 0 - adjustingTime; // same day + preferredTime
-			else
-				adjustingTime = 0 - adjustingTime;
+		// we need to add it to adjust for Same Day, Two days before...
+		if (preferredDay.equals("A day before")) {
+			adjustingTime = 86400000 - adjustingTime; // 24 hours before +
+														// preferredTime
+		} else if (preferredDay.equals("Two days before")) {
+			adjustingTime = 172800000 - adjustingTime; // 48 hours before +
+														// preferredTime
+		} else if (preferredDay.equals("Same day"))
+			adjustingTime = 0 - adjustingTime; // same day + preferredTime
+		else
+			adjustingTime = 0 - adjustingTime;
 
-			ArrayList<Long> notifyTime = new ArrayList<Long>();
-			String startTime = "";
-			for (int i = 0; i < preferredMeals.size(); i++) {
-				for (int j = 0; j < menuForMonth.size(); j++) {
-					if (preferredMeals.get(i).contains(
-							menuForMonth.get(j).getTitle())) {
-						startTime = menuForMonth.get(i).getStartTime();
-						notifyTime.add(convertToTimeStamp(startTime,
-								"yyyy-MM-dd") - adjustingTime);
-					}
+		ArrayList<Long> notifyTime = new ArrayList<Long>();
+		String startTime = "";
+		for (int i = 0; i < preferredMeals.size(); i++) {
+			for (int j = 0; j < menuForMonth.size(); j++) {
+				if (preferredMeals.get(i).contains(
+						menuForMonth.get(j).getTitle())) {
+					startTime = menuForMonth.get(i).getStartTime();
+					notifyTime.add(convertToTimeStamp(startTime, "yyyy-MM-dd")
+							- adjustingTime);
 				}
 			}
-
-			for (int i = 0; i < notifyTime.size(); i++) {
-				Intent myIntent = new Intent(SettingsActivity.this,
-						MyReceiver.class);
-				myIntent.putExtra("MEAL", preferredMeals.get(i));
-				pendingIntent = PendingIntent.getBroadcast(
-						SettingsActivity.this, 0, myIntent, 0);
-
-				AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-				if (System.currentTimeMillis() < notifyTime.get(i))
-				alarmManager.set(AlarmManager.RTC, notifyTime.get(i),
-						pendingIntent);
-			}
 		}
+
+		Intent myIntent = new Intent(SettingsActivity.this, MyReceiver.class);
+		myIntent.putExtra("MEAL", preferredMeals.get(0));
+		pendingIntent = PendingIntent.getBroadcast(SettingsActivity.this, 0,
+				myIntent, 0);
+
+		AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+		for (int i = 0; i < notifyTime.size(); i++)
+			alarmManager
+					.set(AlarmManager.RTC, notifyTime.get(i), pendingIntent);
+
 	}
 
 	private long convertToTimeStamp(String time, String format) {
@@ -253,52 +247,51 @@ public class SettingsActivity extends ActionBarActivity {
 
 		preferredMealsFromArray = sharedPreferences.getStringSet(
 				"PreferredMeals", null);
-		if (preferredMeals != null) {
-			for (String str : preferredMealsFromArray)
-				preferredMeals.add(str);
 
-			if (sharedPreferences.contains("PreferredMeals")) {
-				int count = this.mealsListView.getAdapter().getCount();
-				for (int i = 0; i < count; i++) {
-					String currentItem = (String) this.mealsListView
-							.getAdapter().getItem(i);
-					if (preferredMeals.contains(currentItem)) {
-						this.mealsListView.setItemChecked(i, true);
-					} else {
-						this.mealsListView.setItemChecked(i, false);
-					}
+		for (String str : preferredMealsFromArray)
+			preferredMeals.add(str);
+
+		if (sharedPreferences.contains("PreferredMeals")) {
+			int count = this.mealsListView.getAdapter().getCount();
+			for (int i = 0; i < count; i++) {
+				String currentItem = (String) this.mealsListView.getAdapter()
+						.getItem(i);
+				if (preferredMeals.contains(currentItem)) {
+					this.mealsListView.setItemChecked(i, true);
+				} else {
+					this.mealsListView.setItemChecked(i, false);
 				}
 			}
-
-			// loading for preferred time
-			preferredTime = sharedPreferences.getString("PreferredTime",
-					"06:00");
-
-			@SuppressWarnings("unchecked")
-			ArrayAdapter<String> timeAdap = (ArrayAdapter<String>) timeSpinner
-					.getAdapter(); // cast to an ArrayAdapter
-
-			int timePosition = timeAdap.getPosition(preferredTime);
-
-			timeSpinner.setSelection(timePosition);
-
-			// Loading for preferred days
-			preferredDay = sharedPreferences.getString("PreferredDay", "");
-
-			@SuppressWarnings("unchecked")
-			ArrayAdapter<String> dayAdap = (ArrayAdapter<String>) daySpinner
-					.getAdapter(); // cast to an ArrayAdapter
-
-			int dayPosition = dayAdap.getPosition(preferredDay);
-
-			daySpinner.setSelection(dayPosition);
-
-			/*
-			 * preferredDaysFromArray = sharedPreferences.getStringSet(
-			 * "PreferredDays", null); for (String str2 :
-			 * preferredDaysFromArray) preferredDays.add(str2);
-			 */
 		}
+
+		// loading for preferred time
+		preferredTime = sharedPreferences.getString("PreferredTime", "06:00");
+
+		@SuppressWarnings("unchecked")
+		ArrayAdapter<String> timeAdap = (ArrayAdapter<String>) timeSpinner
+				.getAdapter(); // cast to an ArrayAdapter
+
+		int timePosition = timeAdap.getPosition(preferredTime);
+
+		timeSpinner.setSelection(timePosition);
+
+		// Loading for preferred days
+		preferredDay = sharedPreferences.getString("PreferredDay", "");
+
+		@SuppressWarnings("unchecked")
+		ArrayAdapter<String> dayAdap = (ArrayAdapter<String>) daySpinner
+				.getAdapter(); // cast to an ArrayAdapter
+
+		int dayPosition = dayAdap.getPosition(preferredDay);
+
+		daySpinner.setSelection(dayPosition);
+
+		/*
+		 * preferredDaysFromArray = sharedPreferences.getStringSet(
+		 * "PreferredDays", null); for (String str2 : preferredDaysFromArray)
+		 * preferredDays.add(str2);
+		 */
+
 	}
 
 	private void savePreferences(String key, String value) {
