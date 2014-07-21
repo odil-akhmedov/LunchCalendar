@@ -69,7 +69,12 @@ public class JSONCalendarParser {
 			JSONObject reader = new JSONObject(in);
 
 			JSONObject sys = reader.getJSONObject("feed");
+			
 			JSONArray array = sys.getJSONArray("entry");
+			JSONObject feed = array.getJSONObject(0);
+			
+			System.out.println("Feed title = " + feed.getString("published"));
+			
 			System.out.println("ArrayLength = " + array.length());
 			
 			for (int i = 0; i < array.length(); i++) { // initializing the
@@ -78,19 +83,20 @@ public class JSONCalendarParser {
 						.getString("title"));
 				content.add(product.getString("$t"));
 				String titleTemp = product.getString("$t");
-				
+				System.out.println("Content.length = " + content.size());
 
 				JSONObject elem = array.getJSONObject(i);
 				if (elem != null) {
 					JSONArray startEndTime = elem.getJSONArray("gd$when");
 					JSONObject startETime = startEndTime.getJSONObject(0);
-					String startTime = startETime.getString("startTime");
-					String endTime = startETime.getString("endTime");
+					String StartTime = startETime.getString("startTime");
+					String EndTime = startETime.getString("endTime");
 					menuForDay.title = titleTemp;
 					
 					menuForMonth.add(menuForDay);
-					System.out.println("menuTimeStart = " + startTime);
-					System.out.println("menuTimeEnd = " + endTime);
+					System.out.println("startEndTime = " + startEndTime + " i = " + i);
+					System.out.println("menuTimeStart = " + StartTime);
+					System.out.println("menuTimeEnd = " + EndTime);
 					
 					
 					if (startEndTime != null) {

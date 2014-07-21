@@ -33,7 +33,7 @@ import android.widget.Toast;
 @SuppressLint("SimpleDateFormat") 
 public class MainActivity extends Activity {
 	final String TAG = "MainActivity";
-	private int viewType = 1; // 0 - for list view, 1 for grid view
+	private int viewType = 0; // 0 - for list view, 1 for grid view
 
 	private Bundle settings;
 
