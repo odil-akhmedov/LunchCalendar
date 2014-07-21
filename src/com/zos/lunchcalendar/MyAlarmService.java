@@ -40,10 +40,10 @@ public class MyAlarmService extends Service
      
        Notification notification = new Notification(R.drawable.ic_launcher,meal, System.currentTimeMillis());
        intent1.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP| Intent.FLAG_ACTIVITY_CLEAR_TOP);
-       
+ 
        PendingIntent pendingNotificationIntent = PendingIntent.getActivity( this.getApplicationContext(),0, intent1,PendingIntent.FLAG_UPDATE_CURRENT);
        notification.flags |= Notification.FLAG_AUTO_CANCEL;
-       notification.setLatestEventInfo(this.getApplicationContext(), "" + meal + " will be served soon ", meal, pendingNotificationIntent);
+       notification.setLatestEventInfo(this.getApplicationContext(), "Your favorite meal is served soon", meal, pendingNotificationIntent);
  
        mManager.notify(0, notification);
     }
