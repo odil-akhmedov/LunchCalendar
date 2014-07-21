@@ -183,22 +183,6 @@ public class MultiSelectionSpinner extends Spinner implements
 		}
 		return sb.toString();
 	}
-	
-	public ArrayList<String> getSelectedItemsList(){
-		ArrayList<String> result = new ArrayList<String>();
-		boolean foundOne = false;
-		
-		for (int i = 0; i < _items.length; ++i) {
-			if (mSelection[i]) {
-				if (foundOne) {
-					result.add(_items[i]);
-				}
-				foundOne = true;
-			}
-		}
-		return result;
-		
-	}
 
 	public String getSelectedItemsAsString() {
 		StringBuilder sb = new StringBuilder();
