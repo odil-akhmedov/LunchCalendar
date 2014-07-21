@@ -115,8 +115,8 @@ public class SettingsActivity extends ActionBarActivity {
 
 		HashSet<String> hs = new HashSet<String>();
 
-		for (int i = 0; i < mealsListText.size(); i++) {
-			String mealNumOne = mealsListText.get(i);
+		for (int i = 0; i < menuForMonth.size(); i++) {
+			String mealNumOne = menuForMonth.get(i).getTitle();
 			String[] mealsAll = mealNumOne.split("[[0-9]]+[.]+[' ']");
 
 			for (int j = 1; j < mealsAll.length; j++) {

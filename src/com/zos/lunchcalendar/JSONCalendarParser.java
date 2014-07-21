@@ -97,7 +97,7 @@ public class JSONCalendarParser {
 					}
 				}
 
-				menuForMonth.add(getMenuForOneDay());
+				menuForMonth.add(menuForDay);
 
 			}
 
