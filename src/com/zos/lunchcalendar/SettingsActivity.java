@@ -113,8 +113,9 @@ public class SettingsActivity extends ActionBarActivity {
 		mealSpinner = (MultiSelectionSpinner) findViewById(R.id.mealSpinner);
 		mealSpinner.setItems(mealsListText, preferredMeals);
 
-		/*
-		mealsListView = (ListView) findViewById(R.id.favoriteMeals);
+		// We can use multispinner, and then grab the results from the spinner
+		// titles
+		/*mealsListView = (ListView) findViewById(R.id.favoriteMeals);
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_multiple_choice,
 				mealsListText);
@@ -133,21 +134,13 @@ public class SettingsActivity extends ActionBarActivity {
 			public void onClick(View v) {
 
 				// TODO Auto-generated method stub
-				/*SparseBooleanArray sparseBooleanArray = mealsListView
-						.getCheckedItemPositions();
-
-				for (int i = 0; i < mealsListView.getCount(); i++) {
-					if (sparseBooleanArray.get(i) == true) {
-						preferredMeals.add(mealsListView.getItemAtPosition(i)
-								.toString());
-					} else {
-						preferredMeals.remove(mealsListView
-								.getItemAtPosition(i).toString());
-					}
-				}*/
-
+	
+				//String s = mealSpinner.getSelectedItemsAsString();
 				preferredMeals = mealSpinner.getSelectedArrayStrings();
+
+				System.out.println("Multispinner = " + preferredMeals);
 				preferredTime = timeSpinner.getSelectedItem().toString();
+
 				preferredDay = daySpinner.getSelectedItem().toString();
 
 				/** Save to shared preferences **/
@@ -255,7 +248,7 @@ public class SettingsActivity extends ActionBarActivity {
 		for (String str : preferredMealsFromArray)
 			preferredMeals.add(str);
 
-		if (sharedPreferences.contains("PreferredMeals")) {
+		/*if (sharedPreferences.contains("PreferredMeals")) {
 			int count = this.mealsListView.getAdapter().getCount();
 			for (int i = 0; i < count; i++) {
 				String currentItem = (String) this.mealsListView.getAdapter()
@@ -266,7 +259,7 @@ public class SettingsActivity extends ActionBarActivity {
 					this.mealsListView.setItemChecked(i, false);
 				}
 			}
-		}
+		}*/
 
 		// loading for preferred time
 		preferredTime = sharedPreferences.getString("PreferredTime", "06:00");

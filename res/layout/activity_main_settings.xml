@@ -13,6 +13,7 @@
         android:layout_alignParentTop="true"
         android:text="Select your favorite meal:" />
 
+    <!--  
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="350dp"
@@ -31,13 +32,12 @@
                 android:layout_height="123dp" >
             </ListView>
         </LinearLayout>
-    </ScrollView>
+    </ScrollView>-->
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/scrollView1"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="192dp"
         android:layout_marginLeft="18dp"
@@ -47,7 +47,6 @@
         android:id="@+id/timeSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/scrollView1"
         android:layout_alignRight="@+id/textView2"
         android:layout_alignTop="@+id/textView2"
         android:layout_marginTop="36dp"
@@ -69,16 +68,6 @@
     </RelativeLayout>
     -->
 
-    <Button
-        android:id="@+id/saveSettings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/scrollView1"
-        android:layout_marginLeft="33dp"
-        android:layout_marginTop="16dp"
-        android:layout_toRightOf="@+id/textView1"
-        android:text="Save" />
-
     <Spinner
         android:id="@+id/daySpinner"
         android:layout_width="150dp"
@@ -87,12 +76,22 @@
         android:layout_alignParentRight="true"
         android:entries="@array/days_to_notify" />
 
+    <Button
+        android:id="@+id/saveSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/timeSpinner"
+        android:layout_marginLeft="21dp"
+        android:layout_toRightOf="@+id/spinnerForMeals"
+        android:text="Save" />
+
     <RelativeLayout
         android:id="@+id/spinnerForMeals"
         android:layout_width="200dp"
         android:layout_height="100dp"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true" >
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="38dp" >
 
         <com.zos.lunchcalendar.MultiSelectionSpinner
             android:id="@+id/mealSpinner"
