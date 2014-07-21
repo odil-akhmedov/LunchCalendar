@@ -114,7 +114,8 @@ public class SettingsActivity extends ActionBarActivity {
 		ArrayList<String> mealz = new ArrayList<String>();
 
 		HashSet<String> hs = new HashSet<String>();
-				
+		System.out.println("menuForMonth = " + menuForMonth.size());
+		
 		for (int i = 0; i < menuForMonth.size(); i++){
 			System.out.println("menuForMonthContent = " + mealsListText.get(i));
 			System.out.println("menuForMonthTitle = " + menuForMonth.get(i).getTitle());

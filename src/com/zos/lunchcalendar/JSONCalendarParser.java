@@ -55,6 +55,7 @@ public class JSONCalendarParser {
 	}
 
 	public ArrayList<DailyMenu> getMenuFromJson() {
+		buildMenuForMonth();
 		return menuForMonth;
 	}
 
@@ -131,7 +132,7 @@ public class JSONCalendarParser {
 						String data = convertStreamToString(stream);
 
 						readAndParseJSON(data);
-						buildMenuForMonth();
+						
 						stream.close();
 
 					} catch (Exception e) {
@@ -151,6 +152,7 @@ public class JSONCalendarParser {
 
 	protected void buildMenuForMonth() {
 		// TODO Auto-generated method stub
+		System.out.println("ContentSize = " + content.size());
 		for (int i = 0; i < content.size(); i++){
 			DailyMenu menuForDay = new DailyMenu(content.get(i), startTime.get(i), endTime.get(i));
 			menuForMonth.add(menuForDay);
