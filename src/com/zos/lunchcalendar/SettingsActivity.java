@@ -212,16 +212,17 @@ public class SettingsActivity extends ActionBarActivity {
 				}
 			}
 		}
-
+		for (int i = 0; i < notifyTime.size(); i++){
 		Intent myIntent = new Intent(SettingsActivity.this, MyReceiver.class);
-		myIntent.putExtra("MEAL", preferredMeals.get(0));
+		myIntent.putExtra("MEAL", preferredMeals.get(i));
 		pendingIntent = PendingIntent.getBroadcast(SettingsActivity.this, 0,
 				myIntent, 0);
 
 		AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-		for (int i = 0; i < notifyTime.size(); i++)
+		
 			alarmManager
 					.set(AlarmManager.RTC, notifyTime.get(i), pendingIntent);
+			}
 
 	}
 
