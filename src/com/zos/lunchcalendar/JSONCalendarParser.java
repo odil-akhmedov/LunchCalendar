@@ -52,18 +52,17 @@ public class JSONCalendarParser {
 	}
 
 	public ArrayList<String> getContentFromJson() {
-		ArrayList<String> result = splitContent();
+		ArrayList<String> result = splitContent(content);
 		return result;
 	}
 
-	private ArrayList<String> splitContent() {
+	private ArrayList<String> splitContent(ArrayList<String> myContent) {
 		// TODO Auto-generated method stub
 		ArrayList<String> mealz = new ArrayList<String>();
 
 		HashSet<String> hs = new HashSet<String>();
-		for (int i = 0; i < content.size(); i++) {
-			String mealNumOne = content.get(i);
-			//System.out.println("Start time = " + menuForMonth.get(i).getStartTime());
+		for (int i = 0; i < myContent.size(); i++) {
+			String mealNumOne = myContent.get(i);
 			String[] mealsAll = mealNumOne.split("[[0-9]]+[.]+[' ']");
 
 			for (int j = 1; j < mealsAll.length; j++) {

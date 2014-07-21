@@ -132,7 +132,7 @@ public class SettingsActivity extends ActionBarActivity {
 		// mealArr = mealz.toArray(mealArr);
 
 		mealSpinner = (MultiSelectionSpinner) findViewById(R.id.mealSpinner);
-		mealSpinner.setItems(mealz);
+		mealSpinner.setItems(mealsListText);
 
 		// We can use multispinner, and then grab the results from the spinner
 		// titles
