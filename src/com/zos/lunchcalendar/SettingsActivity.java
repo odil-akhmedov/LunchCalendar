@@ -146,7 +146,7 @@ public class SettingsActivity extends ActionBarActivity {
 
 			@Override
 			public void onClick(View v) {
-
+				setNotificationTime();
 				// TODO Auto-generated method stub
 				SparseBooleanArray sparseBooleanArray = mealsListView
 						.getCheckedItemPositions();
@@ -183,6 +183,20 @@ public class SettingsActivity extends ActionBarActivity {
 			}
 		});
 
+	}
+
+	protected void setNotificationTime() {
+		// TODO Auto-generated method stub
+		Calendar calendar = Calendar.getInstance();
+	     
+	      calendar.set(2014, 6, 20, 20, 48, 4); //omg months start from 0 o_O
+	     
+	      Intent myIntent = new Intent(MainActivity.this, MyReceiver.class);
+	      pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, myIntent,0);
+	     
+	      AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+	      alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
+	      alarmManager.set(AlarmManager.RTC, System.currentTimeMillis(), pendingIntent);
 	}
 
 	@SuppressLint("NewApi")

@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -29,7 +30,8 @@ import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-@SuppressLint("SimpleDateFormat") public class MainActivity extends Activity {
+@SuppressLint("SimpleDateFormat") 
+public class MainActivity extends Activity {
 	final String TAG = "MainActivity";
 	private int viewType = 1; // 0 - for list view, 1 for grid view
 
@@ -50,7 +52,7 @@ import android.widget.Toast;
 	String preferredDay; //Day before, same day...
 	
 	Date notificationTime;
-	
+	private PendingIntent pendingIntent;
 	
 	@SuppressLint("NewApi")
 	@Override
@@ -92,8 +94,8 @@ import android.widget.Toast;
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTimeInMillis(date.getTime());
+		//Calendar calendar = Calendar.getInstance();
+		//calendar.setTimeInMillis(date.getTime());
 		notifyTime = date.getTime();
 		
 		
@@ -103,7 +105,18 @@ import android.widget.Toast;
 		preferredMealsFromArray = sharedPreferences.getStringSet(
 				"PreferredMeals", null);
 		
-		
+		/*Calendar calendar = Calendar.getInstance();
+	     
+	      calendar.set(2014, 6, 20, 20, 48, 4); //omg months start from 0 o_O
+	     
+	      Intent myIntent = new Intent(MainActivity.this, MyReceiver.class);
+	      pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, myIntent,0);
+	     
+	      AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+	      alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
+	      alarmManager.set(AlarmManager.RTC, System.currentTimeMillis(), pendingIntent);
+	      
+				
 		NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
 		String longText = "Meals you saved is going to be served soon";
@@ -119,7 +132,7 @@ import android.widget.Toast;
 				.addAction(R.drawable.ic_launcher, "More", pIntent)
 				.setStyle(new Notification.BigTextStyle().bigText(longText)).build();
 
-		notificationManager.notify(0, n);
+		notificationManager.notify(0, n);*/
 
 	}
 
