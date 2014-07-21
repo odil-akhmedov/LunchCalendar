@@ -180,6 +180,7 @@ public class SettingsActivity extends ActionBarActivity {
 				}
 			}
 		}
+		 System.out.println("NotifyTimeTrue = " + notifyTime.get(0));
 
 		Calendar calendar = Calendar.getInstance();
 
@@ -193,7 +194,7 @@ public class SettingsActivity extends ActionBarActivity {
 		for (int i = 0; i < notifyTime.size(); i++)
 			alarmManager
 					.set(AlarmManager.RTC, notifyTime.get(i), pendingIntent);
-		// System.out.println("NotifyTimeTrue = " + notifyTime);
+		
 	}
 
 	private long convertToTimeStamp(String time, String format) {
