@@ -82,44 +82,23 @@ public class JSONCalendarParser {
 				JSONObject product = new JSONObject(array.getJSONObject(i)
 						.getString("title"));
 				content.add(product.getString("$t"));
-				String titleTemp = product.getString("$t");
-				System.out.println("Content.length = " + content.size());
-
+		
 				JSONObject elem = array.getJSONObject(i);
 				if (elem != null) {
 					JSONArray startEndTime = elem.getJSONArray("gd$when");
-					JSONObject startETime = startEndTime.getJSONObject(0);
-					String StartTime = startETime.getString("startTime");
-					String EndTime = startETime.getString("endTime");
-					menuForDay.title = titleTemp;
-					
-					menuForMonth.add(menuForDay);
-					System.out.println("startEndTime = " + startEndTime + " i = " + i);
-					System.out.println("menuTimeStart = " + StartTime);
-					System.out.println("menuTimeEnd = " + EndTime);
-					
-					
 					if (startEndTime != null) {
 						for (int k = 0; k < startEndTime.length(); k++) {
 							JSONObject innerElem = startEndTime
 									.getJSONObject(k);
 							if (innerElem != null) {
-								//startTime.add(innerElem.getString("startTime"));
-								//endTime.add(innerElem.getString("endTime"));
+								startTime.add(innerElem.getString("startTime"));
+								endTime.add(innerElem.getString("endTime"));
 								
-								menuForDay.startTime = innerElem
-										.getString("startTime");
-								menuForDay.endTime = innerElem
-										.getString("endTime");
-								//System.out.println("startEndTime= " + startEndTime.length());
 								
 							}
 						}
 					}
 				}
-
-				//menuForMonth.add(menuForDay);
-
 			}
 
 			parsingComplete = false;
@@ -152,6 +131,7 @@ public class JSONCalendarParser {
 						String data = convertStreamToString(stream);
 
 						readAndParseJSON(data);
+						buildMenuForMonth();
 						stream.close();
 
 					} catch (Exception e) {
@@ -166,6 +146,14 @@ public class JSONCalendarParser {
 			String data = loadJSONFromAsset();
 
 			readAndParseJSON(data);
+		}
+	}
+
+	protected void buildMenuForMonth() {
+		// TODO Auto-generated method stub
+		for (int i = 0; i < content.size(); i++){
+			DailyMenu menuForDay = new DailyMenu(content.get(i), startTime.get(i), endTime.get(i));
+			menuForMonth.add(menuForDay);
 		}
 	}
 
