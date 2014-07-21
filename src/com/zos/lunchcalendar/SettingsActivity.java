@@ -200,13 +200,13 @@ public class SettingsActivity extends ActionBarActivity {
 		for (int i = 0; i < menuForMonth.size(); i++) {
 
 			if (preferredMeals.contains(menuForMonth.get(i))) {
-				startTime = menuForMonth.get(i).getStartTime();
+				startTime = menuForMonth.get(0).getStartTime();
 			}
 		}
 
-		startTime = convertToTimeStamp(startTime, "yyyy-MM-dd");
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		long notifyTime;
+		long notifyTime = convertToTimeStamp(startTime, "yyyy-MM-dd");
+		/*SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
 		Date date = null;
 		try {
 			date = sdf.parse(startTime);
@@ -214,7 +214,9 @@ public class SettingsActivity extends ActionBarActivity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		notifyTime = date.getTime();
+		notifyTime = date.getTime();*/
+		System.out.println("NotifyTime1 = " + startTime);
+		System.out.println("NotifyTime2 = " + notifyTime);
 
 		Calendar calendar = Calendar.getInstance();
 
@@ -225,24 +227,23 @@ public class SettingsActivity extends ActionBarActivity {
 				myIntent, 0);
 
 		AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-		// alarmManager.set(AlarmManager.RTC, notifyTime, pendingIntent);
-		alarmManager.set(AlarmManager.RTC, System.currentTimeMillis(),
-				pendingIntent);
+		alarmManager.set(AlarmManager.RTC, notifyTime, pendingIntent);
+		//alarmManager.set(AlarmManager.RTC, System.currentTimeMillis(),pendingIntent);
 	}
 
-	private String convertToTimeStamp(String time, String format) {
+	private long convertToTimeStamp(String time, String format) {
 		// TODO Auto-generated method stub
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat sdf = new SimpleDateFormat(format);
 		long notifyTime;
 		Date date = null;
 		try {
-			date = sdf.parse(startTime);
+			date = sdf.parse(time);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		notifyTime = date.getTime();
-		return null;
+		return notifyTime;
 	}
 
 	@SuppressLint("NewApi")
