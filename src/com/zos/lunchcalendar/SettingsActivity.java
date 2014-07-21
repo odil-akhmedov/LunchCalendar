@@ -80,7 +80,7 @@ public class SettingsActivity extends ActionBarActivity {
 		/*AssetManager am = getApplicationContext().getAssets();
 
 		try {
-			if (am.open("JSON.json") != null) {
+			if (Arrays.asList(getResources().getAssets().list("")).contains("JSON.json")) {
 				obj = new JSONCalendarParser("JSON.json", getApplicationContext(), true);
 				obj.fetchJSON();
 
@@ -88,9 +88,8 @@ public class SettingsActivity extends ActionBarActivity {
 
 				mealsListText = obj.getContentFromJson();
 				menuForMonth = obj.getMenuFromJson();
-				am.close();
+
 			} else {
-				am.close();
 				obj = new JSONCalendarParser(url, getApplicationContext());
 				obj.fetchJSON();
 
@@ -102,10 +101,11 @@ public class SettingsActivity extends ActionBarActivity {
 		} catch (IOException e) { // TODO Auto-generated catch block
 			e.printStackTrace();
 		}*/
+		
 
 		/** working **/
-		//obj = new JSONCalendarParser("JSON.json", getApplicationContext(), true);
-		obj = new JSONCalendarParser(url, getApplicationContext());
+		obj = new JSONCalendarParser("JSON.json", getApplicationContext(), true);
+		//obj = new JSONCalendarParser(url, getApplicationContext());
 		
 		obj.fetchJSON();
 
