@@ -59,7 +59,8 @@ public class JSONCalendarParser {
 	private ArrayList<String> splitContent(ArrayList<String> myContent) {
 		// TODO Auto-generated method stub
 		ArrayList<String> mealz = new ArrayList<String>();
-
+		DailyMenu menuForDay;
+		
 		HashSet<String> hs = new HashSet<String>();
 		for (int i = 0; i < myContent.size(); i++) {
 			String mealNumOne = myContent.get(i);
@@ -69,6 +70,10 @@ public class JSONCalendarParser {
 				mealsAll[j] = mealsAll[j].replace(" or ", ";");
 				mealz.add(mealsAll[j]);
 			}
+			for (int k = 0; k < mealz.size(); k++){
+				menuForDay = new DailyMenu(mealz.get(k), startTime.get(i), endTime.get(i));
+				menuForMonth.add(menuForDay);
+			}
 			hs.addAll(mealz);
 			mealz.clear();
 			mealz.addAll(hs);
@@ -76,9 +81,18 @@ public class JSONCalendarParser {
 		return mealz;
 		
 	}
+	
+	protected void buildMenuForMonth() {
+		// TODO Auto-generated method stub
+		System.out.println("ContentSize = " + content.size());
+		for (int i = 0; i < content.size(); i++){
+			DailyMenu menuForDay = new DailyMenu(content.get(i), startTime.get(i), endTime.get(i));
+			menuForMonth.add(menuForDay);
+		}
+	}
 
 	public ArrayList<DailyMenu> getMenuFromJson() {
-		buildMenuForMonth();
+		//buildMenuForMonth();
 		return menuForMonth;
 	}
 
@@ -173,14 +187,7 @@ public class JSONCalendarParser {
 		}
 	}
 
-	protected void buildMenuForMonth() {
-		// TODO Auto-generated method stub
-		System.out.println("ContentSize = " + content.size());
-		for (int i = 0; i < content.size(); i++){
-			DailyMenu menuForDay = new DailyMenu(content.get(i), startTime.get(i), endTime.get(i));
-			menuForMonth.add(menuForDay);
-		}
-	}
+
 
 	static String convertStreamToString(java.io.InputStream is) {
 		java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
