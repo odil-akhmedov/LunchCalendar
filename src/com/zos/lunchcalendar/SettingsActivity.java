@@ -35,7 +35,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class SettingsActivity extends ActionBarActivity {
+@SuppressLint("SimpleDateFormat") public class SettingsActivity extends ActionBarActivity {
 
 	private JSONCalendarParser obj;
 	private ArrayList<String> mealsListText = new ArrayList<String>();
@@ -192,7 +192,21 @@ public class SettingsActivity extends ActionBarActivity {
 
 	protected void setNotificationTime() {
 		// TODO Auto-generated method stub
-		Calendar calendar = Calendar.getInstance();
+		
+		String startTime = "2014-07-20 21:08:00";
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		long notifyTime;
+		Date date = null;
+		try {
+			date = sdf.parse(startTime);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		notifyTime = date.getTime();
+		
+		 Calendar calendar = Calendar.getInstance();
 	     
 	      calendar.set(2014, 6, 20, 20, 58, 4); //omg months start from 0 o_O
 	     
@@ -200,7 +214,7 @@ public class SettingsActivity extends ActionBarActivity {
 	      pendingIntent = PendingIntent.getBroadcast(SettingsActivity.this, 0, myIntent,0);
 	     
 	      AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
-	      alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
+	      //alarmManager.set(AlarmManager.RTC, notifyTime, pendingIntent);
 	      alarmManager.set(AlarmManager.RTC, System.currentTimeMillis(), pendingIntent);
 	}
 

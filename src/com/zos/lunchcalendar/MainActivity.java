@@ -83,7 +83,7 @@ public class MainActivity extends Activity {
 		// adapter = new CalendarAdapters(getApplicationContext());
 		//Notifications
 		
-		String startTime = "2014-07-20 16:00:00";
+		String startTime = "2014-07-20 21:00:00";
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		long notifyTime;
@@ -98,6 +98,7 @@ public class MainActivity extends Activity {
 		//calendar.setTimeInMillis(date.getTime());
 		notifyTime = date.getTime();
 		
+		System.out.println("Notifytime = " + notifyTime);
 		
 		sharedPreferences = PreferenceManager
 				.getDefaultSharedPreferences(this);
